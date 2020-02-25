@@ -26,5 +26,12 @@ namespace Mantecado
         {
             this.Close();
         }
+
+        private void submit_Click(object sender, RoutedEventArgs e)
+        {
+            OrderWindow orderWindow = new OrderWindow();
+            this.Close();
+            orderWindow.Show();
+        }
     }
 }
