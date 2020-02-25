@@ -1,0 +1,21 @@
+﻿<Window x:Class="Mantecado.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mantecado"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="OrderWindow" d:DesignWidth="905.289" d:DesignHeight="453.345">
+    <Grid>
+        <Button
+            Style="{StaticResource RoundButtonTemplate}"
+            BorderBrush="#fff"
+            x:Name="OrderMenuButton"
+            Content="Order Menu" Margin="272,108,272,108"  RenderTransformOrigin="-7.163,-1.173" Click="OrderMenuButton_Click"
+          
+            />
+
+    </Grid>
+</Window>
