@@ -123,6 +123,13 @@
             Content="Backspace" Margin="530,262,123,47" Click="BackButton_Click"
           
             />
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="RegisterButton"
+                Content="Register" Margin="111,262,542,47" Click="RegisterButton_Click"
+          
+            />
 
         </Grid>
     </Viewbox>

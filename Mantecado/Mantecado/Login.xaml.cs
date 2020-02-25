@@ -98,5 +98,12 @@ namespace Mantecado
             if (InputBox.Text.Length > 0)
                 InputBox.Text = InputBox.Text.Remove(InputBox.Text.Length - 1);
         }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow();
+            this.Close();
+            registrationWindow.Show();
+        }
     }
 }

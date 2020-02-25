@@ -1,0 +1,21 @@
+﻿<Window x:Class="Mantecado.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mantecado"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="RegistrationWindow" Height="450" Width="800">
+    <Grid>
+        <Button
+            Style="{StaticResource RoundButtonTemplate}"
+            BorderBrush="#fff"
+            x:Name="Registration"
+            Content="Registration Page" Margin="153,96,171,96" Click="Registration_Click"
+          
+            />
+
+    </Grid>
+</Window>
