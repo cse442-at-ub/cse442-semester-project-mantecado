@@ -7,15 +7,196 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="None"
-        Title="OrderWindow" d:DesignWidth="905.289" d:DesignHeight="453.345">
-    <Grid>
-        <Button
-            Style="{StaticResource RoundButtonTemplate}"
-            BorderBrush="#fff"
-            x:Name="OrderMenuButton"
-            Content="Order Menu" Margin="272,108,272,108"  RenderTransformOrigin="-7.163,-1.173" Click="OrderMenuButton_Click"
-          
-            />
+        Title="OrderWindow">
+    <Grid Background ="White" Height="auto" Width="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" x:Name="OrderMainWindow">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="2" x:Name="Main_Bottom" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource RoundButtonTemplate}" Content="Admin" FontSize="30" Margin="5"/>
+                    <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource RoundButtonTemplate}" Content="All Orders" FontSize="30" Margin="5"/>
+                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource RoundButtonTemplate}" Content="Discount" FontSize="30" Margin="5"/>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundButtonTemplate}" Content="Exit" FontSize="30" Margin="5" Click="OrderMenuButton_Click"/>
 
+                </Grid>
+                <Grid Grid.Row="0" x:Name="PayWindow">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Grid.Column="0" Style="{StaticResource RoundButtonTemplate}" Content="Card" FontSize="30" Margin="5"/>
+                    <Button Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Style="{StaticResource RoundButtonTemplate}" Content="Cash" FontSize="30" Margin="5"/>
+                    <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" x:Name="TotalPrice_Label"  Background ="Transparent"  Text="$#.## "                 
+                               TextWrapping="Wrap" VerticalAlignment="Top" Height="auto" Width="auto" FontSize="40"/>
+                    <TextBlock Grid.Column="0" x:Name="TotalPrice_Actual" Background ="Transparent"  Text="Total:" 
+                               TextWrapping="Wrap" VerticalAlignment="Top" Height="auto" Width="auto" FontSize="40"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="Main_Traditional" Background="White" Grid.Row="1" d:IsHidden="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Background="LightGreen" Grid.Column="0" Grid.Row="0" x:Name="OMB_1" FontSize="30" Content="[Trad.Item]"  />
+                <Button Background="LightGreen" Grid.Column="0" Grid.Row="1" x:Name="OMB_2" FontSize="30" Content="[Trad.Item]"  />
+                <Button Background="LightGreen" Grid.Column="0" Grid.Row="2" x:Name="OMB_3" FontSize="30" Content="[Trad.Item]"  />
+                <Button Background="LightGreen" Grid.Column="0" Grid.Row="3" x:Name="OMB_4" FontSize="30" Content="[Trad.Item]"  />
+                <Button Background="LightGreen" Grid.Column="1" Grid.Row="0" x:Name="OMB_5" FontSize="30" Content="[Trad.Item]"  />
+                <Button Background="LightGreen" Grid.Column="1" Grid.Row="1" x:Name="OMB_6" FontSize="30" Content="[Trad.Item]"  />
+
+            </Grid>
+            <Grid x:Name="Main_Custard" Background="White" Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="[Custd.Item]" />
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="1" x:Name="OMB_15" FontSize="30" Content="[Custd.Item]"  />
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="2" x:Name="OMB_16" FontSize="30" Content="[Custd.Item]" />
+
+
+            </Grid>
+            <Grid x:Name="Main_Milkshakes" Background="White" Grid.Row="1" d:IsHidden="True">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Vanilla"  Click="Milkshake_button"/>
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="1" x:Name="OMB_18" FontSize="30" Content="[MlkShk.Item]"/>
+            </Grid>
+            <Grid x:Name="Main_Non_Dairy" Background="White" Grid.Row="1" d:IsHidden="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="0" x:Name="OMB_30" FontSize="30" Content="[Non_D.Item]"  />
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="1" x:Name="OMB_31" FontSize="30" Content="[Non_D.Item]"  />
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="2" x:Name="OMB_32" FontSize="30" Content="[Non_D.Item]"  />
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="3" x:Name="OMB_33" FontSize="30" Content="[Non_D.Item]"  />
+                <Button Background="PeachPuff" Grid.Column="1" Grid.Row="0" x:Name="OMB_34" FontSize="30" Content="[Non_D.Item]"  />
+            </Grid>
+            <Grid x:Name="MainCategoriesWindow" Grid.Row="0"  Background= "Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin ="10" Background="LightGreen" x:Name="TraditionalButton" FontSize="30" Content="Traditional"  Click="TraditionButton_Click"    
+                        Style="{StaticResource RoundButtonTemplate}"/>
+                <Button Grid.Column="1" Margin ="10" Background="LightPink" x:Name="CustardButton"  FontSize="30" Content="Custard"  Click="CustardButton_Click"      
+                        Style="{StaticResource RoundButtonTemplate}"/>
+                <Button Grid.Column="2" Margin ="10" Background="MediumPurple"  x:Name="MilkshakesButton"  FontSize="30" Content="Milkshakes"  Click="MilksshakesButton_Click"
+                        Style="{StaticResource RoundButtonTemplate}"/>
+                <Button Grid.Column="3" Margin ="10" Background= "PeachPuff" x:Name="Non_DairyButton"  FontSize="30" Content="Non Dairy"  Click="NonDairyButton_Click"    
+                        Style="{StaticResource RoundButtonTemplate}" />
+            </Grid>
+        </Grid>
+        
+        
+        <Grid Grid.Column="0" x:Name="OrderView_OrderContextWindow">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" x:Name ="OrderViewWindow" >
+                <ScrollViewer x:Name="OrderViewScrollBox" >
+                    <StackPanel x:Name="Stacky" Background="SkyBlue">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Row="1" x:Name="OrderContext" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="Subtotal" FontSize ="40" Content= "Subtotal: $#.## " />
+                <Grid x:Name="ItemContextButtons" Grid.Row = "1" Background="Blue" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*"/>
+                        <ColumnDefinition Width = "1*"/>
+                        <ColumnDefinition Width = "1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Background="Aqua"              Content="[Context_Extra]"/>
+                    <Button Grid.Row="0" Grid.Column="1" Background="Beige"             Content="[Context_Extra]"/>
+                    <Button Grid.Row="0" Grid.Column="2" Background="BlueViolet"        Content="[Context_Extra]"/>
+                    <Button Grid.Row="1" Grid.Column="0" Background="Crimson"           Content="[Context_Extra]"/>
+                    <Button Grid.Row="1" Grid.Column="1" Background="Fuchsia"           Content="[Context_Extra]"/>
+                    <Button Grid.Row="1" Grid.Column="2" Background="Gold"              Content="[Context_Extra]"/>
+                    <Button Grid.Row="2" Grid.Column="0" Background="MediumSpringGreen" Content="[Context_Extra]"/>
+                    <Button Grid.Row="2" Grid.Column="1" Background="RosyBrown"         Content="[Context_Extra]"/>
+                    <Button Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]"/>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
