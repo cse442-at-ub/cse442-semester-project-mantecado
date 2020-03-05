@@ -25,6 +25,7 @@ namespace Mantecado
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown();
         }
 
         public void Milkshake_button(object sender, RoutedEventArgs e)
