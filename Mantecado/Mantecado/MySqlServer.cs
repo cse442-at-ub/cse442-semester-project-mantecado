@@ -13,6 +13,8 @@ namespace Mantecado
         public int age;
         public int id;
         public double pay_rate;
+        public string sex;
+        public string birthday;
     }
 
     class MySqlServer
@@ -73,11 +75,11 @@ namespace Mantecado
 
         public void Insert(string data_base, employee hire = new employee())
         {
-            string query = "INSERT INTO "+data_base+ " (name, age, id_num, pay) VALUES('John Smith', '33')";
-           
+            string query = "INSERT INTO "+data_base;
+
             // if it is an employee
             //if(hire.name == null)
-                query += "(name, age, id_num, pay) VALUES('" + hire.name + "', '" + hire.age + "', '" + hire.id +"', '" + hire.pay_rate + "', ')"; 
+            query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', " + hire.age + ", " + hire.id + ", " + hire.pay_rate+ ", '" + hire.sex + "', " + hire.birthday + ")" ;
             
             //else it must be for the menu or something
 
