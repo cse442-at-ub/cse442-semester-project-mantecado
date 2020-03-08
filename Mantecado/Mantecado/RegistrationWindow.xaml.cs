@@ -17,6 +17,9 @@ namespace Mantecado
     /// </summary>
     public partial class RegistrationWindow : Window
     {
+        
+        private readonly MySqlServer server = new MySqlServer();
+
         public RegistrationWindow()
         {
             InitializeComponent();
@@ -29,9 +32,25 @@ namespace Mantecado
 
         private void submit_Click(object sender, RoutedEventArgs e)
         {
-            OrderWindow orderWindow = new OrderWindow();
-            this.Close();
-            orderWindow.Show();
+
+            if (server.Connect())
+            {
+                OrderWindow orderWindow = new OrderWindow();
+                this.Close();
+                orderWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Error connecting to the server please try again.");
+            }
+
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string[] installs = new string[] { "Male", "Female", "Other" };
+            gender_selection.Items.Add(installs);
         }
     }
+
 }
