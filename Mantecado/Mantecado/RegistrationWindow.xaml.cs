@@ -66,7 +66,7 @@ namespace Mantecado
         private void Submit_Click_1(object sender, RoutedEventArgs e)
         {
             employee data = GetData();
-
+            List<string> []temp = server.Select();
             server.Insert("employees", data);
         }
     }

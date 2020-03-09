@@ -94,5 +94,52 @@ namespace Mantecado
             }
         }
 
+        public List<string>[] Select()
+        {
+            string query = "SELECT * FROM employees";
+
+            //Create a list to store the result
+            List<string>[] list = new List<string>[6];
+            list[0] = new List<string>();
+            list[1] = new List<string>();
+            list[2] = new List<string>();
+            list[3] = new List<string>();
+            list[4] = new List<string>();
+            list[5] = new List<string>();
+
+            //Open connection
+            if (this.Connect() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    list[0].Add(dataReader["name"] + "");
+                    list[1].Add(dataReader["age"] + "");
+                    list[2].Add(dataReader["id_num"] + "");
+                    list[3].Add(dataReader["pay"] + "");
+                    list[4].Add(dataReader["sex"] + "");
+                    list[5].Add(dataReader["birthday"] + "");
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.Disconnect();
+
+                //return list to be displayed
+                return list;
+            }
+            else
+            {
+                return list;
+            }
+        }
+
     }
 }
