@@ -1,0 +1,13 @@
+Chocolate0		$4.99
+
+Chocolate1		$4.99
+
+Chocolate4		$4.99
+	Add Strawberries		$0.39
+
+Chocolate3		$4.99
+
+Chocolate4		$4.99
+	Add Strawberries		$0.39
+
+Total Price: $24.95

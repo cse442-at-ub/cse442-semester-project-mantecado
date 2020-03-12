@@ -51,8 +51,8 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Grid.Column="0" Style="{StaticResource RoundButtonTemplate}" Content="Card" FontSize="30" Margin="5"/>
-                    <Button Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Style="{StaticResource RoundButtonTemplate}" Content="Cash" FontSize="30" Margin="5"/>
+                    <Button Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Grid.Column="0" Style="{StaticResource RoundButtonTemplate}" Content="Send and Stay" FontSize="30" Margin="5" Click="SendStay_Click"/>
+                    <Button Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Style="{StaticResource RoundButtonTemplate}" Content="Send and Quit" FontSize="30" Margin="5"/>
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" x:Name="TotalPrice_Label"  Background ="Transparent"  Text="$#.## "                 
                                TextWrapping="Wrap" VerticalAlignment="Top" Height="auto" Width="auto" FontSize="40"/>
                     <TextBlock Grid.Column="0" x:Name="TotalPrice_Actual" Background ="Transparent"  Text="Total:" 
@@ -94,9 +94,9 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="[Custd.Item]" />
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="[Custd.Item]" Click="OMB_14_Click" />
                 <Button Background="LightPink" Grid.Column="0" Grid.Row="1" x:Name="OMB_15" FontSize="30" Content="[Custd.Item]"  />
-                <Button Background="LightPink" Grid.Column="0" Grid.Row="2" x:Name="OMB_16" FontSize="30" Content="[Custd.Item]" />
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="2" x:Name="OMB_16" FontSize="30" Content="[Custd.Item]" Click="OMB_16_Click" />
 
 
             </Grid>
@@ -114,8 +114,9 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Vanilla"  Click="Milkshake_button"/>
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="1" x:Name="OMB_18" FontSize="30" Content="[MlkShk.Item]"/>
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Vanilla" Click="Milkshake_button" />
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="1" x:Name="OMB_18" FontSize="30" Content="Chocolate" Click="Milkshake_button"/>
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="2" x:Name="OMB_19" FontSize="30" Content="Strawberry"  Click="Milkshake_button"/>
             </Grid>
             <Grid x:Name="Main_Non_Dairy" Background="White" Grid.Row="1" d:IsHidden="True">
                 <Grid.ColumnDefinitions>
@@ -174,8 +175,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Subtotal" FontSize ="40" Content= "Subtotal: $#.## " />
-                <Grid x:Name="ItemContextButtons" Grid.Row = "1" Background="Blue" >
+                <Label x:Name="Subtotal" FontSize ="40" Content= "Subtotal: $0.00 " />
+                <Grid x:Name="ItemContextButtons" Grid.Row = "1" Background="White" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width = "1*"/>
                         <ColumnDefinition Width = "1*"/>
@@ -186,15 +187,15 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Grid.Column="0" Background="Aqua"              Content="[Context_Extra]"/>
-                    <Button Grid.Row="0" Grid.Column="1" Background="Beige"             Content="[Context_Extra]"/>
-                    <Button Grid.Row="0" Grid.Column="2" Background="BlueViolet"        Content="[Context_Extra]"/>
-                    <Button Grid.Row="1" Grid.Column="0" Background="Crimson"           Content="[Context_Extra]"/>
-                    <Button Grid.Row="1" Grid.Column="1" Background="Fuchsia"           Content="[Context_Extra]"/>
-                    <Button Grid.Row="1" Grid.Column="2" Background="Gold"              Content="[Context_Extra]"/>
-                    <Button Grid.Row="2" Grid.Column="0" Background="MediumSpringGreen" Content="[Context_Extra]"/>
-                    <Button Grid.Row="2" Grid.Column="1" Background="RosyBrown"         Content="[Context_Extra]"/>
-                    <Button Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]"/>
+                    <Button Name ="Mod1" Grid.Row="0" Grid.Column="0" Background="Aqua"              Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod2" Grid.Row="0" Grid.Column="1" Background="Beige"             Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod3" Grid.Row="0" Grid.Column="2" Background="BlueViolet"        Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod4" Grid.Row="1" Grid.Column="0" Background="Crimson"           Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod5" Grid.Row="1" Grid.Column="1" Background="Fuchsia"           Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod6" Grid.Row="1" Grid.Column="2" Background="Gold"              Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod7" Grid.Row="2" Grid.Column="0" Background="MediumSpringGreen" Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod8" Grid.Row="2" Grid.Column="1" Background="RosyBrown"         Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod9" Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]" Visibility="Hidden"/>
                 </Grid>
             </Grid>
         </Grid>
