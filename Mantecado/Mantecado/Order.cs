@@ -9,6 +9,8 @@ namespace Mantecado
         public string itemName;
         public double itemPrice;
         public List<AddOns> ItemAddons = new List<AddOns>();
+        public System.Windows.Controls.TextBox T;
+
     }
 
     class AddOns
@@ -22,7 +24,6 @@ namespace Mantecado
         public List<Item> OrderItems = new List<Item>();
        
         double TotalPrice = 0;
-
 
         public void AddItem(Item item)
         {

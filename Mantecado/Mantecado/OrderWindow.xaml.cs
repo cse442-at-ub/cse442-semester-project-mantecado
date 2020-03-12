@@ -24,6 +24,7 @@ namespace Mantecado
         static int num = 0;
         static int numAddons = 0;
         // bool orderPresent = false;
+
         public OrderWindow()
         {
             InitializeComponent();
@@ -39,46 +40,49 @@ namespace Mantecado
         public void Milkshake_button(object sender, RoutedEventArgs e)
         {
 
-           
             //orderPresent = true;
 
             Item newShake = new Item();
             
-           
-            newShake.itemName = ((Button)sender).Content.ToString() + num;
+            newShake.itemName = ((Button)sender).Content.ToString();
             num++;
+
             newShake.itemPrice = 4.99;
-            TextBox T = new TextBox();
-            T.IsReadOnly = true;
-            T.Background = new SolidColorBrush(Colors.White);
-            T.BorderThickness = new Thickness(0);
-            T.Cursor = Cursors.Arrow;
-            T.Focusable = true;
-            T.SelectionOpacity = 0;
-            T.MouseLeave += new MouseEventHandler(tb_onMouseLeave);
-            T.MouseEnter += new MouseEventHandler(tb_onMouseEnter);
-            T.GotFocus += new RoutedEventHandler(TextBoxOnFocus);
-            T.LostFocus += new RoutedEventHandler(TextBoxLostFocus);
+
+            newShake.T = new TextBox();
+
+            newShake.T.IsReadOnly = true;
+
+            newShake.T.Background = new SolidColorBrush(Colors.White);
+
+            newShake.T.BorderThickness = new Thickness(0);
+
+            newShake.T.Cursor = Cursors.Arrow;
+
+            newShake.T.Focusable = true;
+
+            newShake.T.SelectionOpacity = 0;
+
+            newShake.T.MouseLeave += new MouseEventHandler(tb_onMouseLeave);
+            newShake.T.MouseEnter += new MouseEventHandler(tb_onMouseEnter);
+            newShake.T.GotFocus += new RoutedEventHandler(TextBoxOnFocus);
+            newShake.T.LostFocus += new RoutedEventHandler(TextBoxLostFocus);
 
             // T.Text = "+Vanilla MilkShake       $#.##";
-            T.Text = String.Format("{0, -20} {1,5} ", newShake.itemName, ("\t$" + newShake.itemPrice));
+            newShake.T.Text = String.Format("{0, -20} {1,5} ", newShake.itemName, ("\t$" + newShake.itemPrice));
            
             //T.Text.PadRight(5);
             o.AddItem(newShake);
             
-           
             Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
 
-           
+            newShake.T.Background = new SolidColorBrush(Colors.White);
+
+            //T.Height = 100;
+
+            newShake.T.FontSize = 30;
             
-
-            T.Background = new SolidColorBrush(Colors.White);
-
-            T.Height = 100;
-
-            T.FontSize = 30;
-            
-            Stacky.Children.Add(T);
+            Stacky.Children.Add(newShake.T);
             
 
         }
@@ -88,16 +92,32 @@ namespace Mantecado
             AddOns newAddon = new AddOns();
            
             newAddon.addonName = ((Button)sender).Content.ToString();
+
             newAddon.addonPrice = 0.39;
             //MessageBox.Show(cur.itemName);
             //Item it = sender as Item;
             //MessageBox.Show(cur.itemName);
             foreach(Item i in o.OrderItems)
             {
+                /*
                 if(cur.itemName.Equals(i.itemName))
                 {
-                    cur = i;
+                    //cur = i;
                 }
+                */
+            }
+
+            foreach (Item i in o.OrderItems)
+            {
+                //o.OrderItems.
+                
+                if (i.T.IsFocused == true)
+                {
+                    i.T.AppendText("\n   +" + newAddon.addonName + "\t$" + newAddon.addonPrice);
+                    o.AddAddon(i, newAddon);
+                    Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
+                }
+                
             }
 
             cur.ItemAddons.Add(newAddon);
@@ -110,7 +130,7 @@ namespace Mantecado
             ////int index = Stacky.Children.
             //TextBox T = new TextBox();
             //T.IsReadOnly = true;
-            //T.Background = new SolidColorBrush(Colors.White);
+            //T.Background = new SolidColorBrush(Colors.White); 
             //T.BorderThickness = new Thickness(0);
             //T.Cursor = Cursors.Arrow;
             //T.Focusable = true;
@@ -125,6 +145,7 @@ namespace Mantecado
            
 
         }
+
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
         {
 
@@ -142,14 +163,18 @@ namespace Mantecado
             T.Background = new SolidColorBrush(Colors.LightBlue);           //makes the textbox blue when clicked on
 
             T.BorderThickness = new Thickness(3);                           //gives it a border to emphasize selection
-            Mod1.Visibility = Visibility.Visible;
-            Mod1.Content = "Add Strawberries";
-            Mod2.Visibility = Visibility.Visible;
-            Mod2.Content = "Add Oreos";
-            Mod3.Visibility = Visibility.Visible;
-            Mod3.Content = "Add Chocolate Syrup";
 
-           
+            Mod1.Visibility = Visibility.Visible;
+            Mod1.Content = "Strawberries";
+            Mod1.Focusable = false;
+
+            Mod2.Visibility = Visibility.Visible;
+            Mod2.Content = "Oreos";
+
+            Mod3.Visibility = Visibility.Visible;
+            Mod3.Content = "Chocolate Syrup";
+
+            
 
 
 
@@ -271,6 +296,8 @@ namespace Mantecado
 
         private void OMB_14_Click(object sender, RoutedEventArgs e)
         {
+
+
 
         }
 
