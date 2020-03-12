@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +26,51 @@ namespace Mantecado
             InitializeComponent();
         }
 
+       
+
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             OrderWindow orderWindow = new OrderWindow();
-            this.Close();
-            orderWindow.Show();
+            bool empFound = false;
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../EmployeeInfo/Employees.txt");
+
+                if (InputBox.Text.Length == 4)
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        String line = sr.ReadLine();
+                        String input = InputBox.Text.ToString();
+                        String empNumber = line.Split('\t')[0];
+                        if (empNumber.Equals(input))
+                        {
+                            empFound = true;
+                            orderWindow.Show();
+                            this.Close();
+                            
+                        }
+                        if (sr.EndOfStream && !empFound)
+                        {
+                            InputBox.Text = InputBox.Text.Remove(0);
+                            InvalidNum.Visibility = Visibility.Visible;
+                            //MessageBox.Show("Employee not found");
+                        }
+                        
+                    }
+                        
+                 
+                   
+                  
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading employee file\n" + ex.Message);
+
+            }
+           
+           
             
         }
 
@@ -104,6 +145,11 @@ namespace Mantecado
             RegistrationWindow registrationWindow = new RegistrationWindow();
             registrationWindow.Show();
             this.Close();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

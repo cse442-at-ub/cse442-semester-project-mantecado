@@ -41,6 +41,7 @@ namespace Mantecado
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown();
         }
 
         int[] categories = new int[]{0, 1, 2, 3};
