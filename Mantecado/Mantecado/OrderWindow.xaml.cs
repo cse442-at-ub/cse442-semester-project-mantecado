@@ -122,7 +122,7 @@ namespace Mantecado
         {
 
             TextBox T = e.OriginalSource as TextBox;
-
+            
             T.Background = new SolidColorBrush(Colors.LightBlue);           //makes the textbox blue when clicked on
 
             T.BorderThickness = new Thickness(3);                           //gives it a border to emphasize selection
@@ -137,7 +137,7 @@ namespace Mantecado
             {
                 if (child.IsFocused)
                 {
-                    child.AppendText("\n+Strawberries\t");
+                    child.AppendText("\n   +Strawberries\t");
 
                     child.AppendText("$.39");
                 }
