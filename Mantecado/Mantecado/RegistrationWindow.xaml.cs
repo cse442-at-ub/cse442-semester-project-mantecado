@@ -25,32 +25,50 @@ namespace Mantecado
             InitializeComponent();
         }
 
-        private void Registration_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
-        private void submit_Click(object sender, RoutedEventArgs e)
+        bool CheckForInjection(string text)
         {
-
-            if (server.Connect())
+            if (text.IndexOf("SELECT", 0, text.Length) != -1 || text.IndexOf("INSERT", 0, text.Length) != -1 || text.IndexOf("DELETE", 0, text.Length) != -1 || text.IndexOf("UPDATE", 0, text.Length) != -1)
             {
-                OrderWindow orderWindow = new OrderWindow();
-                this.Close();
-                orderWindow.Show();
+                return false;
             }
-            else
+            if(text.IndexOf("*", 0, text.Length) != -1)
             {
-                MessageBox.Show("Error connecting to the server please try again.");
+                return false;
+            }
+            return true;
+        }
+
+
+        int ValidData()
+        {
+            if(id_box.Text.Length > 4 || id_box.Text.Length == 0)
+            {
+                return 1;
             }
 
+            if(name_box.Text.Length > 20 || gender_box.Text.Length > 20 || birthday_box.Text.Length > 20)
+            {
+                return 2;
+            }
+
+            if(!CheckForInjection(name_box.Text) || !CheckForInjection(gender_box.Text) || !CheckForInjection(birthday_box.Text))
+            {
+                return 3;
+            }
+
+            int i = 0;
+            decimal j = 0;
+
+            if(!int.TryParse(age_box.Text, out i) || !int.TryParse(id_box.Text, out i) || !decimal.TryParse(pay_box.Text, out j))
+            {
+                return 4;
+            }
+
+            return 0;
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string[] installs = new string[] { "Male", "Female", "Other" };
 
-        }
         private employee GetData()
         {
             employee new_user = new employee();
@@ -65,9 +83,34 @@ namespace Mantecado
         }
         private void Submit_Click_1(object sender, RoutedEventArgs e)
         {
-            employee data = GetData();
-            List<string> []temp = server.Select();
-            server.Insert("employees", data);
+            int validation = ValidData();
+            if (validation == 0)
+            {
+                employee data = GetData();
+                List<string>[] temp = server.Select();
+                    server.Insert("employees", data);
+                    MainWindow mainWindow = new MainWindow();
+                    this.Close();
+                    mainWindow.Show();
+            }
+            else
+            {
+                switch (validation)
+                {
+                    case 1:
+                        MessageBox.Show("ID number is of not of size 4 please try again. ");
+                        break;
+                    case 2:
+                        MessageBox.Show("Name, Gender or Birthday field exceed length of 20 please try again.");
+                        break;
+                    case 3:
+                        MessageBox.Show("Please don't try and hack my server. :(");
+                        break;
+                    case 4:
+                        MessageBox.Show("Age, ID Number, or Pay are supposed to be numbers please try again.");
+                        break;
+                }
+            }
         }
     }
 }
