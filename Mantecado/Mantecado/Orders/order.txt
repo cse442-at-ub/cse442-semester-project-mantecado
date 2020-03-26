@@ -1,7 +1,1 @@
-Vanilla0		$4.99
-
-Vanilla1		$4.99
-	   +Strawberries		$0.39
-	   +Strawberries		$0.39
-
-Total Price: $10.76
+Total Price: $0

@@ -174,6 +174,9 @@ namespace Mantecado
             Mod3.Visibility = Visibility.Visible;
             Mod3.Content = "Chocolate Syrup";
 
+            Delete.Visibility = Visibility.Visible;
+        
+
             
 
 
@@ -302,6 +305,16 @@ namespace Mantecado
         }
 
         private void OMB_16_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
