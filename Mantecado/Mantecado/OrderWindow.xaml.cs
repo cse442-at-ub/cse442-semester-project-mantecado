@@ -64,7 +64,7 @@ namespace Mantecado
 
             TextBox T = createFirstBox();
 
-            T.Text = String.Format("{0, -20} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
+            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
 
             o.AddItem(NewItem);
 
@@ -85,6 +85,9 @@ namespace Mantecado
 
             NewItem.B.Child = S;
 
+            Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
+            Taxes.Content = "Tax: $" + o.GetTax();
+            Total.Content = "Total: $" + o.GetTotalPrice();
             Stacky.Children.Add(NewItem.B);
 
         }
@@ -143,7 +146,9 @@ namespace Mantecado
         {
 
             AddOns newAddon = new AddOns();
+
             newAddon.addonName = ((Button)sender).Content.ToString();
+
             newAddon.addonPrice = 0.39;
 
 
@@ -174,11 +179,8 @@ namespace Mantecado
 
             StackPanel S = e.OriginalSource as StackPanel;
 
-
-
             foreach (Item i in o.OrderItems)
             {
-
                 if (i.B.Child.IsMouseOver)
                 {
                     if (!S.IsFocused)
