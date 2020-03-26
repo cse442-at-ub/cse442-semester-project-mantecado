@@ -9,40 +9,37 @@
         WindowStyle="None"
         Title="RegistrationWindow" Height="450" Width="800">
     <Grid Height="440" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="39*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="89*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="registration_header" HorizontalAlignment="Center" Height="40" Text="Mantecado Registration Form" TextWrapping="Wrap" VerticalAlignment="Center" Width="276" FontFamily="Arial" FontSize="20" RenderTransformOrigin="0.601,0.431" BorderBrush="{x:Null}" BorderThickness="2.5"/>
+        <TextBox x:Name="Logo" HorizontalAlignment="Left" Text="Mantencado Registration Form" TextWrapping="Wrap" VerticalAlignment="Center" Width="172" Height="38" TextAlignment="Center" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Margin="314,0,0,0"/>
+        <TextBlock x:Name="name" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="1" Text="Name:" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="217"/>
+        <TextBox x:Name="name_box" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Height="42" BorderBrush="#FF000002" Margin="0,39,0,0" Grid.RowSpan="3"/>
+        <TextBlock x:Name="age" HorizontalAlignment="Left" Grid.Row="2" Text="Age:" TextWrapping="Wrap" VerticalAlignment="Center" Margin="183,0,0,0" Height="36" Width="217"/>
+        <TextBlock x:Name="id_num" HorizontalAlignment="Left" Grid.Row="2" Text="ID Number:" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="218" Grid.ColumnSpan="2" Margin="183,36,0,0" Grid.RowSpan="2"/>
+        <TextBlock x:Name="pay" HorizontalAlignment="Left" Grid.Row="3" Text="Pay:" TextWrapping="Wrap" VerticalAlignment="Top" Width="217" Margin="183,37,0,0" Height="33" Grid.RowSpan="2"/>
+        <TextBlock x:Name="sex" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="5" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Center" Height="37" Width="217"/>
+        <TextBlock x:Name="birthday" HorizontalAlignment="Left" Margin="183,0,0,0" Grid.Row="6" Text="Birthday: (dd/mm/yyyy)" TextWrapping="Wrap" VerticalAlignment="Center" Height="37" Width="218" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="age_box" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2"  TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="37" BorderBrush="Black"/>
+        <TextBox x:Name="id_box" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3"  TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="37" BorderBrush="Black"/>
+        <TextBox x:Name="pay_box" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4"  TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="39" BorderBrush="#FF00020A"/>
+        <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Margin="347,56,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="32" Width="106" Click="Submit_Click_1"/>
+        <TextBox x:Name="birthday_box" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6"  TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="38" BorderBrush="Black"/>
+        <TextBox x:Name="gender_box" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5"  TextWrapping="Wrap" VerticalAlignment="Center" Width="242" Height="36"/>
 
-        <TextBlock x:Name="fname" Text="First Name:" TextWrapping="Wrap" Margin="223,0,472,3" Grid.Row="1" FontSize="20" FontFamily="Arial"/>
-        <TextBox x:Name="fname_contents" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,0,262,1" BorderBrush="#FF6A88E4" Grid.Row="1"/>
 
-        <TextBlock x:Name="lname" Text="Last Name:" TextWrapping="Wrap" Margin="223,2,472,5" Grid.Row="2" FontSize="20" FontFamily="Arial"/>
-        <TextBox x:Name="lname_contents" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,4,262,30" BorderBrush="#FF6A88E4" Grid.Row="2" Grid.RowSpan="2"/>
 
-        <TextBlock x:Name="bday" Text="Birth Day:" TextWrapping="Wrap" Margin="223,0,477,5" Grid.Row="3" FontSize="20" FontFamily="Arial" TextAlignment="Left"/>
-        <TextBox x:Name="bday_content" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,2,262,3" BorderBrush="#FF6A88E4" Grid.Row="3"/>
-
-        <TextBlock x:Name="social_security" Text="Social Security Number:" TextWrapping="Wrap" Margin="92,0,477,5" Grid.Row="4" FontSize="20" FontFamily="Arial" TextAlignment="Left"/>
-        <TextBox x:Name="social_security_content" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,2,262,3" BorderBrush="#FF6A88E4" Grid.Row="4"/>
-
-        <TextBlock x:Name="gender" Text="Sex:" TextWrapping="Wrap" Margin="262,0,477,5" Grid.Row="5" FontSize="20" FontFamily="Arial" TextAlignment="Left"/>
-        <TextBox x:Name="gender_content" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,2,262,3" BorderBrush="#FF6A88E4" Grid.Row="5"/>
-
-        <TextBlock x:Name="phone_number" Text="Phone Number:" TextWrapping="Wrap" Margin="162,0,477,5" Grid.Row="6" FontSize="20" FontFamily="Arial" TextAlignment="Left"/>
-        <TextBox x:Name="phone_number_content" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,2,262,3" BorderBrush="#FF6A88E4" Grid.Row="6"/>
-
-        <TextBlock x:Name="ethnicity" Text="Ethnicity:" TextWrapping="Wrap" Margin="223,0,477,5" Grid.Row="7" FontSize="20" FontFamily="Arial" TextAlignment="Left"/>
-        <TextBox x:Name="ethnicity_content" Text="" TextWrapping="Wrap" RenderTransformOrigin="0.517,1.872" Margin="328,2,262,3" BorderBrush="#FF6A88E4" Grid.Row="7"/>
-        <Button x:Name="submit" Content="Submit" HorizontalAlignment="Center" Height="47" Grid.Row="8" VerticalAlignment="Center" Width="144" Background="#FFA2CFF5" BorderBrush="#FF1D6495" BorderThickness="2.5" Click="submit_Click"/>
 
     </Grid>
 </Window>
