@@ -11,7 +11,7 @@ namespace Mantecado
     {
         public string name;
         public int age;
-        public int id;
+        public string id;
         public double pay_rate;
         public string sex;
         public string birthday;

@@ -68,13 +68,12 @@ namespace Mantecado
             return 0;
         }
 
-
         private employee GetData()
         {
             employee new_user = new employee();
             new_user.name = name_box.Text;
             new_user.age = Int32.Parse(age_box.Text);
-            new_user.id = Int32.Parse(id_box.Text);
+            new_user.id = id_box.Text;
             new_user.pay_rate = float.Parse(pay_box.Text);
             new_user.sex = gender_box.Text;
             new_user.birthday = birthday_box.Text;
