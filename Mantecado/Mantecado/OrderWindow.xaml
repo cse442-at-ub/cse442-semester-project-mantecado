@@ -89,7 +89,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-          /      <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="Vanilla Bean" Click="Custard_button" />
+                <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="Vanilla Bean" Click="Custard_button" />
                 <Button Background="LightPink" Grid.Column="0" Grid.Row="1" x:Name="OMB_15" FontSize="30" Content="Fudge" Click="Custard_button"  />
                 <Button Background="LightPink" Grid.Column="0" Grid.Row="2" x:Name="OMB_16" FontSize="30" Content="Mixed Berry" Click="Custard_button" />
 

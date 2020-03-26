@@ -64,7 +64,7 @@ namespace Mantecado
 
             TextBox T = createFirstBox();
 
-            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t\t$" + NewItem.itemPrice));
+            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
 
             o.AddItem(NewItem);
 
@@ -158,7 +158,7 @@ namespace Mantecado
                 if (i.B.Child.IsFocused)
                 {
                     S = i.B.Child as StackPanel;
-                    TextBox T = createBox(String.Format("{0, -10} {1,5} ", "\t" + newAddon.addonName, ("\t$" + newAddon.addonPrice)));
+                    TextBox T = createBox(String.Format("{0, -10} {1,5} ", "  +" + newAddon.addonName, ("\t$" + newAddon.addonPrice)));
                     o.AddAddon(i, newAddon);
                     S.Children.Add(T);
                 }
@@ -231,7 +231,7 @@ namespace Mantecado
             Mod2.Focusable = false;
 
             Mod3.Visibility = Visibility.Visible;
-            Mod3.Content = "Chocolate Syrup";
+            Mod3.Content = "Choc. Syrup";
             Mod3.Focusable = false;
 
             Delete.Visibility = Visibility.Visible;
