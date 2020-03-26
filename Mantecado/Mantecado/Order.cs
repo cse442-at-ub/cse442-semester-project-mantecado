@@ -45,7 +45,7 @@ namespace Mantecado
             OrderItems.Remove(item);
             SubTotal -= item.itemPrice;
             AddedTax -= item.itemPrice * TAX_RATE;
-            TotalPrice -= SubTotal + AddedTax;
+            TotalPrice = SubTotal + AddedTax;
 
         }
 
@@ -54,7 +54,7 @@ namespace Mantecado
             item.ItemAddons.Add(add);
             SubTotal += add.addonPrice;
             AddedTax += add.addonPrice * TAX_RATE;
-            TotalPrice += SubTotal + AddedTax;
+            TotalPrice = SubTotal + AddedTax;
 
         }
 

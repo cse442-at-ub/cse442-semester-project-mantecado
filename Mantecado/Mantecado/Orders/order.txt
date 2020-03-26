@@ -1,7 +1,40 @@
-Chicken Tenders		$7.99
+Vanilla Swirl		$3.99
 
-Hamburger		$8.99
+Vanilla Swirl		$3.99
 
-Crabby Patty		$10.99
+Vanilla Swirl		$3.99
 
-Total Price: $27.97
+Vanilla Swirl		$3.99
+
+Neopolitan Swirl		$3.99
+
+Neopolitan Swirl		$3.99
+
+Neopolitan Swirl		$3.99
+
+Neopolitan Swirl		$3.99
+
+Neopolitan Swirl		$3.99
+
+Butter Pecan		$3.99
+
+Chocolate Swirl		$3.99
+
+Berry Swirl		$3.99
+
+Strawberry Swirl		$3.99
+	Chocolate Syrup		$0.39
+	Oreos		$0.39
+	Strawberries		$0.39
+
+Strawberry Swirl		$3.99
+
+Strawberry Swirl		$3.99
+
+Chocolate Swirl		$3.99
+
+Chocolate Swirl		$3.99
+
+Vanilla Swirl		$3.99
+
+Total Price: $72.99

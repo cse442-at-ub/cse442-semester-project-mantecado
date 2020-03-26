@@ -72,7 +72,7 @@
                 <Button Background="LightGreen" Grid.Column="0" Grid.Row="2" x:Name="OMB_3" FontSize="30" Content="Strawberry Swirl"  Click="Tradition_button"/>
                 <Button Background="LightGreen" Grid.Column="0" Grid.Row="3" x:Name="OMB_4" FontSize="30" Content="Berry Swirl" Click="Tradition_button" />
                 <Button Background="LightGreen" Grid.Column="1" Grid.Row="0" x:Name="OMB_5" FontSize="30" Content="Neopolitan Swirl" Click="Tradition_button" />
-                <Button Background="LightGreen" Grid.Column="1" Grid.Row="1" x:Name="OMB_6" FontSize="30" Content="Butter Pecan Swirl" Click="Tradition_button" />
+                <Button Background="LightGreen" Grid.Column="1" Grid.Row="1" x:Name="OMB_6" FontSize="30" Content="Butter Pecan" Click="Tradition_button" />
 
             </Grid>
             <Grid x:Name="Main_Custard" Background="White" Grid.Row="1">
@@ -109,7 +109,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Vanilla" Click="Milkshake_button" />
+                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Plain Vanilla" Click="Milkshake_button" />
                 <Button Background="MediumPurple" Grid.Column="0" Grid.Row="1" x:Name="OMB_18" FontSize="30" Content="Chocolate" Click="Milkshake_button"/>
                 <Button Background="MediumPurple" Grid.Column="0" Grid.Row="2" x:Name="OMB_19" FontSize="30" Content="Strawberry"  Click="Milkshake_button"/>
             </Grid>
@@ -126,11 +126,11 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="0" x:Name="OMB_30" FontSize="30" Content="Hamburger" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="1" x:Name="OMB_31" FontSize="30" Content="Crabby Patty" Click="NonDairy_button"/>
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="2" x:Name="OMB_32" FontSize="30" Content="Fish Fry" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="3" x:Name="OMB_33" FontSize="30" Content="Loaded Fries" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="1" Grid.Row="0" x:Name="OMB_34" FontSize="30" Content="Chicken Tenders" Click="NonDairy_button"/>
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="0" x:Name="OMB_30" FontSize="30" Content="Veg Vanilla" Click="NonDairy_button" />
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="1" x:Name="OMB_31" FontSize="30" Content="Veg Chocolate" Click="NonDairy_button"/>
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="2" x:Name="OMB_32" FontSize="30" Content="Veg Strawberry" Click="NonDairy_button" />
+                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="3" x:Name="OMB_33" FontSize="30" Content="Veg Mixed Berry" Click="NonDairy_button" />
+                <Button Background="PeachPuff" Grid.Column="1" Grid.Row="0" x:Name="OMB_34" FontSize="30" Content="Veg Neopolitan" Click="NonDairy_button"/>
             </Grid>
             <Grid x:Name="MainCategoriesWindow" Grid.Row="0"  Background= "Transparent">
                 <Grid.ColumnDefinitions>
@@ -145,7 +145,7 @@
                         Style="{StaticResource RoundButtonTemplate}"/>
                 <Button Grid.Column="2" Margin ="10" Background="MediumPurple"  x:Name="MilkshakesButton"  FontSize="30" Content="Milkshakes"  Click="MilksshakesButton_Click"
                         Style="{StaticResource RoundButtonTemplate}"/>
-                <Button Grid.Column="3" Margin ="10" Background= "PeachPuff" x:Name="Non_DairyButton"  FontSize="30" Content="Non Dairy"  Click="NonDairyButton_Click"    
+                <Button Grid.Column="3" Margin ="10" Background= "PeachPuff" x:Name="Non_DairyButton"  FontSize="30" Content="Vegan"  Click="NonDairyButton_Click"    
                         Style="{StaticResource RoundButtonTemplate}" />
             </Grid>
         </Grid>
@@ -189,14 +189,14 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Button Name ="Mod1" Grid.Row="0" Grid.Column="0" Background="Aqua"              Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
-                    <Button Name ="Mod2" Grid.Row="0" Grid.Column="1" Background="Beige"             Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod3" Grid.Row="0" Grid.Column="2" Background="BlueViolet"        Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod4" Grid.Row="1" Grid.Column="0" Background="Crimson"           Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod5" Grid.Row="1" Grid.Column="1" Background="Fuchsia"           Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod6" Grid.Row="1" Grid.Column="2" Background="Gold"              Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod7" Grid.Row="2" Grid.Column="0" Background="MediumSpringGreen" Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod8" Grid.Row="2" Grid.Column="1" Background="RosyBrown"         Content="[Context_Extra]" Visibility="Hidden"/>
-                    <Button Name ="Mod9" Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]" Visibility="Hidden"/>
+                    <Button Name ="Mod2" Grid.Row="0" Grid.Column="1" Background="Beige"             Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod3" Grid.Row="0" Grid.Column="2" Background="BlueViolet"        Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod4" Grid.Row="1" Grid.Column="0" Background="Crimson"           Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod5" Grid.Row="1" Grid.Column="1" Background="Fuchsia"           Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod6" Grid.Row="1" Grid.Column="2" Background="Gold"              Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod7" Grid.Row="2" Grid.Column="0" Background="MediumSpringGreen" Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod8" Grid.Row="2" Grid.Column="1" Background="RosyBrown"         Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
+                    <Button Name ="Mod9" Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]" Visibility="Hidden" Click="Mod1_Click"/>
                 </Grid>
             </Grid>
         </Grid>
