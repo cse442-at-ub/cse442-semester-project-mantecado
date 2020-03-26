@@ -18,44 +18,59 @@ namespace Mantecado
     /// </summary>
     public partial class OrderWindow : Window
     {
+
         Order o = new Order();
-        //Item cur = new Item();
-        Item cur = new Item();
-        static int numItems = 0;
-        static int numAddons = 0;
-        // bool orderPresent = false;
 
         public OrderWindow()
         {
             InitializeComponent();
-           
+
         }
-        
+
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown();
         }
 
-        public void Milkshake_button(object sender, RoutedEventArgs e)
+        private void newItem(object sender)
         {
+            Item NewItem = new Item();
 
-            Item newShake = new Item();
-            
-            newShake.itemName = ((Button)sender).Content.ToString();
-            numItems++;
+            NewItem.itemName = ((Button)sender).Content.ToString();
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
 
-            newShake.itemPrice = 4.99;
+                    String[] itemInfo = line.Split('\t');
+                    String itemName = itemInfo[0];
+                    String itemPrice = itemInfo[1];
+
+                    if (NewItem.itemName.Equals(itemName))
+                    {
+                        NewItem.itemPrice = Convert.ToDouble(itemPrice);
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading employee file\n" + ex.Message);
+
+            }
+
 
             TextBox T = createFirstBox();
 
-            T.Text = String.Format("{0, -20} {1,5} ", newShake.itemName, ("\t$" + newShake.itemPrice));
-           
-            o.AddItem(newShake);
-            
+            T.Text = String.Format("{0, -20} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
+
+            o.AddItem(NewItem);
+
             Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
 
-            newShake.B = new Border();
+            NewItem.B = new Border();
 
             StackPanel S = new StackPanel();
 
@@ -68,10 +83,10 @@ namespace Mantecado
             //S.GotFocus += new RoutedEventHandler(StackPanelOnFocus);
             S.LostFocus += new RoutedEventHandler(StackPanelLostFocus);
 
-            newShake.B.Child = S;
+            NewItem.B.Child = S;
 
-            Stacky.Children.Add(newShake.B);
-            
+            Stacky.Children.Add(NewItem.B);
+
         }
 
         TextBox createBox(string content)
@@ -106,13 +121,30 @@ namespace Mantecado
             return T;
         }
 
+        public void Custard_button(object sender, RoutedEventArgs e)
+        {
+            newItem(sender);
+        }
+
+        public void Tradition_button(object sender, RoutedEventArgs e)
+        {
+            newItem(sender);
+        }
+        public void Milkshake_button(object sender, RoutedEventArgs e)
+        {
+            newItem(sender);
+        }
+        public void NonDairy_button(object sender, RoutedEventArgs e)
+        {
+            newItem(sender);
+        }
+
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
 
             AddOns newAddon = new AddOns();
             newAddon.addonName = ((Button)sender).Content.ToString();
             newAddon.addonPrice = 0.39;
-
 
 
             StackPanel S;
@@ -126,9 +158,6 @@ namespace Mantecado
                     S.Children.Add(T);
                 }
             }
-
-            cur.ItemAddons.Add(newAddon);
- 
         }
 
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
@@ -143,17 +172,17 @@ namespace Mantecado
         private void sp_onMouseEnter(object sender, RoutedEventArgs e)
         {
 
-           StackPanel S = e.OriginalSource as StackPanel;
+            StackPanel S = e.OriginalSource as StackPanel;
 
 
 
-           foreach(Item i in o.OrderItems)
+            foreach (Item i in o.OrderItems)
             {
 
                 if (i.B.Child.IsMouseOver)
                 {
-                    if(!S.IsFocused)
-                    i.B.BorderThickness = new Thickness(1);
+                    if (!S.IsFocused)
+                        i.B.BorderThickness = new Thickness(1);
                 }
             }
 
@@ -163,6 +192,7 @@ namespace Mantecado
         {
 
             TextBox T = e.OriginalSource as TextBox;
+
 
             T.Background = new SolidColorBrush(Colors.LightBlue);           //makes the textbox blue when clicked on
 
@@ -174,13 +204,15 @@ namespace Mantecado
 
             Mod2.Visibility = Visibility.Visible;
             Mod2.Content = "Oreos";
+            Mod2.Focusable = false;
 
             Mod3.Visibility = Visibility.Visible;
             Mod3.Content = "Chocolate Syrup";
+            Mod3.Focusable = false;
 
             Delete.Visibility = Visibility.Visible;
             Delete.Focusable = false;
-    
+
 
         }
 
@@ -192,14 +224,14 @@ namespace Mantecado
             {
                 StackPanel S = i.B.Child as StackPanel;
 
-                foreach(TextBox t in S.Children)
+                foreach (TextBox t in S.Children)
                 {
                     if (t == T)
                     {
                         S.Focus();
                         i.B.BorderThickness = new Thickness(4);
                     }
-                } 
+                }
             }
 
             Mod1.Visibility = Visibility.Visible;
@@ -226,9 +258,7 @@ namespace Mantecado
             T.Background = new SolidColorBrush(Colors.White);
 
             T.BorderThickness = new Thickness(0);
-            
-            cur.itemName = T.Text.Split(' ')[0];
-            
+
         }
 
         private void StackPanelLostFocus(object sender, RoutedEventArgs e)
@@ -270,8 +300,8 @@ namespace Mantecado
             {
                 if (!i.B.BorderThickness.Equals(0))
                 {
-                    if(!i.B.Child.IsFocused)
-                    i.B.BorderThickness = new Thickness(0);
+                    if (!i.B.Child.IsFocused)
+                        i.B.BorderThickness = new Thickness(0);
                 }
             }
 
@@ -310,7 +340,7 @@ namespace Mantecado
 
             if (Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Hidden;
-               
+
         }
 
         private void MilksshakesButton_Click(object sender, RoutedEventArgs e)
@@ -353,41 +383,44 @@ namespace Mantecado
         {
             using StreamWriter outputOrder = new StreamWriter("../../../Orders/order.txt");
             outputOrder.WriteLine(o.ToString());
-            
+
         }
 
-        private void OMB_14_Click(object sender, RoutedEventArgs e)
+        private void SendQuit_Click(object sender, RoutedEventArgs e)
         {
-
-
-
+            using StreamWriter outputOrder = new StreamWriter("../../../Orders/order.txt");
+            outputOrder.WriteLine(o.ToString());
+            MainWindow loginWindow = new MainWindow();
+            loginWindow.Show();
+            this.Close();
         }
 
-        private void OMB_16_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-        //    foreach (Item i in o.OrderItems)
-        //    {
-        //        if (i.T.IsFocused == true)
-        //        {
-        //            o.RemoveItem(i);
-        //            Stacky.Children.Remove(i.T);
-        //            break;
-                    
-        //        }
+            //    foreach (Item i in o.OrderItems)
+            //    {
+            //        if (i.T.IsFocused == true)
+            //        {
+            //            o.RemoveItem(i);
+            //            Stacky.Children.Remove(i.T);
+            //            break;
 
-        //    }
-            Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
+            //        }
 
+
+            //Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
+            //Taxes.Content = "Tax: $" + o.GetTax();
+            //Total.Content = "Total: $" + o.GetTotalPrice();
+
+
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow loginWindow = new MainWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

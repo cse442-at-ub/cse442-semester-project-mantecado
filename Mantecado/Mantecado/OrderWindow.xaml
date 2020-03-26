@@ -162,7 +162,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
-            <Grid Grid.Row="1" x:Name="OrderContext" Background="White" RenderTransformOrigin="0.503,0.314">
+            <Grid Grid.Row="1" x:Name="OrderContext" Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -172,9 +172,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Subtotal" Grid.Row="0" FontSize ="40" Content= "Subtotal: $0.00 " />
-                <Label x:Name="Taxes" Grid.Row="1" FontSize ="40" Content= "Tax: $0.00 " />
-                <Label x:Name="Total" Grid.Row="2" FontSize ="40" Content= "Total: $0.00 " />
+                <Label x:Name="Subtotal" Grid.Row="0" FontSize ="20" Content= "Subtotal: $0.00 " />
+                <Label x:Name="Taxes" Grid.Row="1" FontSize ="20" Content= "Tax: $0.00 " />
+                <Label x:Name="Total" Grid.Row="2" FontSize ="20" Content= "Total: $0.00 " />
 
 
                 <Grid x:Name="ItemContextButtons" Grid.Row = "3" Background="White" >
