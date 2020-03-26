@@ -21,7 +21,7 @@ namespace Mantecado
         Order o = new Order();
         //Item cur = new Item();
         Item cur = new Item();
-        static int num = 0;
+        static int numItems = 0;
         static int numAddons = 0;
         // bool orderPresent = false;
 
@@ -45,7 +45,7 @@ namespace Mantecado
             Item newShake = new Item();
             
             newShake.itemName = ((Button)sender).Content.ToString();
-            num++;
+            numItems++;
 
             newShake.itemPrice = 4.99;
 
@@ -175,6 +175,7 @@ namespace Mantecado
             Mod3.Content = "Chocolate Syrup";
 
             Delete.Visibility = Visibility.Visible;
+            Delete.Focusable = false;
         
 
             
@@ -316,6 +317,18 @@ namespace Mantecado
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            foreach (Item i in o.OrderItems)
+            {
+                if (i.T.IsFocused == true)
+                {
+                    o.RemoveItem(i);
+                    Stacky.Children.Remove(i.T);
+                    break;
+                    
+                }
+
+            }
+            Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
 
         }
     }

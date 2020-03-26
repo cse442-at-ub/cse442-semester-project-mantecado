@@ -33,6 +33,12 @@ namespace Mantecado
 
         }
 
+        public void RemoveItem(Item item)
+        {
+            OrderItems.Remove(item);
+            TotalPrice -= item.itemPrice;
+        }
+
         public void AddAddon(Item item, AddOns add)
         {
             item.ItemAddons.Add(add);
