@@ -64,7 +64,7 @@ namespace Mantecado
 
             TextBox T = createFirstBox();
 
-            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
+            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t\t$" + NewItem.itemPrice));
 
             o.AddItem(NewItem);
 
@@ -80,7 +80,6 @@ namespace Mantecado
 
             S.MouseLeave += new MouseEventHandler(sp_onMouseLeave);
             S.MouseEnter += new MouseEventHandler(sp_onMouseEnter);
-            //S.GotFocus += new RoutedEventHandler(StackPanelOnFocus);
             S.LostFocus += new RoutedEventHandler(StackPanelLostFocus);
 
             NewItem.B.Child = S;
@@ -88,6 +87,7 @@ namespace Mantecado
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
+
             Stacky.Children.Add(NewItem.B);
 
         }
@@ -144,13 +144,12 @@ namespace Mantecado
 
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
-
+           
             AddOns newAddon = new AddOns();
-
             newAddon.addonName = ((Button)sender).Content.ToString();
 
             newAddon.addonPrice = 0.39;
-
+            
 
             StackPanel S;
 
@@ -159,10 +158,15 @@ namespace Mantecado
                 if (i.B.Child.IsFocused)
                 {
                     S = i.B.Child as StackPanel;
-                    TextBox T = createBox(newAddon.addonName);
+                    TextBox T = createBox(String.Format("{0, -10} {1,5} ", "\t" + newAddon.addonName, ("\t$" + newAddon.addonPrice)));
+                    o.AddAddon(i, newAddon);
                     S.Children.Add(T);
                 }
+                
             }
+            Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
+            Taxes.Content = "Tax: $" + o.GetTax();
+            Total.Content = "Total: $" + o.GetTotalPrice();
         }
 
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
@@ -179,8 +183,11 @@ namespace Mantecado
 
             StackPanel S = e.OriginalSource as StackPanel;
 
+
+
             foreach (Item i in o.OrderItems)
             {
+
                 if (i.B.Child.IsMouseOver)
                 {
                     if (!S.IsFocused)
@@ -192,30 +199,9 @@ namespace Mantecado
 
         private void TextBoxOnFocus(object sender, RoutedEventArgs e)
         {
-
             TextBox T = e.OriginalSource as TextBox;
-
-
             T.Background = new SolidColorBrush(Colors.LightBlue);           //makes the textbox blue when clicked on
-
             T.BorderThickness = new Thickness(2);                           //gives it a border to emphasize selection
-
-            Mod1.Visibility = Visibility.Visible;
-            Mod1.Content = "Strawberries";
-            Mod1.Focusable = false;
-
-            Mod2.Visibility = Visibility.Visible;
-            Mod2.Content = "Oreos";
-            Mod2.Focusable = false;
-
-            Mod3.Visibility = Visibility.Visible;
-            Mod3.Content = "Chocolate Syrup";
-            Mod3.Focusable = false;
-
-            Delete.Visibility = Visibility.Visible;
-            Delete.Focusable = false;
-
-
         }
 
         private void StackPanelOnFocus(object sender, RoutedEventArgs e)
@@ -242,9 +228,11 @@ namespace Mantecado
 
             Mod2.Visibility = Visibility.Visible;
             Mod2.Content = "Oreos";
+            Mod2.Focusable = false;
 
             Mod3.Visibility = Visibility.Visible;
             Mod3.Content = "Chocolate Syrup";
+            Mod3.Focusable = false;
 
             Delete.Visibility = Visibility.Visible;
             Delete.Focusable = false;
@@ -283,6 +271,9 @@ namespace Mantecado
                 }
             }
 
+            Mod1.Visibility = Visibility.Hidden;
+            Mod2.Visibility = Visibility.Hidden;
+            Mod3.Visibility = Visibility.Hidden;
         }
 
         private void tb_onMouseLeave(object sender, RoutedEventArgs e)
@@ -400,21 +391,35 @@ namespace Mantecado
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            //    foreach (Item i in o.OrderItems)
-            //    {
-            //        if (i.T.IsFocused == true)
-            //        {
-            //            o.RemoveItem(i);
-            //            Stacky.Children.Remove(i.T);
-            //            break;
+         
+            foreach(Item i in o.OrderItems)
+            {
+                if(i.B.Child.IsFocused)
+                {
+                  o.RemoveItem(i);
+                  Stacky.Children.Remove(i.B);
+                  break;
+                }
+            }
 
-            //        }
-
-
-            //Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
-            //Taxes.Content = "Tax: $" + o.GetTax();
-            //Total.Content = "Total: $" + o.GetTotalPrice();
-
+            TextBox T = e.OriginalSource as TextBox;
+          
+           foreach(Border Bor in Stacky.Children)
+            {
+                StackPanel S = Bor.Child as StackPanel;
+                
+                foreach (TextBox t in S.Children)
+                {
+                    if (t.IsFocused)
+                    {
+                        S.Children.Remove(t);
+                        break;
+                    }
+                }
+            }
+            Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
+            Taxes.Content = "Tax: $" + o.GetTax();
+            Total.Content = "Total: $" + o.GetTotalPrice();
 
         }
 
