@@ -28,7 +28,7 @@ namespace Mantecado
 
         bool CheckForInjection(string text)
         {
-            if (text.IndexOf("SELECT", 0, text.Length) != -1 || text.IndexOf("INSERT", 0, text.Length) != -1 || text.IndexOf("DELETE", 0, text.Length) != -1 || text.IndexOf("UPDATE", 0, text.Length) != -1)
+            if (text.IndexOf("SELECT", 0, text.Length) != -1 || text.IndexOf("INSERT", 0, text.Length) != -1 || text.IndexOf("DELETE", 0, text.Length) != -1 || text.IndexOf("UPDATE", 0, text.Length) != -1|| text.IndexOf("*", 0, text.Length) != -1)
             {
                 return false;
             }
