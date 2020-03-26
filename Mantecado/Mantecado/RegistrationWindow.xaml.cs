@@ -88,10 +88,10 @@ namespace Mantecado
             {
                 employee data = GetData();
                 List<string>[] temp = server.Select();
-                    server.Insert("employees", data);
-                    MainWindow mainWindow = new MainWindow();
-                    this.Close();
-                    mainWindow.Show();
+                server.Insert("employees", data);
+                MainWindow mainWindow = new MainWindow();
+                this.Close();
+                mainWindow.Show();
             }
             else
             {
@@ -108,6 +108,9 @@ namespace Mantecado
                         break;
                     case 4:
                         MessageBox.Show("Age, ID Number, or Pay are supposed to be numbers please try again.");
+                        break;
+                    default:
+                        MessageBox.Show("Some error occured!");
                         break;
                 }
             }
