@@ -58,10 +58,7 @@ namespace Mantecado
                         }
                         
                     }
-                        
-                 
-                   
-                  
+                                          
                 }
             }
             catch (IOException ex)
@@ -69,9 +66,7 @@ namespace Mantecado
                 MessageBox.Show("Error reading employee file\n" + ex.Message);
 
             }
-           
-           
-            
+                     
         }
 
         private void Number1_Click(object sender, RoutedEventArgs e)
