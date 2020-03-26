@@ -1,0 +1,17 @@
+﻿Vanilla Swirl	3.99
+Chocolate Swirl	3.99
+Strawberry Swirl	3.99
+Berry Swirl	3.99
+Neopolitan Swirl	3.99
+Butter Pecan Swirl	3.99
+Vanilla Bean	4.99
+Fudge	4.99
+Mixed Berry	4.99
+Vanilla	5.99
+Chocolate	5.99
+Strawberry	5.99
+Hamburger	8.99
+Crabby Patty	10.99
+Fish Fry	9.99
+Loaded Fries	4.99
+Chicken Tenders	7.99
