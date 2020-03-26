@@ -9,7 +9,7 @@ namespace Mantecado
         public string itemName;
         public double itemPrice;
         public List<AddOns> ItemAddons = new List<AddOns>();
-        public System.Windows.Controls.TextBox T;
+        public System.Windows.Controls.Border B;
 
     }
 

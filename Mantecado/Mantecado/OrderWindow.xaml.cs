@@ -40,8 +40,6 @@ namespace Mantecado
         public void Milkshake_button(object sender, RoutedEventArgs e)
         {
 
-            //orderPresent = true;
-
             Item newShake = new Item();
             
             newShake.itemName = ((Button)sender).Content.ToString();
@@ -49,101 +47,88 @@ namespace Mantecado
 
             newShake.itemPrice = 4.99;
 
-            newShake.T = new TextBox();
+            TextBox T = createFirstBox();
 
-            newShake.T.IsReadOnly = true;
-
-            newShake.T.Background = new SolidColorBrush(Colors.White);
-
-            newShake.T.BorderThickness = new Thickness(0);
-
-            newShake.T.Cursor = Cursors.Arrow;
-
-            newShake.T.Focusable = true;
-
-            newShake.T.SelectionOpacity = 0;
-
-            newShake.T.MouseLeave += new MouseEventHandler(tb_onMouseLeave);
-            newShake.T.MouseEnter += new MouseEventHandler(tb_onMouseEnter);
-            newShake.T.GotFocus += new RoutedEventHandler(TextBoxOnFocus);
-            newShake.T.LostFocus += new RoutedEventHandler(TextBoxLostFocus);
-
-            // T.Text = "+Vanilla MilkShake       $#.##";
-            newShake.T.Text = String.Format("{0, -20} {1,5} ", newShake.itemName, ("\t$" + newShake.itemPrice));
+            T.Text = String.Format("{0, -20} {1,5} ", newShake.itemName, ("\t$" + newShake.itemPrice));
            
-            //T.Text.PadRight(5);
             o.AddItem(newShake);
             
             Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
 
-            newShake.T.Background = new SolidColorBrush(Colors.White);
+            newShake.B = new Border();
 
-            //T.Height = 100;
+            StackPanel S = new StackPanel();
 
-            newShake.T.FontSize = 30;
+            S.Children.Add(T);
+
+            S.Focusable = true;
+
+            S.MouseLeave += new MouseEventHandler(sp_onMouseLeave);
+            S.MouseEnter += new MouseEventHandler(sp_onMouseEnter);
+            //S.GotFocus += new RoutedEventHandler(StackPanelOnFocus);
+            S.LostFocus += new RoutedEventHandler(StackPanelLostFocus);
+
+            newShake.B.Child = S;
+
+            Stacky.Children.Add(newShake.B);
             
-            Stacky.Children.Add(newShake.T);
-            
+        }
 
+        TextBox createBox(string content)
+        {
+            TextBox T = new TextBox();
+            T.IsReadOnly = true;
+            T.Background = new SolidColorBrush(Colors.White);
+            T.BorderThickness = new Thickness(0);
+            T.Cursor = Cursors.Arrow;
+            T.Focusable = true;
+            T.SelectionOpacity = 0;
+            T.MouseLeave += new MouseEventHandler(tb_onMouseLeave);
+            T.MouseEnter += new MouseEventHandler(tb_onMouseEnter);
+            T.GotFocus += new RoutedEventHandler(TextBoxOnFocus);
+            T.LostFocus += new RoutedEventHandler(TextBoxLostFocus);
+            T.Text = content;
+            T.FontSize = 30;
+            return T;
+        }
+
+        TextBox createFirstBox()
+        {
+            TextBox T = new TextBox();
+            T.IsReadOnly = true;
+            T.Background = new SolidColorBrush(Colors.White);
+            T.BorderThickness = new Thickness(0);
+            T.Cursor = Cursors.Arrow;
+            T.Focusable = true;
+            T.SelectionOpacity = 0;
+            T.FontSize = 30;
+            T.GotFocus += new RoutedEventHandler(StackPanelOnFocus);
+            return T;
         }
 
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
-            AddOns newAddon = new AddOns();
-           
-            newAddon.addonName = ((Button)sender).Content.ToString();
 
+            AddOns newAddon = new AddOns();
+            newAddon.addonName = ((Button)sender).Content.ToString();
             newAddon.addonPrice = 0.39;
-            //MessageBox.Show(cur.itemName);
-            //Item it = sender as Item;
-            //MessageBox.Show(cur.itemName);
-            foreach(Item i in o.OrderItems)
-            {
-                /*
-                if(cur.itemName.Equals(i.itemName))
-                {
-                    //cur = i;
-                }
-                */
-            }
+
+
+
+            StackPanel S;
 
             foreach (Item i in o.OrderItems)
             {
-                //o.OrderItems.
-                
-                if (i.T.IsFocused == true)
+                if (i.B.Child.IsFocused)
                 {
-                    i.T.AppendText("\n   +" + newAddon.addonName + "\t$" + newAddon.addonPrice);
-                    o.AddAddon(i, newAddon);
-                    Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
+                    S = i.B.Child as StackPanel;
+                    TextBox T = createBox(newAddon.addonName);
+                    S.Children.Add(T);
                 }
-                
             }
 
             cur.ItemAddons.Add(newAddon);
-            //TextBox currentText = new TextBox();
-            
-
-            //currentText.Text = String.Format("{0, -20} {1,5} ", cur.itemName, ("\t$" + cur.itemPrice));
-            //int index = Stacky.Children.IndexOf(currentText);
-            //MessageBox.Show("i " + index);
-            ////int index = Stacky.Children.
-            //TextBox T = new TextBox();
-            //T.IsReadOnly = true;
-            //T.Background = new SolidColorBrush(Colors.White); 
-            //T.BorderThickness = new Thickness(0);
-            //T.Cursor = Cursors.Arrow;
-            //T.Focusable = true;
-            //T.SelectionOpacity = 0;
-            //T.Text = String.Format("{0, -20} {1,5} ", newAddon.addonName, ("\t$" + newAddon.addonPrice));
-            //Stacky.Children.Insert(index + 1, T);
-            //Stacky.Children.
-            //numAddons++;
-            //MessageBox.Show(o.OrderItems.IndexOf(cur).ToString());
-
-           
-           
-
+ 
         }
 
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
@@ -155,6 +140,25 @@ namespace Mantecado
 
         }
 
+        private void sp_onMouseEnter(object sender, RoutedEventArgs e)
+        {
+
+           StackPanel S = e.OriginalSource as StackPanel;
+
+
+
+           foreach(Item i in o.OrderItems)
+            {
+
+                if (i.B.Child.IsMouseOver)
+                {
+                    if(!S.IsFocused)
+                    i.B.BorderThickness = new Thickness(1);
+                }
+            }
+
+        }
+
         private void TextBoxOnFocus(object sender, RoutedEventArgs e)
         {
 
@@ -162,7 +166,7 @@ namespace Mantecado
 
             T.Background = new SolidColorBrush(Colors.LightBlue);           //makes the textbox blue when clicked on
 
-            T.BorderThickness = new Thickness(3);                           //gives it a border to emphasize selection
+            T.BorderThickness = new Thickness(2);                           //gives it a border to emphasize selection
 
             Mod1.Visibility = Visibility.Visible;
             Mod1.Content = "Strawberries";
@@ -176,37 +180,76 @@ namespace Mantecado
 
             Delete.Visibility = Visibility.Visible;
             Delete.Focusable = false;
-        
-
-            
-
-
+    
 
         }
 
-        
+        private void StackPanelOnFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox T = e.OriginalSource as TextBox;
+
+            foreach (Item i in o.OrderItems)
+            {
+                StackPanel S = i.B.Child as StackPanel;
+
+                foreach(TextBox t in S.Children)
+                {
+                    if (t == T)
+                    {
+                        S.Focus();
+                        i.B.BorderThickness = new Thickness(4);
+                    }
+                } 
+            }
+
+            Mod1.Visibility = Visibility.Visible;
+            Mod1.Content = "Strawberries";
+            Mod1.Focusable = false;
+
+            Mod2.Visibility = Visibility.Visible;
+            Mod2.Content = "Oreos";
+
+            Mod3.Visibility = Visibility.Visible;
+            Mod3.Content = "Chocolate Syrup";
+
+            Delete.Visibility = Visibility.Visible;
+            Delete.Focusable = false;
+        }
+
+
+
         private void TextBoxLostFocus(object sender, RoutedEventArgs e)
         {
 
             TextBox T = e.OriginalSource as TextBox;
-            //e.Handled = true;
-            //MessageBox.Show("Lost focus");
+
             T.Background = new SolidColorBrush(Colors.White);
 
             T.BorderThickness = new Thickness(0);
-            //MessageBox.Show(T.Text);
-            /*foreach(Item i in o.OrderItems)
-            {
-                if()
-            }*/
-            //Mod1.Visibility = Visibility.Hidden;
-            //Mod2.Visibility = Visibility.Hidden;
-            //Mod3.Visibility = Visibility.Hidden;
             
             cur.itemName = T.Text.Split(' ')[0];
-            //MessageBox.Show(cur.itemName);
-           // MessageBox.Show(cur.itemName);
             
+        }
+
+        private void StackPanelLostFocus(object sender, RoutedEventArgs e)
+        {
+            StackPanel S = e.OriginalSource as StackPanel;
+
+            foreach (Item i in o.OrderItems)
+            {
+                if (i.B.Child == S)
+                {
+                    if (i.B.Child.IsMouseOver)
+                    {
+                        i.B.BorderThickness = new Thickness(1);
+                    }
+                    else
+                    {
+                        i.B.BorderThickness = new Thickness(0);
+                    }
+
+                }
+            }
 
         }
 
@@ -218,6 +261,21 @@ namespace Mantecado
                 T.Background = new SolidColorBrush(Colors.White);
         }
 
+        private void sp_onMouseLeave(object sender, RoutedEventArgs e)
+        {
+
+            StackPanel S = e.OriginalSource as StackPanel;
+
+            foreach (Item i in o.OrderItems)
+            {
+                if (!i.B.BorderThickness.Equals(0))
+                {
+                    if(!i.B.Child.IsFocused)
+                    i.B.BorderThickness = new Thickness(0);
+                }
+            }
+
+        }
         public void TraditionButton_Click(object sender, RoutedEventArgs e)
         {
             if (!Main_Traditional.IsVisible)
@@ -317,17 +375,17 @@ namespace Mantecado
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Item i in o.OrderItems)
-            {
-                if (i.T.IsFocused == true)
-                {
-                    o.RemoveItem(i);
-                    Stacky.Children.Remove(i.T);
-                    break;
+        //    foreach (Item i in o.OrderItems)
+        //    {
+        //        if (i.T.IsFocused == true)
+        //        {
+        //            o.RemoveItem(i);
+        //            Stacky.Children.Remove(i.T);
+        //            break;
                     
-                }
+        //        }
 
-            }
+        //    }
             Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
 
         }

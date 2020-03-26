@@ -153,26 +153,34 @@
 
 
         <Grid Grid.Column="0" x:Name="OrderView_OrderContextWindow">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+
             <Grid Grid.Row="0" x:Name ="OrderViewWindow" >
                 <ScrollViewer x:Name="OrderViewScrollBox" >
                     <StackPanel x:Name="Stacky" Background="SkyBlue">
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
+            
             <Grid Grid.Row="1" x:Name="OrderContext" Background="White">
+                
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Subtotal" FontSize ="40" Content= "Subtotal: $0.00 " />
-                <Grid x:Name="ItemContextButtons" Grid.Row = "1" Background="White" >
+
+
+                <Label x:Name="Subtotal" Grid.Row = "0" FontSize ="40" Content= "Subtotal: $0.00 " />
+                <Label x:Name="Taxes" Grid.Row = "1" FontSize ="40" Content= "Taxes: $0.00 " />
+                <Grid x:Name="ItemContextButtons" Grid.Row = "2" Background="White" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width = "1*"/>
                         <ColumnDefinition Width = "1*"/>
@@ -194,6 +202,7 @@
                     <Button Name ="Mod9" Grid.Row="2" Grid.Column="3" Background="LightCoral"        Content="[Context_Extra]" Visibility="Hidden"/>
                 </Grid>
             </Grid>
+            
         </Grid>
     </Grid>
 </Window>
