@@ -1,17 +1,17 @@
-﻿Vanilla Swirl	3.99
-Chocolate Swirl	3.99
-Strawberry Swirl	3.99
-Berry Swirl	3.99
-Neopolitan Swirl	3.99
-Butter Pecan	3.99
-Vanilla Bean	4.99
-Fudge	4.99
-Mixed Berry	4.99
-Plain Vanilla	5.99
-Chocolate	5.99
-Strawberry	5.99
-Veg Vanilla	8.99
-Veg Chocolate	8.99
-Veg Strawberry	8.99
-Veg Neopolitan	8.99
-Veg Mixed Berry	8.99
+﻿Vanilla Swirl	3.99	Traditional
+Chocolate Swirl	3.99	Traditional
+Strawberry Swirl	3.99	Traditional
+Berry Swirl	3.99	Traditional
+Neopolitan Swirl	3.99	Traditional
+Butter Pecan	3.99	Traditional
+Vanilla Bean	4.99	Custard
+Fudge	4.99	Custard
+Mixed Berry	4.99	Custard
+Plain Vanilla	5.99	Milkshakes
+Chocolate	5.99	Milkshakes
+Strawberry	5.99	Milkshakes
+Veg Vanilla	8.99	Vegan
+Veg Chocolate	8.99	Vegan
+Veg Strawberry	8.99	Vegan
+Veg Neopolitan	8.99	Vegan
+Veg Mixed Berry	8.99	Vegan

@@ -24,13 +24,125 @@ namespace Mantecado
         public OrderWindow()
         {
             InitializeComponent();
-
+           
         }
 
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown();
+        }
+
+        private void AddButtons(object sender)
+        {
+            /*Button newButton = new Button();
+            newButton.Content = "Added Button";
+            Main_Traditional.Children.Add(newButton);*/
+            int rowNum = 0;
+            int colNum = 0;
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] buttonInfo = line.Split('\t');
+                    String buttonName = buttonInfo[0];
+                    String buttonCat = buttonInfo[2];
+                    //Button newButton = new Button();
+                    //newButton.Content = "Added Button";
+                    //Main_Traditional.Children.Add(newButton);
+                    
+                     if (((Button)sender).Content.ToString().Equals(buttonCat))
+                     {
+
+
+
+                         if (buttonCat.Equals("Traditional"))
+                         {
+                            Button NewButton = new Button();
+                            NewButton.Content = buttonName;
+                            NewButton.Click += new RoutedEventHandler(Tradition_button);
+                            NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                            NewButton.FontSize = 30;
+                            
+                            Grid.SetRow(NewButton, rowNum);
+                            Grid.SetColumn(NewButton, colNum);
+                            Main_Traditional.Children.Add(NewButton);
+                             rowNum++;
+                            if (rowNum == 4)
+                            {
+                                colNum++;
+                                rowNum = 0;
+                            }
+                         }
+
+                        if (buttonCat.Equals("Custard"))
+                        {
+                            Button NewButton = new Button();
+                            NewButton.Content = buttonName;
+                            NewButton.Click += new RoutedEventHandler(Custard_button);
+                            NewButton.Background = new SolidColorBrush(Colors.LightPink);
+                            NewButton.FontSize = 30;
+
+                            Grid.SetRow(NewButton, rowNum);
+                            Grid.SetColumn(NewButton, colNum);
+                            Main_Custard.Children.Add(NewButton);
+                            rowNum++;
+                            if (rowNum == 4)
+                            {
+                                colNum++;
+                                rowNum = 0;
+                            }
+                        }
+
+                        if (buttonCat.Equals("Milkshakes"))
+                        {
+                            Button NewButton = new Button();
+                            NewButton.Content = buttonName;
+                            NewButton.Click += new RoutedEventHandler(Milkshake_button);
+                            NewButton.Background = new SolidColorBrush(Colors.MediumPurple);
+                            NewButton.FontSize = 30;
+
+                            Grid.SetRow(NewButton, rowNum);
+                            Grid.SetColumn(NewButton, colNum);
+                            Main_Milkshakes.Children.Add(NewButton);
+                            rowNum++;
+                            if (rowNum == 4)
+                            {
+                                colNum++;
+                                rowNum = 0;
+                            }
+                        }
+
+                        if (buttonCat.Equals("Vegan"))
+                        {
+                            Button NewButton = new Button();
+                            NewButton.Content = buttonName;
+                            NewButton.Click += new RoutedEventHandler(NonDairy_button);
+                            NewButton.Background = new SolidColorBrush(Colors.PeachPuff);
+                            NewButton.FontSize = 30;
+
+                            Grid.SetRow(NewButton, rowNum);
+                            Grid.SetColumn(NewButton, colNum);
+                            Main_Non_Dairy.Children.Add(NewButton);
+                            rowNum++;
+                            if (rowNum == 4)
+                            {
+                                colNum++;
+                                rowNum = 0;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
         }
 
         private void newItem(object sender)
@@ -48,11 +160,14 @@ namespace Mantecado
                     String[] itemInfo = line.Split('\t');
                     String itemName = itemInfo[0];
                     String itemPrice = itemInfo[1];
+                    String itemCategory = itemInfo[2];
 
                     if (NewItem.itemName.Equals(itemName))
                     {
                         NewItem.itemPrice = Convert.ToDouble(itemPrice);
                     }
+
+                    NewItem.itemCategory = itemCategory;
                 }
             }
             catch (IOException ex)
@@ -313,6 +428,8 @@ namespace Mantecado
             if (Main_Non_Dairy.IsVisible)
                 Main_Non_Dairy.Visibility = Visibility.Hidden;
 
+            AddButtons(sender);
+
         }
 
         private void CustardButton_Click(object sender, RoutedEventArgs e)
@@ -333,6 +450,7 @@ namespace Mantecado
 
             if (Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Hidden;
+            AddButtons(sender);
 
         }
 
@@ -349,6 +467,7 @@ namespace Mantecado
 
             if (Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Hidden;
+            AddButtons(sender);
 
         }
 
@@ -365,6 +484,8 @@ namespace Mantecado
 
             if (Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Hidden;
+            AddButtons(sender);
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

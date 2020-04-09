@@ -1,40 +1,7 @@
-Vanilla Swirl		$3.99
+NewCustard		$4.59
 
-Vanilla Swirl		$3.99
+Fudge		$4.99
 
-Vanilla Swirl		$3.99
+Vanilla Bean		$4.99
 
-Vanilla Swirl		$3.99
-
-Neopolitan Swirl		$3.99
-
-Neopolitan Swirl		$3.99
-
-Neopolitan Swirl		$3.99
-
-Neopolitan Swirl		$3.99
-
-Neopolitan Swirl		$3.99
-
-Butter Pecan		$3.99
-
-Chocolate Swirl		$3.99
-
-Berry Swirl		$3.99
-
-Strawberry Swirl		$3.99
-	Chocolate Syrup		$0.39
-	Oreos		$0.39
-	Strawberries		$0.39
-
-Strawberry Swirl		$3.99
-
-Strawberry Swirl		$3.99
-
-Chocolate Swirl		$3.99
-
-Chocolate Swirl		$3.99
-
-Vanilla Swirl		$3.99
-
-Total Price: $72.99
+Total Price: $14.57
