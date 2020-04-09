@@ -146,5 +146,12 @@ namespace Mantecado
         {
             Application.Current.Shutdown();
         }
+
+        private void AdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            AdminWindow adminWindow = new AdminWindow();
+            adminWindow.Show();
+            this.Close();
+        }
     }
 }

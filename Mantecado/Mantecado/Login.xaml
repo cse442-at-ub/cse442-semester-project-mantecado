@@ -138,6 +138,13 @@
           
             />
             <TextBlock Name="InvalidNum" Visibility="Hidden" HorizontalAlignment="Left" Margin="319,59,0,0" Text="Invalid Employee Number" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.233,0.499"/>
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="AdminButton"
+                Content="Admin" Margin="691,124,33,173" Click="AdminButton_Click"
+          
+            />
 
         </Grid>
     </Viewbox>
