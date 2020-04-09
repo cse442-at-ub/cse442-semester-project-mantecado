@@ -72,7 +72,6 @@ namespace Mantecado
                 return false;
             }
         }
-
         public void Insert(string data_base, employee hire = new employee())
         {
             string query = "INSERT INTO "+data_base;

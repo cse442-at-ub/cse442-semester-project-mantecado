@@ -524,7 +524,7 @@ namespace Mantecado
             }
 
             TextBox T = e.OriginalSource as TextBox;
-          
+            
            foreach(Border Bor in Stacky.Children)
             {
                 StackPanel S = Bor.Child as StackPanel;
