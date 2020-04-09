@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Media.TextFormatting;
 
 namespace Mantecado
 {
@@ -20,6 +21,7 @@ namespace Mantecado
     {
 
         Order o = new Order();
+        private readonly MySqlServer server = new MySqlServer();
 
         public OrderWindow()
         {
@@ -492,9 +494,29 @@ namespace Mantecado
         {
 
         }
+        private reciept GetData()
+        {
+            reciept data = new reciept();
+            data.order = o.ToString();
+            char[] delim = { '\n', '\t' };
+            string[] words = data.order.Split(delim);
+            string temp="";
+            foreach(var word in words)
+            {
+                temp += word + ' ';
+            }
+            data.order = temp;
+            data.item_amount = o.GetItemAmount();
+            data.price = o.GetSubtotal();
+            data.tax_amount = o.GetTax();
+            data.total_price = o.GetTotalPrice();
+            return data;
+        }
 
         private void SendStay_Click(object sender, RoutedEventArgs e)
         {
+            reciept data = GetData();
+            server.Insert("Reciepts", new employee(), data);
             using StreamWriter outputOrder = new StreamWriter("../../../Orders/order.txt");
             outputOrder.WriteLine(o.ToString());
 
@@ -502,6 +524,8 @@ namespace Mantecado
 
         private void SendQuit_Click(object sender, RoutedEventArgs e)
         {
+            reciept data = GetData();
+            server.Insert("Reciepts", new employee(), data);
             using StreamWriter outputOrder = new StreamWriter("../../../Orders/order.txt");
             outputOrder.WriteLine(o.ToString());
             MainWindow loginWindow = new MainWindow();
