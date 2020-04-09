@@ -87,7 +87,7 @@ namespace Mantecado
             {
                 employee data = GetData();
                 List<string>[] temp = server.Select();
-                server.Insert("employees", data);
+                server.Insert("employees",data);
                 MainWindow mainWindow = new MainWindow();
                 this.Close();
                 mainWindow.Show();
