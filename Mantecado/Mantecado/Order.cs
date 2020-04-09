@@ -27,7 +27,7 @@ namespace Mantecado
         double AddedTax = 0;
         double TotalPrice = 0;
         public List<Item> OrderItems = new List<Item>();
-       
+        int item_amount = 0;
         double SubTotal = 0;
 
         public void AddItem(Item item)
@@ -37,7 +37,7 @@ namespace Mantecado
             SubTotal += item.itemPrice;
             AddedTax += item.itemPrice * TAX_RATE;
             TotalPrice = SubTotal + AddedTax;
-
+            item_amount++;
         }
 
         public void RemoveItem(Item item)
@@ -46,7 +46,7 @@ namespace Mantecado
             SubTotal -= item.itemPrice;
             AddedTax -= item.itemPrice * TAX_RATE;
             TotalPrice = SubTotal + AddedTax;
-
+            item_amount--;
         }
 
         public void AddAddon(Item item, AddOns add)
@@ -63,7 +63,10 @@ namespace Mantecado
         {
             return Math.Round(TotalPrice, 2);
         }
-
+        public int GetItemAmount()
+        {
+            return item_amount;
+        }
         public double GetTax()
         {
             return Math.Round(AddedTax, 2);

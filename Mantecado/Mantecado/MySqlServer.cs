@@ -17,6 +17,14 @@ namespace Mantecado
         public string birthday;
     }
 
+    struct reciept
+    {
+        public string order;
+        public int item_amount;
+        public double price;
+        public double tax_amount;
+        public double total_price;
+    }
     class MySqlServer
     {
         private MySqlConnection connection;
@@ -72,14 +80,25 @@ namespace Mantecado
                 return false;
             }
         }
-        public void Insert(string data_base, employee hire = new employee())
+
+        public void Insert(string table, employee hire = new employee(), reciept order = new reciept())
         {
-            string query = "INSERT INTO "+data_base;
+            string query = "INSERT INTO "+table;
 
             // if it is an employee
-            //if(hire.name == null)
-            query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', " + hire.age + ", " + hire.id + ", " + hire.pay_rate+ ", '" + hire.sex + "', " + hire.birthday + ")" ;
-            
+            if (table == "employees")
+            {
+                query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', " + hire.age + ", " + hire.id + ", " + hire.pay_rate + ", '" + hire.sex + "', " + hire.birthday + ")";
+            }
+            else if (table == "Reciepts")
+            {
+                query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + order.price + ", " + order.tax_amount + ", " + order.total_price + ")";
+
+            }
+            else
+            {
+                return;
+            }
             //else it must be for the menu or something
 
             if (this.Connect() == true)     // Open connection
