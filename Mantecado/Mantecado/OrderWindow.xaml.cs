@@ -17,16 +17,17 @@ namespace Mantecado
     /// <summary>
     /// Interaction logic for OrderWindow.xaml
     /// </summary>
+
+
     public partial class OrderWindow : Window
     {
-
         Order o = new Order();
         private readonly MySqlServer server = new MySqlServer();
 
         public OrderWindow()
         {
             InitializeComponent();
-           
+            updatePrice();
         }
 
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
@@ -144,6 +145,18 @@ namespace Mantecado
             {
                 MessageBox.Show("Error reading items file\n" + ex.Message);
 
+            }
+        }
+        private void updatePrice()
+        {
+            File.Delete("../../../Prices/Prices.txt");
+            List<string>[] temp = server.Select("Products");
+            using StreamWriter sr = new StreamWriter("../../../Prices/Prices.txt");
+            int size = Int32.Parse(temp[3][0]);
+
+            for(int i = 0; i < size; i++)
+            {
+                sr.WriteLine(temp[0][i] + '\t' + temp[1][i] + '\t' + temp[2][i]);
             }
         }
 

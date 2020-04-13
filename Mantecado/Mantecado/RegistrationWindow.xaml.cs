@@ -86,7 +86,7 @@ namespace Mantecado
             if (validation == 0)
             {
                 employee data = GetData();
-                List<string>[] temp = server.Select();
+                List<string>[] temp = server.Select("employees");
                 server.Insert("employees",data);
                 MainWindow mainWindow = new MainWindow();
                 this.Close();

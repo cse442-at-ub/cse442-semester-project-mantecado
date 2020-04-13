@@ -52,7 +52,7 @@
                             <ComboBox Name="ItemCat">
                                 <ComboBoxItem IsSelected="True">Traditional</ComboBoxItem>
                                 <ComboBoxItem>Custard</ComboBoxItem>
-                                <ComboBoxItem>Milkshake</ComboBoxItem>
+                                <ComboBoxItem>Milkshakes</ComboBoxItem>
                                 <ComboBoxItem>Vegan</ComboBoxItem>
                             </ComboBox>
                         </StackPanel>

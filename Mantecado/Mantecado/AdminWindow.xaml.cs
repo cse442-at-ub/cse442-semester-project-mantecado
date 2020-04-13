@@ -18,6 +18,8 @@ namespace Mantecado
     /// </summary>
     public partial class AdminWindow : Window
     {
+        private readonly MySqlServer server = new MySqlServer();
+
         public AdminWindow()
         {
             InitializeComponent();
@@ -37,10 +39,16 @@ namespace Mantecado
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            product new_product = new product();
+            new_product.name = ItemNameBox.Text;
+            new_product.price = float.Parse(ItemPriceBox.Text);
+            new_product.category = ItemCat.Text;
+            server.Insert("Products", new employee(),new reciept(),new_product);
             AddItemPane.Visibility = Visibility.Collapsed;
             using StreamWriter sr = new StreamWriter("../../../Prices/Prices.txt", append: true);
          
             sr.WriteLine(ItemNameBox.Text + '\t' + ItemPriceBox.Text + '\t' + ItemCat.Text);
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

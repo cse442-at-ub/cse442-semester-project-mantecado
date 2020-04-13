@@ -25,6 +25,13 @@ namespace Mantecado
         public double tax_amount;
         public double total_price;
     }
+
+    struct product
+    {
+        public string name;
+        public double price;
+        public string category;
+    }
     class MySqlServer
     {
         private MySqlConnection connection;
@@ -81,7 +88,7 @@ namespace Mantecado
             }
         }
 
-        public void Insert(string table, employee hire = new employee(), reciept order = new reciept())
+        public void Insert(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
         {
             string query = "INSERT INTO "+table;
 
@@ -94,6 +101,10 @@ namespace Mantecado
             {
                 query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + order.price + ", " + order.tax_amount + ", " + order.total_price + ")";
 
+            }
+            else if (table == "Products")
+            {
+                query += "(Name, Price, Type) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "')";
             }
             else
             {
@@ -112,19 +123,19 @@ namespace Mantecado
             }
         }
 
-        public List<string>[] Select()
+        public List<string>[] Select(string table)
         {
-            string query = "SELECT * FROM employees";
-
+            string query = "SELECT * FROM "+table;
+            int count = 0;
             //Create a list to store the result
-            List<string>[] list = new List<string>[6];
+            List<string>[] list = new List<string>[7];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
             list[3] = new List<string>();
             list[4] = new List<string>();
             list[5] = new List<string>();
-
+            list[6] = new List<string>();
             //Open connection
             if (this.Connect() == true)
             {
@@ -132,18 +143,32 @@ namespace Mantecado
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
-
+                if (table == "employees")
+                { 
                 //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    list[0].Add(dataReader["name"] + "");
-                    list[1].Add(dataReader["age"] + "");
-                    list[2].Add(dataReader["id_num"] + "");
-                    list[3].Add(dataReader["pay"] + "");
-                    list[4].Add(dataReader["sex"] + "");
-                    list[5].Add(dataReader["birthday"] + "");
+                    while (dataReader.Read())
+                    {
+                        list[0].Add(dataReader["name"] + "");
+                        list[1].Add(dataReader["age"] + "");
+                        list[2].Add(dataReader["id_num"] + "");
+                        list[3].Add(dataReader["pay"] + "");
+                        list[4].Add(dataReader["sex"] + "");
+                        list[5].Add(dataReader["birthday"] + "");
+                        count++;
+                    }
+                    list[6].Add(Convert.ToString(count,10));
                 }
-
+                else if(table == "Products")
+                {
+                    while (dataReader.Read())
+                    {
+                        list[0].Add(dataReader["Name"] + "");
+                        list[1].Add(dataReader["Price"] + "");
+                        list[2].Add(dataReader["Type"] + "");
+                        count++;
+                    }
+                    list[3].Add(Convert.ToString(count, 10));
+                }
                 //close Data Reader
                 dataReader.Close();
 
