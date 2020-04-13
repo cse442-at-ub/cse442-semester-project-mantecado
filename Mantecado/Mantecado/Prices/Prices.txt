@@ -1,9 +1,7 @@
-﻿Vanilla Swirl	3.99	Traditional
-Chocolate Swirl	3.99	Traditional
+Vanilla Swirl	3.99	Traditional
 Strawberry Swirl	3.99	Traditional
 Berry Swirl	3.99	Traditional
 Neopolitan Swirl	3.99	Traditional
-Butter Pecan	3.99	Traditional
 Vanilla Bean	4.99	Custard
 Fudge	4.99	Custard
 Mixed Berry	4.99	Custard

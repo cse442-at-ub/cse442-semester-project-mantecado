@@ -25,6 +25,14 @@
           
                 />
 
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="DeleteItem"
+                Content="Delete an item" Margin="216,31,557,264" Click="DeleteItem_Click"
+          
+                />
+
             <Grid x:Name="AddItemPane" Visibility="Collapsed">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
@@ -52,7 +60,7 @@
                             <ComboBox Name="ItemCat">
                                 <ComboBoxItem IsSelected="True">Traditional</ComboBoxItem>
                                 <ComboBoxItem>Custard</ComboBoxItem>
-                                <ComboBoxItem>Milkshake</ComboBoxItem>
+                                <ComboBoxItem>Milkshakes</ComboBoxItem>
                                 <ComboBoxItem>Vegan</ComboBoxItem>
                             </ComboBox>
                         </StackPanel>
@@ -66,6 +74,39 @@
                     </StackPanel>
                 </Border>
             </Grid>
+            
+            
+            <Grid x:Name="DeleteItemPane" Visibility="Collapsed">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+            MinWidth="250"
+            Background="White" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,55,0,55" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Height="Auto" Width="Auto">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Remove an item: " FontWeight="Bold" FontFamily="Cambria" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name ="DeleteStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                            <TextBlock Margin="5" Text="Available Items" FontWeight="Bold" FontFamily="Cambria" />
+                            
+                        </StackPanel>
+                        </ScrollViewer>
+                       
+
+      
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="CancelDelete"  Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelDelete_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
+            
 
         </Grid>
     </Viewbox>
