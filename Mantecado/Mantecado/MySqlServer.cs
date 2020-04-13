@@ -165,9 +165,10 @@ namespace Mantecado
                         list[0].Add(dataReader["Name"] + "");
                         list[1].Add(dataReader["Price"] + "");
                         list[2].Add(dataReader["Type"] + "");
+                        list[3].Add(dataReader["item_id"] + "");
                         count++;
                     }
-                    list[3].Add(Convert.ToString(count, 10));
+                    list[4].Add(Convert.ToString(count, 10));
                 }
                 //close Data Reader
                 dataReader.Close();

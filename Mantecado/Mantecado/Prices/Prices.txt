@@ -1,13 +1,2 @@
-Plain Vanilla	2.99	Traditional
-Plain Strawberry	2.99	Traditional
-Plain Chocolate	2.99	Traditional
-Strawberry Swirl	3.99	Traditional
-Chocolate Swirl	3.99	Traditional
-Vanilla	4.5	Custard
-Strawberry	4.99	Custard
-Chocolate	6.99	Milkshake
-Yogurt	4.99	Vegan
-Orange Cream	1.99	Traditional
-Orange Cream Soda	1.99	Vegan
-Chocolate	6.99	Milkshake
-Vanilla	6.99	Milkshakes
+Vanilla	2.99	Traditional	1
+Strawberry	2.99	Traditional	2
