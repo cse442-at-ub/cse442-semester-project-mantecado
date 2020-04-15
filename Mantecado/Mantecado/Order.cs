@@ -10,6 +10,7 @@ namespace Mantecado
         public string itemName;
         public double itemPrice;
         public string itemCategory;
+        public int itemID;
         public List<AddOns> ItemAddons = new List<AddOns>();
         public System.Windows.Controls.Border B;
 

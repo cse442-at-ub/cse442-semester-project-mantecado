@@ -25,6 +25,13 @@ namespace Mantecado
         public double tax_amount;
         public double total_price;
     }
+
+    struct product
+    {
+        public string name;
+        public double price;
+        public string category;
+    }
     class MySqlServer
     {
         private MySqlConnection connection;
@@ -33,7 +40,8 @@ namespace Mantecado
         private string uid;
         private string password;
 
-        public MySqlServer(){
+        public MySqlServer()
+        {
             server = "tethys.cse.buffalo.edu";
             database = "cse442_542_2020_spring_teamaa_db";
             uid = "felixdel";
@@ -81,9 +89,32 @@ namespace Mantecado
             }
         }
 
-        public void Insert(string table, employee hire = new employee(), reciept order = new reciept())
+        public void Delete(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
         {
-            string query = "INSERT INTO "+table;
+            string query = "DELETE FROM " + table + " WHERE `Name` = ";
+            if (table == "Products")
+            {
+                query += "'" + item.name + "'";
+            }
+            else
+                return;
+
+            
+            if (this.Connect() == true)     // Open connection
+            {
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.ExecuteNonQuery();
+
+                this.Disconnect();      // Close connection
+            }
+
+        }
+
+            public void Insert(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
+        {
+            string query = "INSERT INTO " + table;
 
             // if it is an employee
             if (table == "employees")
@@ -95,6 +126,10 @@ namespace Mantecado
                 query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + order.price + ", " + order.tax_amount + ", " + order.total_price + ")";
 
             }
+            else if (table == "Products")
+            {
+                query += "(Name, Price, Type) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "')";
+            }
             else
             {
                 return;
@@ -105,26 +140,26 @@ namespace Mantecado
             {
 
                 MySqlCommand command = new MySqlCommand(query, connection);
-        
+
                 command.ExecuteNonQuery();
 
                 this.Disconnect();      // Close connection
             }
         }
 
-        public List<string>[] Select()
+        public List<string>[] Select(string table)
         {
-            string query = "SELECT * FROM employees";
-
+            string query = "SELECT * FROM " + table;
+            int count = 0;
             //Create a list to store the result
-            List<string>[] list = new List<string>[6];
+            List<string>[] list = new List<string>[7];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
             list[3] = new List<string>();
             list[4] = new List<string>();
             list[5] = new List<string>();
-
+            list[6] = new List<string>();
             //Open connection
             if (this.Connect() == true)
             {
@@ -132,18 +167,32 @@ namespace Mantecado
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
-                while (dataReader.Read())
+                if (table == "employees")
                 {
-                    list[0].Add(dataReader["name"] + "");
-                    list[1].Add(dataReader["age"] + "");
-                    list[2].Add(dataReader["id_num"] + "");
-                    list[3].Add(dataReader["pay"] + "");
-                    list[4].Add(dataReader["sex"] + "");
-                    list[5].Add(dataReader["birthday"] + "");
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        list[0].Add(dataReader["name"] + "");
+                        list[1].Add(dataReader["age"] + "");
+                        list[2].Add(dataReader["id_num"] + "");
+                        list[3].Add(dataReader["pay"] + "");
+                        list[4].Add(dataReader["sex"] + "");
+                        list[5].Add(dataReader["birthday"] + "");
+                        count++;
+                    }
+                    list[6].Add(Convert.ToString(count, 10));
                 }
-
+                else if (table == "Products")
+                {
+                    while (dataReader.Read())
+                    {
+                        list[0].Add(dataReader["Name"] + "");
+                        list[1].Add(dataReader["Price"] + "");
+                        list[2].Add(dataReader["Type"] + "");
+                        count++;
+                    }
+                    list[3].Add(Convert.ToString(count, 10));
+                }
                 //close Data Reader
                 dataReader.Close();
 

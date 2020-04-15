@@ -48,7 +48,7 @@ namespace Mantecado
                             empFound = true;
                             orderWindow.Show();
                             this.Close();
-                            
+
                         }
                         if (sr.EndOfStream && !empFound)
                         {
@@ -56,9 +56,15 @@ namespace Mantecado
                             InvalidNum.Visibility = Visibility.Visible;
                             //MessageBox.Show("Employee not found");
                         }
-                        
+
                     }
-                                          
+
+                }
+                else
+                {
+                    if(InputBox.Text.Length > 0)
+                        InputBox.Text = InputBox.Text.Remove(0);
+                    InvalidNum.Visibility = Visibility.Visible;
                 }
             }
             catch (IOException ex)
@@ -150,8 +156,50 @@ namespace Mantecado
         private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
             AdminWindow adminWindow = new AdminWindow();
-            adminWindow.Show();
-            this.Close();
+            
+            bool empFound = false;
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../EmployeeInfo/Employees.txt");
+
+                if (InputBox.Text.Length == 4)
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        String line = sr.ReadLine();
+                        String input = InputBox.Text.ToString();
+                        String empNumber = line.Split('\t')[0];
+                        if (empNumber.Equals(input))
+                        {
+                            empFound = true;
+                            adminWindow.Show();
+                            this.Close();
+
+                        }
+                        if (sr.EndOfStream && !empFound)
+                        {
+                            InputBox.Text = InputBox.Text.Remove(0);
+                            InvalidNum.Visibility = Visibility.Visible;
+                            //MessageBox.Show("Employee not found");
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    if (InputBox.Text.Length > 0)
+                        InputBox.Text = InputBox.Text.Remove(0);
+                    InvalidNum.Visibility = Visibility.Visible;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading employee file\n" + ex.Message);
+
+            }
+            
+           
         }
     }
 }

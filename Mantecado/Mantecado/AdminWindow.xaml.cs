@@ -18,6 +18,9 @@ namespace Mantecado
     /// </summary>
     public partial class AdminWindow : Window
     {
+
+        private MySqlServer server = new MySqlServer();
+        
         public AdminWindow()
         {
             InitializeComponent();
@@ -37,10 +40,23 @@ namespace Mantecado
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            
             AddItemPane.Visibility = Visibility.Collapsed;
+            
+            product new_product = new product();
+            new_product.name = ItemNameBox.Text;
+            new_product.price = float.Parse(ItemPriceBox.Text);
+            new_product.category = ItemCat.Text;
+            server.Insert("Products", new employee(), new reciept(), new_product);
             using StreamWriter sw = new StreamWriter("../../../Prices/Prices.txt", append: true);
          
             sw.WriteLine(ItemNameBox.Text + '\t' + ItemPriceBox.Text + '\t' + ItemCat.Text);
+            ItemNameBox.Text = "";
+            ItemPriceBox.Text = "";
+            ItemCat.SelectedIndex = 0;
+
+
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -57,23 +73,28 @@ namespace Mantecado
 
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
+
+           
             
-            if (DeleteStack.Children.Count == 1)
-            {
+            string fileName = "../../../Prices/Prices.txt";
                 try
                 {
-                    using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
+                    using StreamReader sr = new StreamReader(fileName);
                     while (!sr.EndOfStream)
                     {
                         String line = sr.ReadLine();
                         String[] buttonInfo = line.Split('\t');
                         String buttonName = buttonInfo[0];
-                        Button NewButton = new Button();
+                        if (buttonName != "")
+                        {
 
-                        NewButton.Content = buttonName;
-                    
-                        NewButton.Click += new RoutedEventHandler(DeleteButton_Click);
-                        DeleteStack.Children.Add(NewButton);
+                            Button NewButton = new Button();
+
+                            NewButton.Content = buttonName;
+
+                            NewButton.Click += new RoutedEventHandler(DeleteButton_Click);
+                            DeleteStack.Children.Add(NewButton);
+                        }
 
                     }
                 }
@@ -83,7 +104,7 @@ namespace Mantecado
 
                 }
                 
-            }
+            
             DeleteItemPane.Visibility = Visibility.Visible;
 
             
@@ -97,11 +118,15 @@ namespace Mantecado
             switch(result)
             {
                 case MessageBoxResult.Yes:
+
+                   
+
                     String filePath = "../../../Prices/Prices.txt";
                    
                    
                     String updatedFile = "";
-
+                    product delete_product = new product();
+                    
                     try
                     {
                         using StreamReader sr = new StreamReader(filePath);
@@ -114,6 +139,12 @@ namespace Mantecado
                                 
                                 updatedFile += line + '\n';
                             }
+                            else
+                            {
+                                delete_product.name = itemInfo[0];
+                                delete_product.price = float.Parse(itemInfo[1]);
+                                delete_product.category = itemInfo[2];
+                            }
                         }
                         sr.Close();
                     }
@@ -122,8 +153,9 @@ namespace Mantecado
                         MessageBox.Show("Error reading items file\n" + ex.Message);
 
                     }
-                   
 
+                   
+                    server.Delete("Products", new employee(), new reciept(), delete_product);
                     updatedFile = updatedFile.TrimEnd('\n', '\r');
 
                     File.WriteAllText(filePath, String.Empty);
@@ -141,7 +173,7 @@ namespace Mantecado
 
                     }
                     DeleteStack.Children.Remove((Button)sender);
-                    DeleteItemPane.Visibility = Visibility.Collapsed;
+                   // DeleteItemPane.Visibility = Visibility.Collapsed;
                     break;
 
                 case MessageBoxResult.No:
