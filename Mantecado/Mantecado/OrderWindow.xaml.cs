@@ -17,10 +17,9 @@ namespace Mantecado
     /// <summary>
     /// Interaction logic for OrderWindow.xaml
     /// </summary>
-
-
     public partial class OrderWindow : Window
     {
+
         Order o = new Order();
         private readonly MySqlServer server = new MySqlServer();
 
@@ -28,6 +27,7 @@ namespace Mantecado
         {
             InitializeComponent();
             updatePrice();
+           
         }
 
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
@@ -147,16 +147,17 @@ namespace Mantecado
 
             }
         }
+
         private void updatePrice()
         {
             File.Delete("../../../Prices/Prices.txt");
             List<string>[] temp = server.Select("Products");
             using StreamWriter sr = new StreamWriter("../../../Prices/Prices.txt");
-            int size = Int32.Parse(temp[4][0]);
+            int size = Int32.Parse(temp[3][0]);
 
-            for(int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
-                sr.WriteLine(temp[0][i] + '\t' + temp[1][i] + '\t' + temp[2][i] + '\t' + temp[3][i]);
+                sr.WriteLine(temp[0][i] + '\t' + temp[1][i] + '\t' + temp[2][i]);
             }
         }
 
@@ -176,6 +177,7 @@ namespace Mantecado
                     String itemName = itemInfo[0];
                     String itemPrice = itemInfo[1];
                     String itemCategory = itemInfo[2];
+                   
 
                     if (NewItem.itemName.Equals(itemName))
                     {

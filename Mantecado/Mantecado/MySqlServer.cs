@@ -40,7 +40,8 @@ namespace Mantecado
         private string uid;
         private string password;
 
-        public MySqlServer(){
+        public MySqlServer()
+        {
             server = "tethys.cse.buffalo.edu";
             database = "cse442_542_2020_spring_teamaa_db";
             uid = "felixdel";
@@ -88,9 +89,32 @@ namespace Mantecado
             }
         }
 
-        public void Insert(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
+        public void Delete(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
         {
-            string query = "INSERT INTO "+table;
+            string query = "DELETE FROM " + table + " WHERE `Name` = ";
+            if (table == "Products")
+            {
+                query += "'" + item.name + "'";
+            }
+            else
+                return;
+
+            
+            if (this.Connect() == true)     // Open connection
+            {
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.ExecuteNonQuery();
+
+                this.Disconnect();      // Close connection
+            }
+
+        }
+
+            public void Insert(string table, employee hire = new employee(), reciept order = new reciept(), product item = new product())
+        {
+            string query = "INSERT INTO " + table;
 
             // if it is an employee
             if (table == "employees")
@@ -116,7 +140,7 @@ namespace Mantecado
             {
 
                 MySqlCommand command = new MySqlCommand(query, connection);
-        
+
                 command.ExecuteNonQuery();
 
                 this.Disconnect();      // Close connection
@@ -125,7 +149,7 @@ namespace Mantecado
 
         public List<string>[] Select(string table)
         {
-            string query = "SELECT * FROM "+table;
+            string query = "SELECT * FROM " + table;
             int count = 0;
             //Create a list to store the result
             List<string>[] list = new List<string>[7];
@@ -144,8 +168,8 @@ namespace Mantecado
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 if (table == "employees")
-                { 
-                //Read the data and store them in the list
+                {
+                    //Read the data and store them in the list
                     while (dataReader.Read())
                     {
                         list[0].Add(dataReader["name"] + "");
@@ -156,19 +180,18 @@ namespace Mantecado
                         list[5].Add(dataReader["birthday"] + "");
                         count++;
                     }
-                    list[6].Add(Convert.ToString(count,10));
+                    list[6].Add(Convert.ToString(count, 10));
                 }
-                else if(table == "Products")
+                else if (table == "Products")
                 {
                     while (dataReader.Read())
                     {
                         list[0].Add(dataReader["Name"] + "");
                         list[1].Add(dataReader["Price"] + "");
                         list[2].Add(dataReader["Type"] + "");
-                        list[3].Add(dataReader["item_id"] + "");
                         count++;
                     }
-                    list[4].Add(Convert.ToString(count, 10));
+                    list[3].Add(Convert.ToString(count, 10));
                 }
                 //close Data Reader
                 dataReader.Close();
