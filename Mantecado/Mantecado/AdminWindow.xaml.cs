@@ -310,12 +310,13 @@ namespace Mantecado
 
         private void SetInventory_Click(object sender, RoutedEventArgs e)
         {
-
             foreach (TextBox t in InvenStack.Children)
             {
                 if (t.IsFocused)
                 {
-                    string query = "UPDATE" + "Inventory";
+                    string i = InputBox.Text;
+                    string query = "UPDATE Products SET Stock= " + InputBox.Text + " WHERE Name= '" + t.Text + "'";
+                    server.update(query);
                 }
 
             }
@@ -324,6 +325,19 @@ namespace Mantecado
 
         private void GetInventory_Click(object sender, RoutedEventArgs e)
         {
+
+            foreach (TextBox t in InvenStack.Children)
+            {
+                if (t.IsFocused)
+                {
+                    List<string>[] temp = server.Select("Products");
+
+                    int size = Int32.Parse(temp[4][0]);
+
+
+                }
+
+            }
 
         }
 

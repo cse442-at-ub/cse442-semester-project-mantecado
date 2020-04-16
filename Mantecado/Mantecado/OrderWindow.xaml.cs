@@ -147,7 +147,7 @@ namespace Mantecado
             File.Delete("../../../Prices/Prices.txt");
             List<string>[] temp = server.Select("Products");
             using StreamWriter sr = new StreamWriter("../../../Prices/Prices.txt");
-            int size = Int32.Parse(temp[3][0]);
+            int size = Int32.Parse(temp[4][0]);
 
             for (int i = 0; i < size; i++)
             {

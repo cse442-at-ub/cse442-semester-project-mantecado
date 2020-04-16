@@ -144,10 +144,10 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Background="Gray">
                                 <Button x:Name="GetInventory"  Margin="5" Content="GetStock" Background="White" Click="GetInventory_Click"/>
-                                <TextBlock Name="Change1" Margin="5" Text="" FontWeight="Bold" Background="White" FontFamily="Cambria" FontSize="15" Width="30" Visibility="Visible"/>
+                                <TextBlock Name="ShowInv" Margin="5" Text="" FontWeight="Bold" Background="White" FontFamily="Cambria" FontSize="15" Width="30" Visibility="Visible"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="Gray">
-                                <Button x:Name="SetInventory"  Margin="5" Content="Set Stock" Background="White" Click="SetInventory_Click"/>
+                                <Button x:Name="SetInventory"  Margin="5" Content="Set Stock" Background="White" Click="SetInventory_Click" Focusable="False"/>
                                 <TextBox x:Name="InputBox" Margin="5" Background="White" TextWrapping="Wrap" Text="" Width="30"/>
                             </StackPanel>
                             <Button x:Name="ReturnFromInven" Margin="20,5,20,20" Grid.Row="1" Grid.ColumnSpan="2" Content="Return" Background="White" Click="ReturnInven_Click"/>

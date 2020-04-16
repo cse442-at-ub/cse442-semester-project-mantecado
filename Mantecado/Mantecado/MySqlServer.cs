@@ -190,10 +190,13 @@ namespace Mantecado
                         list[0].Add(dataReader["Name"] + "");
                         list[1].Add(dataReader["Price"] + "");
                         list[2].Add(dataReader["Type"] + "");
+                        list[3].Add(dataReader["Stock"] + "");
+                           
                         count++;
                     }
-                    list[3].Add(Convert.ToString(count, 10));
+                    list[4].Add(Convert.ToString(count, 10));
                 }
+               
                 //close Data Reader
                 dataReader.Close();
 
@@ -207,6 +210,19 @@ namespace Mantecado
             {
                 return list;
             }
+
+
+        }
+
+        public void update(string query)
+        {
+            this.Connect();
+            
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            command.ExecuteNonQuery();
+
+            this.Disconnect();
         }
 
     }
