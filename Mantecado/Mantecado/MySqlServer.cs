@@ -31,6 +31,7 @@ namespace Mantecado
         public string name;
         public double price;
         public string category;
+        public int stock;
     }
     class MySqlServer
     {

@@ -243,6 +243,93 @@ namespace Mantecado
 
         }
 
-       
+        private void InventoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResultText.Visibility = Visibility.Collapsed;
+            InvenStack.Children.Clear();
+
+
+            string fileName = "../../../Prices/Prices.txt";
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] buttonInfo = line.Split('\t');
+                    String buttonName = buttonInfo[0];
+
+
+                    if (buttonName != "")
+                    {
+                        //buttonName += " - " + buttonInfo[2];
+                        TextBox tb = new TextBox();
+
+                        tb.Text = buttonName;
+                        //tb.MinWidth = 100;
+                        tb.SelectionOpacity = 0;
+                        tb.Focusable = true;
+                        tb.Cursor = Cursors.Arrow;
+                        tb.IsReadOnly = true;
+                        tb.Background = new SolidColorBrush(Colors.LightGray);
+                        tb.GotFocus += new RoutedEventHandler(FocusButton1_Click);
+                        tb.LostFocus += new RoutedEventHandler(LostFocusButton1);
+                        
+                        InvenStack.Children.Add(tb);
+
+
+                    }
+
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+
+            InventorySetterGetter.Visibility = Visibility.Visible;
+        }
+
+        private void FocusButton1_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox T = e.OriginalSource as TextBox;
+
+            T.Background = new SolidColorBrush(Colors.LightBlue);
+
+        }
+
+        private void LostFocusButton1(object sender, RoutedEventArgs e)
+        {   
+
+            TextBox T = e.OriginalSource as TextBox;
+
+            T.Background = new SolidColorBrush(Colors.LightGray);
+
+        }
+
+        private void SetInventory_Click(object sender, RoutedEventArgs e)
+        {
+
+            foreach (TextBox t in InvenStack.Children)
+            {
+                if (t.IsFocused)
+                {
+                    string query = "UPDATE" + "Inventory";
+                }
+
+            }
+
+        }
+
+        private void GetInventory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReturnInven_Click(object sender, RoutedEventArgs e)
+        {
+            InventorySetterGetter.Visibility = Visibility.Collapsed;
+        }
     }
 }

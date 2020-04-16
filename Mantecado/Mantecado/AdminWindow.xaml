@@ -33,6 +33,14 @@
           
                 />
 
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="InventoryButton"
+                Content="Inventory" Margin="43,199,730,96" Click="InventoryButton_Click"
+          
+                />
+
             <Grid x:Name="AddItemPane" Visibility="Collapsed">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
@@ -94,9 +102,7 @@
                             
                         </StackPanel>
                         </ScrollViewer>
-                       
-
-      
+              
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="CancelDelete"  Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelDelete_Click"/>
                         </StackPanel>
@@ -106,7 +112,54 @@
                 </Border>
             </Grid>
             <TextBlock Name="ResultText" Margin="43,362,110,43" Text="" FontWeight="Bold" FontFamily="Cambria" FontSize="15" Visibility="Collapsed"/>
-            
+
+
+            <Grid x:Name="InventorySetterGetter" Visibility="Collapsed">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+            MinWidth="250"
+            Background="White" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,55,0,55" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" MaxHeight="700" Height="Auto" Width="Auto">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Get or Set the Inventory" FontWeight="Bold" FontFamily="Cambria" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Name ="InvenStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto" Margin="5">
+                                <TextBlock Margin="5" Text="Available Items" FontWeight="Bold" FontFamily="Cambria"/>
+
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Background="Gray">
+                                <Button x:Name="GetInventory"  Margin="5" Content="GetStock" Background="White" Click="GetInventory_Click"/>
+                                <TextBlock Name="Change1" Margin="5" Text="" FontWeight="Bold" Background="White" FontFamily="Cambria" FontSize="15" Width="30" Visibility="Visible"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="Gray">
+                                <Button x:Name="SetInventory"  Margin="5" Content="Set Stock" Background="White" Click="SetInventory_Click"/>
+                                <TextBox x:Name="InputBox" Margin="5" Background="White" TextWrapping="Wrap" Text="" Width="30"/>
+                            </StackPanel>
+                            <Button x:Name="ReturnFromInven" Margin="20,5,20,20" Grid.Row="1" Grid.ColumnSpan="2" Content="Return" Background="White" Click="ReturnInven_Click"/>
+                            
+                        </Grid>
+
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+           
 
         </Grid>
     </Viewbox>
