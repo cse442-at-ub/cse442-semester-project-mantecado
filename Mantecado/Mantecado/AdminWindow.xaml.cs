@@ -243,6 +243,24 @@ namespace Mantecado
 
         }
 
-       
+        private void SomeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GetStock_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteItem_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Inventory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

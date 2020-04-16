@@ -27,7 +27,7 @@ namespace Mantecado
         {
             InitializeComponent();
             updatePrice();
-           
+
         }
 
         private void OrderMenuButton_Click(object sender, RoutedEventArgs e)
@@ -49,30 +49,30 @@ namespace Mantecado
                     String[] buttonInfo = line.Split('\t');
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
-                    
-                     if (((Button)sender).Content.ToString().Equals(buttonCat))
-                     {
+
+                    if (((Button)sender).Content.ToString().Equals(buttonCat))
+                    {
 
 
 
-                         if (buttonCat.Equals("Traditional"))
-                         {
+                        if (buttonCat.Equals("Traditional"))
+                        {
                             Button NewButton = new Button();
                             NewButton.Content = buttonName;
                             NewButton.Click += new RoutedEventHandler(Tradition_button);
                             NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                             NewButton.FontSize = 30;
-                            
+
                             Grid.SetRow(NewButton, rowNum);
                             Grid.SetColumn(NewButton, colNum);
                             Main_Traditional.Children.Add(NewButton);
-                             rowNum++;
+                            rowNum++;
                             if (rowNum == 4)
                             {
                                 colNum++;
                                 rowNum = 0;
                             }
-                         }
+                        }
 
                         if (buttonCat.Equals("Custard"))
                         {
@@ -171,7 +171,7 @@ namespace Mantecado
                     String itemName = itemInfo[0];
                     String itemPrice = itemInfo[1];
                     String itemCategory = itemInfo[2];
-                   
+
 
                     if (NewItem.itemName.Equals(itemName))
                     {
@@ -214,7 +214,7 @@ namespace Mantecado
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
-           
+
 
             Stacky.Children.Add(NewItem.B);
 
@@ -273,12 +273,12 @@ namespace Mantecado
 
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
-           
+
             AddOns newAddon = new AddOns();
             newAddon.addonName = ((Button)sender).Content.ToString();
 
             newAddon.addonPrice = 0.39;
-            
+
 
             StackPanel S;
 
@@ -291,7 +291,7 @@ namespace Mantecado
                     o.AddAddon(i, newAddon);
                     S.Children.Add(T);
                 }
-                
+
             }
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
@@ -427,12 +427,6 @@ namespace Mantecado
         public void TraditionButton_Click(object sender, RoutedEventArgs e)
         {
 
-            Button bu = sender as Button;
-
-            bu.BorderBrush = new SolidColorBrush(Colors.LightBlue);
-
-            bu.BorderThickness = new Thickness(3);
-
             if (!Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Visible;
 
@@ -515,8 +509,8 @@ namespace Mantecado
             data.order = o.ToString();
             char[] delim = { '\n', '\t' };
             string[] words = data.order.Split(delim);
-            string temp="";
-            foreach(var word in words)
+            string temp = "";
+            foreach (var word in words)
             {
                 temp += word + ' ';
             }
@@ -552,17 +546,17 @@ namespace Mantecado
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-         
-            foreach(Item i in o.OrderItems)
+
+            foreach (Item i in o.OrderItems)
             {
-                if(i.B.Child.IsFocused)
+                if (i.B.Child.IsFocused)
                 {
-                  o.RemoveItem(i);
-                  Stacky.Children.Remove(i.B);
-                  break;
+                    o.RemoveItem(i);
+                    Stacky.Children.Remove(i.B);
+                    break;
                 }
             }
-            
+
             TextBox T = e.OriginalSource as TextBox;
 
             foreach (Item i in o.OrderItems)
@@ -595,19 +589,25 @@ namespace Mantecado
             this.Close();
         }
 
-        private void TraditionalButton_MouseLeave(object sender, MouseEventArgs e)
+        private void CatButton_MouseLeave(object sender, MouseEventArgs e)
         {
 
             Button bu = sender as Button;
 
-            if(!bu.IsFocused)
-            bu.Background = new SolidColorBrush(Colors.LightGreen);
+            if ((string)bu.Content == "Traditional")
+                bu.Background = new SolidColorBrush(Colors.LightGreen);
 
+            if ((string)bu.Content == "Custard")
+                bu.Background = new SolidColorBrush(Colors.LightPink);
 
+            if ((string)bu.Content == "Milkshakes")
+                bu.Background = new SolidColorBrush(Colors.MediumPurple);
+
+            if ((string)bu.Content == "Vegan")
+                bu.Background = new SolidColorBrush(Colors.PeachPuff);
         }
 
-
-        private void TraditionalButton_MouseEnter(object sender, MouseEventArgs e)
+            private void CatButton_MouseEnter(object sender, MouseEventArgs e)
         {
             Button bu = sender as Button;
 
