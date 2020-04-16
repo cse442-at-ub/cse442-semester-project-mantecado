@@ -38,9 +38,6 @@ namespace Mantecado
 
         private void AddButtons(object sender)
         {
-            /*Button newButton = new Button();
-            newButton.Content = "Added Button";
-            Main_Traditional.Children.Add(newButton);*/
             int rowNum = 0;
             int colNum = 0;
             try
@@ -52,9 +49,6 @@ namespace Mantecado
                     String[] buttonInfo = line.Split('\t');
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
-                    //Button newButton = new Button();
-                    //newButton.Content = "Added Button";
-                    //Main_Traditional.Children.Add(newButton);
                     
                      if (((Button)sender).Content.ToString().Equals(buttonCat))
                      {
@@ -193,10 +187,9 @@ namespace Mantecado
 
             }
 
-
             TextBox T = createFirstBox();
 
-            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + NewItem.itemPrice));
+            T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + (NewItem.itemPrice).ToString("0.00")));
 
             o.AddItem(NewItem);
 
@@ -205,6 +198,8 @@ namespace Mantecado
             NewItem.B = new Border();
 
             StackPanel S = new StackPanel();
+
+
 
             S.Children.Add(T);
 
@@ -219,6 +214,7 @@ namespace Mantecado
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
+           
 
             Stacky.Children.Add(NewItem.B);
 
@@ -239,6 +235,7 @@ namespace Mantecado
             T.LostFocus += new RoutedEventHandler(TextBoxLostFocus);
             T.Text = content;
             T.FontSize = 30;
+
             return T;
         }
 
@@ -315,18 +312,14 @@ namespace Mantecado
 
             StackPanel S = e.OriginalSource as StackPanel;
 
-
-
             foreach (Item i in o.OrderItems)
             {
-
                 if (i.B.Child.IsMouseOver)
                 {
                     if (!S.IsFocused)
                         i.B.BorderThickness = new Thickness(1);
                 }
             }
-
         }
 
         private void TextBoxOnFocus(object sender, RoutedEventArgs e)
@@ -433,6 +426,13 @@ namespace Mantecado
         }
         public void TraditionButton_Click(object sender, RoutedEventArgs e)
         {
+
+            Button bu = sender as Button;
+
+            bu.BorderBrush = new SolidColorBrush(Colors.LightBlue);
+
+            bu.BorderThickness = new Thickness(3);
+
             if (!Main_Traditional.IsVisible)
                 Main_Traditional.Visibility = Visibility.Visible;
 
@@ -522,11 +522,12 @@ namespace Mantecado
             }
             data.order = temp;
             data.item_amount = o.GetItemAmount();
-            data.price = o.GetSubtotal();
-            data.tax_amount = o.GetTax();
-            data.total_price = o.GetTotalPrice();
+            data.price = Double.Parse(o.GetSubtotal());
+            data.tax_amount = Double.Parse(o.GetTax());
+            data.total_price = Double.Parse(o.GetTotalPrice());
             return data;
         }
+
 
         private void SendStay_Click(object sender, RoutedEventArgs e)
         {
@@ -561,22 +562,26 @@ namespace Mantecado
                   break;
                 }
             }
-
-            TextBox T = e.OriginalSource as TextBox;
             
-           foreach(Border Bor in Stacky.Children)
+            TextBox T = e.OriginalSource as TextBox;
+
+            foreach (Item i in o.OrderItems)
             {
-                StackPanel S = Bor.Child as StackPanel;
-                
+                StackPanel S = i.B.Child as StackPanel;
+
                 foreach (TextBox t in S.Children)
                 {
                     if (t.IsFocused)
                     {
+                        string[] addonName = t.Text.Split('+', '\t');
+                        addonName[1] = addonName[1].Trim();
+                        o.RemoveAddon(i, addonName[1]);
                         S.Children.Remove(t);
                         break;
                     }
                 }
             }
+
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
@@ -588,6 +593,26 @@ namespace Mantecado
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
             this.Close();
+        }
+
+        private void TraditionalButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+            Button bu = sender as Button;
+
+            if(!bu.IsFocused)
+            bu.Background = new SolidColorBrush(Colors.LightGreen);
+
+
+        }
+
+
+        private void TraditionalButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button bu = sender as Button;
+
+            bu.Background = new SolidColorBrush(Colors.LightBlue);
+
         }
     }
 }

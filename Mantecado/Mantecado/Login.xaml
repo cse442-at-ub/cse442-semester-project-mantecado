@@ -9,7 +9,7 @@
         WindowStyle="None"
         Title="LoginWindow" >
     <Viewbox>
-        <Grid Height="419" VerticalAlignment="Bottom">
+        <Grid Height="419" VerticalAlignment="Bottom">  
             <TextBlock HorizontalAlignment="Left" Margin="330,38,0,0" TextWrapping="Wrap" Text="Employee ID Number" VerticalAlignment="Top" RenderTransformOrigin="0.554,3.029"/>
             <TextBox x:Name="InputBox" HorizontalAlignment="Left" Height="23" Margin="327,87,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
             <Button
@@ -112,13 +112,6 @@
             <Button
             Style="{StaticResource RoundButtonTemplate}"
             BorderBrush="#fff"
-            x:Name="InOutButton"
-            Content="Clock In/Clock Out" Margin="111,124,542,185"
-          
-            />
-            <Button
-            Style="{StaticResource RoundButtonTemplate}"
-            BorderBrush="#fff"
             x:Name="BackButton"
             Content="Backspace" Margin="530,262,194,35" Click="BackButton_Click"
           
@@ -134,7 +127,7 @@
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="ExitButton"
-                Content="Exit" Margin="691,262,33,35" Click="ExitButton_Click"
+                Content="Exit" Margin="652,262,72,35" Click="ExitButton_Click"
           
             />
             <TextBlock Name="InvalidNum" Visibility="Hidden" HorizontalAlignment="Left" Margin="319,59,0,0" Text="Invalid Employee Number" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.233,0.499"/>
@@ -142,7 +135,7 @@
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="AdminButton"
-                Content="Admin" Margin="691,124,33,173" Click="AdminButton_Click"
+                Content="Admin" Margin="113,124,542,173" Click="AdminButton_Click"
           
             />
 

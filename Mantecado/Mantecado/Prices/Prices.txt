@@ -1,2 +1,1 @@
-Vanilla	2.99	Traditional	1
-Strawberry	2.99	Traditional	2
+Vanilla Cone 	0.5	Traditional

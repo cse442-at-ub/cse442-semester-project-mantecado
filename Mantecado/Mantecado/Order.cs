@@ -59,23 +59,41 @@ namespace Mantecado
 
         }
 
+        public void RemoveAddon(Item item, string text)
+        {   
+            
+            foreach(AddOns a in item.ItemAddons)
+            {
+                if (a.addonName == text)
+                {
+                    
+                    SubTotal -= a.addonPrice;
+                    AddedTax -= a.addonPrice * TAX_RATE;
+                    TotalPrice = SubTotal + AddedTax;
+                    item.ItemAddons.Remove(a);
+                    break;
+                }
+            }
+    
+        }
 
-        public double GetTotalPrice()
+
+        public string GetTotalPrice()
         {
-            return Math.Round(TotalPrice, 2);
+            return (Math.Round(TotalPrice, 2)).ToString("0.00");
         }
         public int GetItemAmount()
         {
             return item_amount;
         }
-        public double GetTax()
+        public string GetTax()
         {
-            return Math.Round(AddedTax, 2);
+            return (Math.Round(AddedTax, 2)).ToString("0.00");
         }
 
-        public double GetSubtotal()
+        public string GetSubtotal()
         {
-            return Math.Round(SubTotal, 2);
+            return (Math.Round(SubTotal, 2)).ToString("0.00");
         }
 
      
@@ -92,7 +110,7 @@ namespace Mantecado
                 }
                 fullOrder += '\n';
             }
-            fullOrder += "Total Price: " + "$" + (Math.Round(this.SubTotal, 2));
+            fullOrder += "Total Price: " + "$" + ((Math.Round(this.SubTotal, 2))).ToString("0.00");
 
             return String.Format("{0:0.00}", fullOrder);
         }

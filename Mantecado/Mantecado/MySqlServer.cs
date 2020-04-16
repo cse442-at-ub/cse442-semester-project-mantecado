@@ -123,7 +123,7 @@ namespace Mantecado
             }
             else if (table == "Reciepts")
             {
-                query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + order.price + ", " + order.tax_amount + ", " + order.total_price + ")";
+                query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + (order.price).ToString("0.00") + ", " + order.tax_amount + ", " + order.total_price + ")";
 
             }
             else if (table == "Products")
