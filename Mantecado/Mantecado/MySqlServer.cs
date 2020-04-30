@@ -10,9 +10,9 @@ namespace Mantecado
     struct employee
     {
         public string name;
-        public int age;
+        public string age;
         public string id;
-        public double pay_rate;
+        public string pay_rate;
         public string sex;
         public string birthday;
     }
@@ -120,7 +120,7 @@ namespace Mantecado
             // if it is an employee
             if (table == "employees")
             {
-                query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', " + hire.age + ", " + hire.id + ", " + hire.pay_rate + ", '" + hire.sex + "', " + hire.birthday + ")";
+                query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', '" + hire.age + "', '" + hire.id + "', '" + hire.pay_rate + "', '" + hire.sex + "', '" + hire.birthday + "')";
             }
             else if (table == "Reciepts")
             {
