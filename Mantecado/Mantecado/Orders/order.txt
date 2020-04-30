@@ -1,1 +1,5 @@
-Total Price: $0.00
+Ice Cream 		$100
+
+Ice Cream 		$100
+
+Total Price: $200.00
