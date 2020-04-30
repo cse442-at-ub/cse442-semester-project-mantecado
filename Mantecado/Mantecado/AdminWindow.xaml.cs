@@ -137,7 +137,6 @@ namespace Mantecado
                             NewButton.Content = buttonName;
 
                             NewButton.Click += new RoutedEventHandler(DeleteButton_Click);
-                       
                                 
                             DeleteStack.Children.Add(NewButton);
                         
@@ -354,9 +353,77 @@ namespace Mantecado
             InventorySetterGetter.Visibility = Visibility.Collapsed;
         }
 
-        private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddonButton_Click(object sender, RoutedEventArgs e)
         {
 
+            ResultText.Visibility = Visibility.Collapsed;
+            AddAddonPane.Visibility = Visibility.Visible;
+
+        }
+
+        private void AddonConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddAddonPane.Visibility = Visibility.Collapsed;
+            bool dup = false;
+            string fileName = "../../../Prices/AddonPrices.txt";
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] AddonInfo = line.Split('\t');
+                    String AddonName = AddonInfo[0];
+
+
+                    if (AddonName != "")
+                    {
+
+                        AddonName += " - " + AddonInfo[2];
+                        if (AddonName == (AddonNameBox.Text + " - " + AddonCat.Text))
+                        {
+                            ResultText.Text = AddonNameBox.Text + " already exists.";
+                            ResultText.Visibility = Visibility.Visible;
+                            dup = true;
+                        }
+
+                    }
+
+                }
+                sr.Close();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading Addons file\n" + ex.Message);
+
+            }
+            if (!dup)
+            {
+                product new_product = new product();
+                new_product.name = AddonNameBox.Text;
+                new_product.price = float.Parse(AddonPriceBox.Text);
+                new_product.category = AddonCat.Text;
+                //server.Insert("Products", new employee(), new reciept(), new_product);
+                using StreamWriter sw = new StreamWriter(fileName, append: true);
+                
+                sw.WriteLine(AddonNameBox.Text + '\t' + AddonPriceBox.Text + '\t' + AddonCat.Text);
+                ResultText.Text = AddonNameBox.Text + " added to category " + AddonCat.Text;
+                ResultText.Visibility = Visibility.Visible;
+
+            }
+
+            AddonNameBox.Text = "";
+            AddonPriceBox.Text = "";
+            AddonCat.SelectedIndex = 0;
+        }
+
+        private void AddonCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddAddonPane.Visibility = Visibility.Collapsed;
+            AddonNameBox.Text = "";
+            AddonPriceBox.Text = "";
+            AddonCat.SelectedIndex = 0;
         }
     }
 }

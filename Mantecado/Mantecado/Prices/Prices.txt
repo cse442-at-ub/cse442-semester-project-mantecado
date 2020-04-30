@@ -1,4 +1,4 @@
-Vanilla	5	Traditional
-Choc	4	Traditional
-Straw	4	Traditional
-Mint 	3.5	Traditional
+Strawberry Cone 	3.25	Traditional
+Chocolate Cone 	3.25	Traditional
+Vanilla Cone	3.25	Traditional
+Strwbrry	0.35	Traditional

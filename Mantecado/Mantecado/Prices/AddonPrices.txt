@@ -1,0 +1,4 @@
+Strwbrry	.35	Traditional
+CksNCrm	.50	Traditional
+NewAddon	5.5	Traditional
+thisnewthang	500	Traditional

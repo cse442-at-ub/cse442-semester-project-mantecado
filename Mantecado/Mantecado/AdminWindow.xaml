@@ -10,18 +10,22 @@
         Title="AdminWindow">
     <Viewbox>
         <Grid Height="435" VerticalAlignment="Bottom" Width="928">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="453*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
             <Button
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="AddItem"
-                Content="Add a New Item" Margin="43,31,730,264" Click="AddItem_Click"
+                Content="Add a New Item" Margin="43,31,708,264" Click="AddItem_Click"
           
                 />
             <Button
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="Return"
-                Content="Return" Margin="823,274,33,23" Click="Return_Click" 
+                Content="Return" Margin="823,274,11,23" Click="Return_Click" 
           
                 />
 
@@ -29,7 +33,7 @@
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="DeleteItem"
-                Content="Delete an item" Margin="216,31,557,264" Click="DeleteItem_Click"
+                Content="Delete an item" Margin="216,31,535,264" Click="DeleteItem_Click"
           
                 />
 
@@ -37,11 +41,18 @@
                 Style="{StaticResource RoundButtonTemplate}"
                 BorderBrush="#fff"
                 x:Name="InventoryButton"
-                Content="Inventory" Margin="43,199,730,96" Click="InventoryButton_Click"
+                Content="Inventory" Margin="43,199,708,96" Click="InventoryButton_Click"
+          
+                />
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="AddonButton"
+                Content="Add a New Addon" Margin="216,199,535,96" Click="AddonButton_Click"
           
                 />
 
-            <Grid x:Name="AddItemPane" Visibility="Collapsed">
+            <Grid x:Name="AddItemPane" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
             MinWidth="250"
@@ -77,14 +88,56 @@
                             <Button x:Name="ConfirmButton" Margin="5" Content="Add" Background="{x:Null}" Click="ConfirmButton_Click"/>
                             <Button x:Name="CancelButton" Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelButton_Click"/>
                         </StackPanel>
-                        
-                        
+
+
                     </StackPanel>
                 </Border>
             </Grid>
-            
-            
-            <Grid x:Name="DeleteItemPane" Visibility="Collapsed">
+
+            <Grid x:Name="AddAddonPane" Visibility="Collapsed" Grid.ColumnSpan="2">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+            MinWidth="250"
+            Background="CornflowerBlue" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,55,0,55" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Height="146" Width="341">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Add a New Addon:" FontWeight="Bold" FontFamily="Cambria" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="285">
+                            <TextBlock Margin="5" Text="Addon Name:" FontWeight="Bold" FontFamily="Cambria" />
+                            <TextBox MinWidth="150" HorizontalAlignment="Right" x:Name="AddonNameBox" Width="94"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="285">
+                            <TextBlock Margin="5" Text="Addon Price: " FontWeight="Bold" FontFamily="Cambria" />
+                            <TextBox  MinWidth="150"  x:Name="AddonPriceBox" Width="94"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="305">
+                            <TextBlock Margin="5" Text="Addon Category: " FontWeight="Bold" FontFamily="Cambria" />
+                            <ComboBox Name="AddonCat">
+                                <ComboBoxItem IsSelected="True">Traditional</ComboBoxItem>
+                                <ComboBoxItem>Custard</ComboBoxItem>
+                                <ComboBoxItem>Milkshakes</ComboBoxItem>
+                                <ComboBoxItem>Vegan</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="AddonConfirmButton" Margin="5" Content="Add" Background="{x:Null}" Click="AddonConfirmButton_Click"/>
+                            <Button x:Name="AddonCancelButton" Margin="5" Content="Cancel" Background="{x:Null}" Click="AddonCancelButton_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+
+            <Grid x:Name="DeleteItemPane" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
             MinWidth="250"
@@ -97,12 +150,12 @@
                     <StackPanel>
                         <TextBlock Margin="5" Text="Remove an item: " FontWeight="Bold" FontFamily="Cambria" />
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Name ="DeleteStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto">
-                            <TextBlock Margin="5" Text="Available Items" FontWeight="Bold" FontFamily="Cambria" />
-                            
-                        </StackPanel>
+                            <StackPanel Name ="DeleteStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                                <TextBlock Margin="5" Text="Available Items" FontWeight="Bold" FontFamily="Cambria" />
+
+                            </StackPanel>
                         </ScrollViewer>
-              
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="CancelDelete"  Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelDelete_Click"/>
                         </StackPanel>
@@ -111,10 +164,10 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            <TextBlock Name="ResultText" Margin="43,362,110,43" Text="" FontWeight="Bold" FontFamily="Cambria" FontSize="15" Visibility="Collapsed"/>
+            <TextBlock Name="ResultText" Margin="43,362,88,43" Text="" FontWeight="Bold" FontFamily="Cambria" FontSize="15" Visibility="Collapsed"/>
 
 
-            <Grid x:Name="InventorySetterGetter" Visibility="Collapsed">
+            <Grid x:Name="InventorySetterGetter" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
             MinWidth="250"
@@ -148,10 +201,10 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="Gray">
                                 <Button x:Name="SetInventory"  Margin="5" Content="Set Stock" Background="White" Click="SetInventory_Click" Focusable="False"/>
-                                <TextBox x:Name="InputBox" Margin="5" Background="White" TextWrapping="Wrap" Text="" Width="30" TextChanged="InputBox_TextChanged"/>
+                                <TextBox x:Name="InputBox" Margin="5" Background="White" TextWrapping="Wrap" Text="" Width="30"/>
                             </StackPanel>
                             <Button x:Name="ReturnFromInven" Margin="20,5,20,20" Grid.Row="1" Grid.ColumnSpan="2" Content="Return" Background="White" Click="ReturnInven_Click"/>
-                            
+
                         </Grid>
 
 
@@ -159,7 +212,8 @@
                     </StackPanel>
                 </Border>
             </Grid>
-           
+
+
 
         </Grid>
     </Viewbox>
