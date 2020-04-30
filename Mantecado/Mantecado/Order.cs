@@ -20,6 +20,7 @@ namespace Mantecado
     {
         public string addonName;
         public double addonPrice;
+        public string addonCategory;
     }
 
     class Order

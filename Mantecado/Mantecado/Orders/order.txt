@@ -1,5 +1,13 @@
-Vanilla		$5
+Strawberry Cone 		$3.25
 
-Vanilla		$5
+Chocolate Cone 		$3.25
 
-Total Price: $10.00
+Vanilla Cone		$3.25
+
+Strawberry Cone 		$3.25
+
+Strawberry Cone 		$3.25
+
+Chocolate Cone 		$3.25
+
+Total Price: $19.50
