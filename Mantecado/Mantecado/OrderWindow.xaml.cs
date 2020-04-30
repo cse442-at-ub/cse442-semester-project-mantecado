@@ -147,7 +147,7 @@ namespace Mantecado
             File.Delete("../../../Prices/Prices.txt");
             List<string>[] temp = server.Select("Products");
             using StreamWriter sr = new StreamWriter("../../../Prices/Prices.txt");
-            int size = Int32.Parse(temp[3][0]);
+            int size = Int32.Parse(temp[4][0]);
 
             for (int i = 0; i < size; i++)
             {
@@ -471,7 +471,7 @@ namespace Mantecado
                 Main_Milkshakes.Visibility = Visibility.Visible;
 
             if (Main_Non_Dairy.IsVisible)
-                Main_Non_Dairy.Visibility = Visibility.Hidden;
+                Main_Non_Dairy.Visibility = Visibility.Hidden;  
 
             if (Main_Custard.IsVisible)
                 Main_Custard.Visibility = Visibility.Hidden;
@@ -522,9 +522,81 @@ namespace Mantecado
             return data;
         }
 
+        public void UpdateInventory()
+        {
+
+            List<Item> UniqueItems = new List<Item>();
+            
+            foreach (Item oi in o.OrderItems)
+            {
+                bool found = false;
+
+                if (UniqueItems.Count == 0)
+                {
+                    UniqueItems.Add(oi);
+                }
+                foreach(Item ui in UniqueItems)
+                {
+                    if (ui.itemName == oi.itemName)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    UniqueItems.Add(oi);
+                }
+
+            }
+
+            foreach (Item ui in UniqueItems)
+            {
+                List<string>[] temp = server.Select("Products");
+
+                int size = Int32.Parse(temp[4][0]);
+                int stock = 0;
+                int itemCount = 0;
+                for (int i = 0; i < size; i++)
+                {
+                    if(temp[0][i] == ui.itemName)
+                    {
+                        stock = Int32.Parse(temp[3][i]);
+                    }
+                }
+
+                foreach(Item oi in o.OrderItems)
+                {
+                    if (ui.itemName == oi.itemName)
+                    {
+                        itemCount++;
+                    }
+                }
+
+                if (itemCount > stock)
+                {
+                    MessageBox.Show("Not enough " + ui.itemName + " in stock.");
+                    
+                }
+                else
+                {
+
+                    string query = "UPDATE Products SET Stock= " + (stock - itemCount) + " WHERE Name= '" + ui.itemName + "'";
+                    server.update(query);
+
+                }
+           
+
+            }
+
+        }
+
 
         private void SendStay_Click(object sender, RoutedEventArgs e)
         {
+
+
+            UpdateInventory();
             reciept data = GetData();
             server.Insert("Reciepts", new employee(), data);
             using StreamWriter outputOrder = new StreamWriter("../../../Orders/order.txt");
