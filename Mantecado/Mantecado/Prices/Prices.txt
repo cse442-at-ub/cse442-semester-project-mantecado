@@ -1,1 +1,4 @@
-Ice Cream 	100	Traditional
+Vanilla	5	Traditional
+Choc	4	Traditional
+Straw	4	Traditional
+Mint 	3.5	Traditional

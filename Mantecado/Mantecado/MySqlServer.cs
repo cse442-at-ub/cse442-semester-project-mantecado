@@ -129,7 +129,7 @@ namespace Mantecado
             }
             else if (table == "Products")
             {
-                query += "(Name, Price, Type) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "')";
+                query += "(Name, Price, Type, Stock) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "', " + 10 + ")";
             }
             else
             {

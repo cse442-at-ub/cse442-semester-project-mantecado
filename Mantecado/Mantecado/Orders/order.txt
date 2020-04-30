@@ -1,5 +1,5 @@
-Ice Cream 		$100
+Vanilla		$5
 
-Ice Cream 		$100
+Vanilla		$5
 
-Total Price: $200.00
+Total Price: $10.00

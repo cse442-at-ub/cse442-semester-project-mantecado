@@ -292,7 +292,7 @@ namespace Mantecado
         }
 
         private void FocusButton1_Click(object sender, RoutedEventArgs e)
-        {
+        {   
             TextBox T = e.OriginalSource as TextBox;
 
             T.Background = new SolidColorBrush(Colors.LightBlue);
@@ -333,8 +333,16 @@ namespace Mantecado
                     List<string>[] temp = server.Select("Products");
 
                     int size = Int32.Parse(temp[4][0]);
+                    for (int i = 0; i < size; i++)
+                    {
+                        if (temp[0][i] == t.Text)
+                        {
+                            ShowInv.Text = temp[3][i];
+                        }
+                        
 
-
+                    }
+               
                 }
 
             }
@@ -344,6 +352,11 @@ namespace Mantecado
         private void ReturnInven_Click(object sender, RoutedEventArgs e)
         {
             InventorySetterGetter.Visibility = Visibility.Collapsed;
+        }
+
+        private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
