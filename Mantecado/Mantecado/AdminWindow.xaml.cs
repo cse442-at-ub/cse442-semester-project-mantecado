@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Linq;
+using Renci.SshNet.Messages;
 
 namespace Mantecado
 {
@@ -243,6 +245,61 @@ namespace Mantecado
 
         }
 
+        private void EditCategories_Click(object sender, RoutedEventArgs e)
+        {
+            //String[] prevCat = new String[4];
+            List<string> prevCat = new List<string>();
+            int numCats = 0;
+            string fileName = "../../../Prices/Prices.txt";
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    
+                    String line = sr.ReadLine();
+                    String[] buttonInfo = line.Split('\t');
+                    
+                    String buttonName = buttonInfo[2];
+                    if (!prevCat.Contains(buttonName))
+                    {
+                        //MessageBox.Show("does not contain " + buttonName );
+                        Button NewButton = new Button();
+                        NewButton.Content = buttonName;
+                        CategoriesStack.Children.Add(NewButton);
+                        prevCat.Add(buttonName);
+                        numCats++;
+                    }
+
+                    //for(int i = 0; i < 4; i++)
+                    //{
+                    //    Button NewButton = new Button();
+                    //    NewButton.Content = prevCat[i];
+                    //    CategoriesStack.Children.Add(NewButton);
+                    //}
+
+
+                    
+
+                   
+
+
+
+
+
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+
+           
+            EditCategoriesPane.Visibility = Visibility.Visible;
+
+        }
+
         private void SomeButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -253,14 +310,14 @@ namespace Mantecado
 
         }
 
-        private void DeleteItem_Copy_Click(object sender, RoutedEventArgs e)
+        private void Inventory_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Inventory_Click(object sender, RoutedEventArgs e)
+        private void CancelCatDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            EditCategoriesPane.Visibility = Visibility.Collapsed;
         }
     }
 }

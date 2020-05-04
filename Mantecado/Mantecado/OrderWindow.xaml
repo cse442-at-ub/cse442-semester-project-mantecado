@@ -19,6 +19,22 @@
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="1" x:Name="Main_Top" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Grid>
             <Grid Grid.Row="2" x:Name="Main_Bottom" Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -152,6 +168,8 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
+                
+                
                 <Button Grid.Column="0" Margin ="10" Background="LightGreen" x:Name="TraditionalButton" FontSize="30" Content="Traditional"  Click="TraditionButton_Click"    
                         Style="{StaticResource RoundButtonTemplate}" MouseEnter="CatButton_MouseEnter" MouseLeave="CatButton_MouseLeave" />
                 <Button Grid.Column="1" Margin ="10" Background="LightPink" x:Name="CustardButton"  FontSize="30" Content="Custard"  Click="CustardButton_Click"      
@@ -160,6 +178,8 @@
                         Style="{StaticResource RoundButtonTemplate}" MouseEnter="CatButton_MouseEnter" MouseLeave="CatButton_MouseLeave"/>
                 <Button Grid.Column="3" Margin ="10" Background= "PeachPuff" x:Name="Non_DairyButton"  FontSize="30" Content="Vegan"  Click="NonDairyButton_Click"    
                         Style="{StaticResource RoundButtonTemplate}" MouseEnter="CatButton_MouseEnter" MouseLeave="CatButton_MouseLeave"/>
+               
+                
             </Grid>
         </Grid>
 
