@@ -10,9 +10,9 @@ namespace Mantecado
     struct employee
     {
         public string name;
-        public int age;
+        public string age;
         public string id;
-        public double pay_rate;
+        public string pay_rate;
         public string sex;
         public string birthday;
     }
@@ -31,6 +31,7 @@ namespace Mantecado
         public string name;
         public double price;
         public string category;
+        public int stock;
     }
     class MySqlServer
     {
@@ -119,7 +120,7 @@ namespace Mantecado
             // if it is an employee
             if (table == "employees")
             {
-                query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', " + hire.age + ", " + hire.id + ", " + hire.pay_rate + ", '" + hire.sex + "', " + hire.birthday + ")";
+                query += "(name, age, id_num, pay, sex, birthday) VALUES('" + hire.name + "', '" + hire.age + "', '" + hire.id + "', '" + hire.pay_rate + "', '" + hire.sex + "', '" + hire.birthday + "')";
             }
             else if (table == "Reciepts")
             {
@@ -128,7 +129,7 @@ namespace Mantecado
             }
             else if (table == "Products")
             {
-                query += "(Name, Price, Type) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "')";
+                query += "(Name, Price, Type, Stock) VALUES('" + item.name + "', " + item.price + ", '" + item.category + "', " + 10 + ")";
             }
             else
             {
@@ -189,10 +190,13 @@ namespace Mantecado
                         list[0].Add(dataReader["Name"] + "");
                         list[1].Add(dataReader["Price"] + "");
                         list[2].Add(dataReader["Type"] + "");
+                        list[3].Add(dataReader["Stock"] + "");
+                           
                         count++;
                     }
-                    list[3].Add(Convert.ToString(count, 10));
+                    list[4].Add(Convert.ToString(count, 10));
                 }
+               
                 //close Data Reader
                 dataReader.Close();
 
@@ -206,6 +210,19 @@ namespace Mantecado
             {
                 return list;
             }
+
+
+        }
+
+        public void update(string query)
+        {
+            this.Connect();
+            
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            command.ExecuteNonQuery();
+
+            this.Disconnect();
         }
 
     }

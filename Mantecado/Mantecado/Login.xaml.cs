@@ -45,6 +45,7 @@ namespace Mantecado
                         String empNumber = line.Split('\t')[0];
                         if (empNumber.Equals(input))
                         {
+
                             empFound = true;
                             orderWindow.Show();
                             this.Close();

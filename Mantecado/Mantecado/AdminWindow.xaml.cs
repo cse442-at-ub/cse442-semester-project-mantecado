@@ -10,8 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-using System.Linq;
-using Renci.SshNet.Messages;
 
 namespace Mantecado
 {
@@ -139,7 +137,6 @@ namespace Mantecado
                             NewButton.Content = buttonName;
 
                             NewButton.Click += new RoutedEventHandler(DeleteButton_Click);
-                       
                                 
                             DeleteStack.Children.Add(NewButton);
                         
@@ -245,47 +242,42 @@ namespace Mantecado
 
         }
 
-        private void EditCategories_Click(object sender, RoutedEventArgs e)
+        private void InventoryButton_Click(object sender, RoutedEventArgs e)
         {
-            //String[] prevCat = new String[4];
-            List<string> prevCat = new List<string>();
-            int numCats = 0;
+            ResultText.Visibility = Visibility.Collapsed;
+            InvenStack.Children.Clear();
+
+
             string fileName = "../../../Prices/Prices.txt";
             try
             {
                 using StreamReader sr = new StreamReader(fileName);
                 while (!sr.EndOfStream)
                 {
-                    
                     String line = sr.ReadLine();
                     String[] buttonInfo = line.Split('\t');
-                    
-                    String buttonName = buttonInfo[2];
-                    if (!prevCat.Contains(buttonName))
+                    String buttonName = buttonInfo[0];
+
+
+                    if (buttonName != "")
                     {
-                        //MessageBox.Show("does not contain " + buttonName );
-                        Button NewButton = new Button();
-                        NewButton.Content = buttonName;
-                        CategoriesStack.Children.Add(NewButton);
-                        prevCat.Add(buttonName);
-                        numCats++;
+                        //buttonName += " - " + buttonInfo[2];
+                        TextBox tb = new TextBox();
+
+                        tb.Text = buttonName;
+                        //tb.MinWidth = 100;
+                        tb.SelectionOpacity = 0;
+                        tb.Focusable = true;
+                        tb.Cursor = Cursors.Arrow;
+                        tb.IsReadOnly = true;
+                        tb.Background = new SolidColorBrush(Colors.LightGray);
+                        tb.GotFocus += new RoutedEventHandler(FocusButton1_Click);
+                        tb.LostFocus += new RoutedEventHandler(LostFocusButton1);
+                        
+                        InvenStack.Children.Add(tb);
+
+
                     }
-
-                    //for(int i = 0; i < 4; i++)
-                    //{
-                    //    Button NewButton = new Button();
-                    //    NewButton.Content = prevCat[i];
-                    //    CategoriesStack.Children.Add(NewButton);
-                    //}
-
-
-                    
-
-                   
-
-
-
-
 
                 }
             }
@@ -295,29 +287,143 @@ namespace Mantecado
 
             }
 
-           
-            EditCategoriesPane.Visibility = Visibility.Visible;
+            InventorySetterGetter.Visibility = Visibility.Visible;
+        }
+
+        private void FocusButton1_Click(object sender, RoutedEventArgs e)
+        {   
+            TextBox T = e.OriginalSource as TextBox;
+
+            T.Background = new SolidColorBrush(Colors.LightBlue);
 
         }
 
-        private void SomeButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void LostFocusButton1(object sender, RoutedEventArgs e)
+        {   
+
+            TextBox T = e.OriginalSource as TextBox;
+
+            T.Background = new SolidColorBrush(Colors.LightGray);
 
         }
 
-        private void GetStock_Click(object sender, RoutedEventArgs e)
+        private void SetInventory_Click(object sender, RoutedEventArgs e)
         {
+            foreach (TextBox t in InvenStack.Children)
+            {
+                if (t.IsFocused)
+                {
+                    string i = InputBox.Text;
+                    string query = "UPDATE Products SET Stock= " + InputBox.Text + " WHERE Name= '" + t.Text + "'";
+                    server.update(query);
+                }
+
+            }
 
         }
 
-        private void Inventory_Click(object sender, RoutedEventArgs e)
+        private void GetInventory_Click(object sender, RoutedEventArgs e)
         {
+
+            foreach (TextBox t in InvenStack.Children)
+            {
+                if (t.IsFocused)
+                {
+                    List<string>[] temp = server.Select("Products");
+
+                    int size = Int32.Parse(temp[4][0]);
+                    for (int i = 0; i < size; i++)
+                    {
+                        if (temp[0][i] == t.Text)
+                        {
+                            ShowInv.Text = temp[3][i];
+                        }
+                        
+
+                    }
+               
+                }
+
+            }
 
         }
 
-        private void CancelCatDelete_Click(object sender, RoutedEventArgs e)
+        private void ReturnInven_Click(object sender, RoutedEventArgs e)
         {
-            EditCategoriesPane.Visibility = Visibility.Collapsed;
+            InventorySetterGetter.Visibility = Visibility.Collapsed;
+        }
+
+        private void AddonButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            ResultText.Visibility = Visibility.Collapsed;
+            AddAddonPane.Visibility = Visibility.Visible;
+
+        }
+
+        private void AddonConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddAddonPane.Visibility = Visibility.Collapsed;
+            bool dup = false;
+            string fileName = "../../../Prices/AddonPrices.txt";
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] AddonInfo = line.Split('\t');
+                    String AddonName = AddonInfo[0];
+
+
+                    if (AddonName != "")
+                    {
+
+                        AddonName += " - " + AddonInfo[2];
+                        if (AddonName == (AddonNameBox.Text + " - " + AddonCat.Text))
+                        {
+                            ResultText.Text = AddonNameBox.Text + " already exists.";
+                            ResultText.Visibility = Visibility.Visible;
+                            dup = true;
+                        }
+
+                    }
+
+                }
+                sr.Close();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading Addons file\n" + ex.Message);
+
+            }
+            if (!dup)
+            {
+                product new_product = new product();
+                new_product.name = AddonNameBox.Text;
+                new_product.price = float.Parse(AddonPriceBox.Text);
+                new_product.category = AddonCat.Text;
+                //server.Insert("Products", new employee(), new reciept(), new_product);
+                using StreamWriter sw = new StreamWriter(fileName, append: true);
+                
+                sw.WriteLine(AddonNameBox.Text + '\t' + AddonPriceBox.Text + '\t' + AddonCat.Text);
+                ResultText.Text = AddonNameBox.Text + " added to category " + AddonCat.Text;
+                ResultText.Visibility = Visibility.Visible;
+
+            }
+
+            AddonNameBox.Text = "";
+            AddonPriceBox.Text = "";
+            AddonCat.SelectedIndex = 0;
+        }
+
+        private void AddonCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddAddonPane.Visibility = Visibility.Collapsed;
+            AddonNameBox.Text = "";
+            AddonPriceBox.Text = "";
+            AddonCat.SelectedIndex = 0;
         }
     }
 }

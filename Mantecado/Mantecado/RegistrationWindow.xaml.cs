@@ -71,12 +71,12 @@ namespace Mantecado
         private employee GetData()
         {
             employee new_user = new employee();
-            new_user.name = name_box.Text;
-            new_user.age = Int32.Parse(age_box.Text);
-            new_user.id = id_box.Text;
-            new_user.pay_rate = float.Parse(pay_box.Text);
-            new_user.sex = gender_box.Text;
-            new_user.birthday = birthday_box.Text;
+            new_user.name = encryption.Encrypt(name_box.Text, encryption.getKey());
+            new_user.age = encryption.Encrypt(age_box.Text, encryption.getKey());
+            new_user.id = encryption.Encrypt(id_box.Text, encryption.getKey());
+            new_user.pay_rate = encryption.Encrypt(pay_box.Text, encryption.getKey());
+            new_user.sex = encryption.Encrypt(gender_box.Text, encryption.getKey());
+            new_user.birthday = encryption.Encrypt(birthday_box.Text, encryption.getKey());
 
             return new_user;
         }
@@ -86,11 +86,14 @@ namespace Mantecado
             if (validation == 0)
             {
                 employee data = GetData();
-                List<string>[] temp = server.Select("employees");
+
+                //List<string>[] temp = server.Select("employees");
                 server.Insert("employees",data);
                 MainWindow mainWindow = new MainWindow();
                 this.Close();
                 mainWindow.Show();
+
+                MessageBox.Show("New Employee: " + encryption.Decrypt(data.name,encryption.getKey()) + " has been added to data base.\nUser ID: " + encryption.Decrypt(data.id, encryption.getKey())+"\nPay Rate: " + encryption.Decrypt(data.pay_rate, encryption.getKey()) + "\n");
             }
             else
             {
