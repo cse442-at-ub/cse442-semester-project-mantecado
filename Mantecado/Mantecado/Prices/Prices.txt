@@ -2,3 +2,4 @@ Strawberry Cone 	3.25	Traditional
 Chocolate Cone 	3.25	Traditional
 Vanilla Cone	3.25	Traditional
 Strwbrry	0.35	Traditional
+Vanilla Cust.	5	Custard

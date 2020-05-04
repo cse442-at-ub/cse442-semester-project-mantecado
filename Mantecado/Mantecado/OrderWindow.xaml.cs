@@ -11,6 +11,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Media.TextFormatting;
+using System.Security.Cryptography;
+using MySqlX.XDevAPI.Relational;
+using Renci.SshNet.Messages;
 
 namespace Mantecado
 {
@@ -26,6 +29,7 @@ namespace Mantecado
         public OrderWindow()
         {
             InitializeComponent();
+            AddCatButtons();
             updatePrice();
 
         }
@@ -34,6 +38,75 @@ namespace Mantecado
         {
             this.Close();
             Application.Current.Shutdown();
+        }
+
+        private void AddCatButtons()
+        {
+            int colNum = 0;
+            int numCats = 0;
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../Categories/Categories.txt");
+                while(!sr.EndOfStream)
+                {
+                    numCats++;
+                    String catInfo = sr.ReadLine();
+                    
+                    Button NewButton = new Button();
+                    NewButton.Name = catInfo;
+                    NewButton.Content = catInfo;
+                    NewButton.Click += new RoutedEventHandler(CategoryHandler);
+                    NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                    NewButton.Margin = new Thickness(10);
+                    
+                    if(numCats > 4)
+                    {
+                        ColumnDefinition colDef = new ColumnDefinition();
+                        MainCategoriesWindow.ColumnDefinitions.Add(colDef);
+                    }
+                        
+                    NewButton.FontSize = 30;
+                    Grid.SetRow(NewButton, 0);
+                    Grid.SetColumn(NewButton, colNum);
+
+                    Grid catPage = new Grid();
+                    
+                    ColumnDefinition colDef1 = new ColumnDefinition();
+                    ColumnDefinition colDef2 = new ColumnDefinition();
+                    ColumnDefinition colDef3 = new ColumnDefinition();
+                    ColumnDefinition colDef4 = new ColumnDefinition();
+
+                    RowDefinition rowDef1 = new RowDefinition();
+                    RowDefinition rowDef2 = new RowDefinition();
+                    RowDefinition rowDef3 = new RowDefinition();
+                    RowDefinition rowDef4 = new RowDefinition();
+
+                    catPage.ColumnDefinitions.Add(colDef1);
+                    catPage.ColumnDefinitions.Add(colDef2);
+                    catPage.ColumnDefinitions.Add(colDef3);
+                    catPage.ColumnDefinitions.Add(colDef4);
+
+
+                    catPage.RowDefinitions.Add(rowDef1);
+                    catPage.RowDefinitions.Add(rowDef2);
+                    catPage.RowDefinitions.Add(rowDef3);
+                    catPage.RowDefinitions.Add(rowDef4);
+
+                    catPage.Name = NewButton.Name;
+                    catPage.Visibility = Visibility.Collapsed;
+
+                    buttonSheet.Children.Add(catPage);
+                    
+                    MainCategoriesWindow.Children.Add(NewButton);
+                    colNum++;
+
+                }
+            }
+            catch(IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
         }
 
         private void AddButtons(object sender)
@@ -50,22 +123,32 @@ namespace Mantecado
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
 
-                    if (((Button)sender).Content.ToString().Equals(buttonCat))
+                    if (((Button)sender).Name.Equals(buttonCat))
                     {
+                        //MessageBox.Show("Sender: " + ((Button)sender).Name + " " + buttonCat);
 
 
-
-                        if (buttonCat.Equals("Traditional"))
+                        if (buttonCat.Equals(((Button)sender).Name))
                         {
                             Button NewButton = new Button();
                             NewButton.Content = buttonName;
-                            NewButton.Click += new RoutedEventHandler(Tradition_button);
+                            NewButton.Click += new RoutedEventHandler(ButtonHandler);
                             NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                             NewButton.FontSize = 30;
 
                             Grid.SetRow(NewButton, rowNum);
                             Grid.SetColumn(NewButton, colNum);
-                            Main_Traditional.Children.Add(NewButton);
+                            
+                            foreach (Grid g in buttonSheet.Children)
+                            {
+                                if (((Button)sender).Name == g.Name)
+                                {
+                                    
+                                    g.Children.Add(NewButton);
+                                }
+                            }
+                           
+                            
                             rowNum++;
                             if (rowNum == 4)
                             {
@@ -73,63 +156,7 @@ namespace Mantecado
                                 rowNum = 0;
                             }
                         }
-
-                        if (buttonCat.Equals("Custard"))
-                        {
-                            Button NewButton = new Button();
-                            NewButton.Content = buttonName;
-                            NewButton.Click += new RoutedEventHandler(Custard_button);
-                            NewButton.Background = new SolidColorBrush(Colors.LightPink);
-                            NewButton.FontSize = 30;
-
-                            Grid.SetRow(NewButton, rowNum);
-                            Grid.SetColumn(NewButton, colNum);
-                            Main_Custard.Children.Add(NewButton);
-                            rowNum++;
-                            if (rowNum == 4)
-                            {
-                                colNum++;
-                                rowNum = 0;
-                            }
-                        }
-
-                        if (buttonCat.Equals("Milkshakes"))
-                        {
-                            Button NewButton = new Button();
-                            NewButton.Content = buttonName;
-                            NewButton.Click += new RoutedEventHandler(Milkshake_button);
-                            NewButton.Background = new SolidColorBrush(Colors.MediumPurple);
-                            NewButton.FontSize = 30;
-
-                            Grid.SetRow(NewButton, rowNum);
-                            Grid.SetColumn(NewButton, colNum);
-                            Main_Milkshakes.Children.Add(NewButton);
-                            rowNum++;
-                            if (rowNum == 4)
-                            {
-                                colNum++;
-                                rowNum = 0;
-                            }
-                        }
-
-                        if (buttonCat.Equals("Vegan"))
-                        {
-                            Button NewButton = new Button();
-                            NewButton.Content = buttonName;
-                            NewButton.Click += new RoutedEventHandler(NonDairy_button);
-                            NewButton.Background = new SolidColorBrush(Colors.PeachPuff);
-                            NewButton.FontSize = 30;
-
-                            Grid.SetRow(NewButton, rowNum);
-                            Grid.SetColumn(NewButton, colNum);
-                            Main_Non_Dairy.Children.Add(NewButton);
-                            rowNum++;
-                            if (rowNum == 4)
-                            {
-                                colNum++;
-                                rowNum = 0;
-                            }
-                        }
+                        
 
                     }
 
@@ -208,83 +235,7 @@ namespace Mantecado
                         }
 
                         {
-                            /*
-
-                            if (buttonCat.Equals("Traditional"))
-                            {
-                                Button NewButton = new Button();
-                                NewButton.Content = buttonName;
-                                NewButton.Click += new RoutedEventHandler(Tradition_button);
-                                NewButton.Background = new SolidColorBrush(Colors.LightGreen);
-                                NewButton.FontSize = 30;
-
-                                Grid.SetRow(NewButton, rowNum);
-                                Grid.SetColumn(NewButton, colNum);
-                                Main_Traditional.Children.Add(NewButton);
-                                rowNum++;
-                                if (rowNum == 4)
-                                {
-                                    colNum++;
-                                    rowNum = 0;
-                                }
-                            }
-
-                            if (buttonCat.Equals("Custard"))
-                            {
-                                Button NewButton = new Button();
-                                NewButton.Content = buttonName;
-                                NewButton.Click += new RoutedEventHandler(Custard_button);
-                                NewButton.Background = new SolidColorBrush(Colors.LightPink);
-                                NewButton.FontSize = 30;
-
-                                Grid.SetRow(NewButton, rowNum);
-                                Grid.SetColumn(NewButton, colNum);
-                                Main_Custard.Children.Add(NewButton);
-                                rowNum++;
-                                if (rowNum == 4)
-                                {
-                                    colNum++;
-                                    rowNum = 0;
-                                }
-                            }
-
-                            if (buttonCat.Equals("Milkshakes"))
-                            {
-                                Button NewButton = new Button();
-                                NewButton.Content = buttonName;
-                                NewButton.Click += new RoutedEventHandler(Milkshake_button);
-                                NewButton.Background = new SolidColorBrush(Colors.MediumPurple);
-                                NewButton.FontSize = 30;
-
-                                Grid.SetRow(NewButton, rowNum);
-                                Grid.SetColumn(NewButton, colNum);
-                                Main_Milkshakes.Children.Add(NewButton);
-                                rowNum++;
-                                if (rowNum == 4)
-                                {
-                                    colNum++;
-                                    rowNum = 0;
-                                }
-                            }
-
-                            if (buttonCat.Equals("Vegan"))
-                            {
-                                Button NewButton = new Button();
-                                NewButton.Content = buttonName;
-                                NewButton.Click += new RoutedEventHandler(NonDairy_button);
-                                NewButton.Background = new SolidColorBrush(Colors.PeachPuff);
-                                NewButton.FontSize = 30;
-
-                                Grid.SetRow(NewButton, rowNum);
-                                Grid.SetColumn(NewButton, colNum);
-                                Main_Non_Dairy.Children.Add(NewButton);
-                                rowNum++;
-                                if (rowNum == 4)
-                                {
-                                    colNum++;
-                                    rowNum = 0;
-                                }
-                            }*/
+                            
                         }
                     }
                 }
@@ -407,22 +358,12 @@ namespace Mantecado
             return T;
         }
 
-        public void Custard_button(object sender, RoutedEventArgs e)
+        public void ButtonHandler(object sender, RoutedEventArgs e)
         {
             newItem(sender);
         }
-        public void Tradition_button(object sender, RoutedEventArgs e)
-        {
-            newItem(sender);
-        }
-        public void Milkshake_button(object sender, RoutedEventArgs e)
-        {
-            newItem(sender);
-        }
-        public void NonDairy_button(object sender, RoutedEventArgs e)
-        {
-            newItem(sender);
-        }
+        
+        
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
 
@@ -571,88 +512,26 @@ namespace Mantecado
             }
 
         }
-        public void TraditionButton_Click(object sender, RoutedEventArgs e)
+
+        public void CategoryHandler(object sender, RoutedEventArgs e)
         {
-
-            if (!Main_Traditional.IsVisible)
-                Main_Traditional.Visibility = Visibility.Visible;
-
-            if (Main_Milkshakes.IsVisible)
-                Main_Milkshakes.Visibility = Visibility.Hidden;
-
-            if (Main_Custard.IsVisible)
-                Main_Custard.Visibility = Visibility.Hidden;
-
-            if (Main_Non_Dairy.IsVisible)
-                Main_Non_Dairy.Visibility = Visibility.Hidden;
-
-            AddButtons(sender);
-            AddOnButtons(sender);
-
-        }
-
-        private void CustardButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!Main_Custard.IsVisible)
+            foreach(Grid g in buttonSheet.Children)
             {
-                Main_Custard.Visibility = Visibility.Visible;
+                if (((Button)sender).Name == g.Name)
+                {
+                   
+                    g.Visibility = Visibility.Visible;
+                }
+                else
+                    g.Visibility = Visibility.Collapsed;
+
             }
 
-            if (!Main_Custard.IsVisible)
-                Main_Custard.Visibility = Visibility.Visible;
-
-            if (Main_Milkshakes.IsVisible)
-                Main_Milkshakes.Visibility = Visibility.Hidden;
-
-            if (Main_Non_Dairy.IsVisible)
-                Main_Non_Dairy.Visibility = Visibility.Hidden;
-
-            if (Main_Traditional.IsVisible)
-                Main_Traditional.Visibility = Visibility.Hidden;
-            AddButtons(sender);
-            AddOnButtons(sender);
-
-        }
-
-        private void MilksshakesButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!Main_Milkshakes.IsVisible)
-                Main_Milkshakes.Visibility = Visibility.Visible;
-
-            if (Main_Non_Dairy.IsVisible)
-                Main_Non_Dairy.Visibility = Visibility.Hidden;  
-
-            if (Main_Custard.IsVisible)
-                Main_Custard.Visibility = Visibility.Hidden;
-
-            if (Main_Traditional.IsVisible)
-                Main_Traditional.Visibility = Visibility.Hidden;
-            AddButtons(sender);
-            AddOnButtons(sender);
-
-        }
-
-        private void NonDairyButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!Main_Non_Dairy.IsVisible)
-                Main_Non_Dairy.Visibility = Visibility.Visible;
-
-            if (Main_Milkshakes.IsVisible)
-                Main_Milkshakes.Visibility = Visibility.Hidden;
-
-            if (Main_Custard.IsVisible)
-                Main_Custard.Visibility = Visibility.Hidden;
-
-            if (Main_Traditional.IsVisible)
-                Main_Traditional.Visibility = Visibility.Hidden;
             AddButtons(sender);
             AddOnButtons(sender);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
+        
         private reciept GetData()
         {
             reciept data = new reciept();

@@ -51,6 +51,14 @@
                 Content="Add a New Addon" Margin="216,199,535,96" Click="AddonButton_Click"
           
                 />
+            
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="AddCatButton"
+                Content="Add a New Category" Margin="386,31,364,264" Click="AddCatButton_Click"
+          
+                />
 
             <Grid x:Name="AddItemPane" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
@@ -164,6 +172,40 @@
                     </StackPanel>
                 </Border>
             </Grid>
+
+            <Grid x:Name="AddCatPane" Visibility="Collapsed" Grid.ColumnSpan="2">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+            MinWidth="250"
+            Background="White" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,55,0,55" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Height="Auto" Width="Auto">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Add a Category: " FontWeight="Bold" FontFamily="Cambria" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Name ="AddCatStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="285">
+                                    <TextBlock Margin="5" Text="Category Name:" FontWeight="Bold" FontFamily="Cambria" />
+                                    <TextBox MinWidth="150" HorizontalAlignment="Right" x:Name="CatNameBox" Width="94"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="CatConfirmButton" Margin="5" Content="Add" Background="{x:Null}" Click="ConfirmCatAdd_Click"/>
+                            <Button x:Name="CatCancelButton" Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelCatAdd_Click"/>
+
+                        </StackPanel>
+
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
             <TextBlock Name="ResultText" Margin="43,362,88,43" Text="" FontWeight="Bold" FontFamily="Cambria" FontSize="15" Visibility="Collapsed"/>
 
 
@@ -212,6 +254,7 @@
                     </StackPanel>
                 </Border>
             </Grid>
+            
 
 
 

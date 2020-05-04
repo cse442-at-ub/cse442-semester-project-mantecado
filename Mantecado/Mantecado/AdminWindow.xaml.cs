@@ -425,5 +425,20 @@ namespace Mantecado
             AddonPriceBox.Text = "";
             AddonCat.SelectedIndex = 0;
         }
+
+        private void AddCatButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddCatPane.Visibility = Visibility.Visible;
+        }
+
+        private void CancelCatAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddCatPane.Visibility = Visibility.Collapsed;
+        }
+
+        private void ConfirmCatAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

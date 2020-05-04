@@ -19,6 +19,7 @@
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <!--
             <Grid Grid.Row="1" x:Name="Main_Top" Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -35,6 +36,7 @@
                     </Grid.RowDefinitions>
                 </Grid>
             </Grid>
+            -->
             <Grid Grid.Row="2" x:Name="Main_Bottom" Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -70,106 +72,29 @@
                     <Button Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Background="Green" Style="{StaticResource RoundButtonTemplate}" Content="Send and Quit" FontSize="30" Margin="5" Click="SendQuit_Click"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="Main_Traditional" Background="White" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
+            <Grid Name="buttonSheet" Grid.Row="1">
                 
-                <!--
-                <Button Background="LightGreen" Grid.Column="0" Grid.Row="0" x:Name="OMB_1" FontSize="30" Content="Vanilla Swirl" Click="Tradition_button" />
-                <Button Background="LightGreen" Grid.Column="0" Grid.Row="1" x:Name="OMB_2" FontSize="30" Content="Chocolate Swirl" Click="Tradition_button" />
-                <Button Background="LightGreen" Grid.Column="0" Grid.Row="2" x:Name="OMB_3" FontSize="30" Content="Strawberry Swirl"  Click="Tradition_button"/>
-                <Button Background="LightGreen" Grid.Column="0" Grid.Row="3" x:Name="OMB_4" FontSize="30" Content="Berry Swirl" Click="Tradition_button" />
-                <Button Background="LightGreen" Grid.Column="1" Grid.Row="0" x:Name="OMB_5" FontSize="30" Content="Neopolitan Swirl" Click="Tradition_button" />
-                <Button Background="LightGreen" Grid.Column="1" Grid.Row="1" x:Name="OMB_6" FontSize="30" Content="Butter Pecan" Click="Tradition_button" />
-                -->
             </Grid>
-            <Grid x:Name="Main_Custard" Background="White" Grid.Row="1">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                
-                <!--
-                <Button Background="LightPink" Grid.Column="0" Grid.Row="0" x:Name="OMB_14" FontSize="30" Content="Vanilla Bean" Click="Custard_button" />
-                <Button Background="LightPink" Grid.Column="0" Grid.Row="1" x:Name="OMB_15" FontSize="30" Content="Fudge" Click="Custard_button"  />
-                <Button Background="LightPink" Grid.Column="0" Grid.Row="2" x:Name="OMB_16" FontSize="30" Content="Mixed Berry" Click="Custard_button" />
-                -->
-
-            </Grid>
-            <Grid x:Name="Main_Milkshakes" Background="White" Grid.Row="1">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                
-                <!--
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="0" x:Name="OMB_17" FontSize="30" Content="Plain Vanilla" Click="Milkshake_button" />
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="1" x:Name="OMB_18" FontSize="30" Content="Chocolate" Click="Milkshake_button"/>
-                <Button Background="MediumPurple" Grid.Column="0" Grid.Row="2" x:Name="OMB_19" FontSize="30" Content="Strawberry"  Click="Milkshake_button"/>
-                -->
+            
            
-            </Grid>
-            <Grid x:Name="Main_Non_Dairy" Background="White" Grid.Row="1">
+            
+            
+            
+            
+            
+            <Grid x:Name="MainCategoriesWindow" Grid.Row="0"  Background= "Transparent">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    
+
+
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
                 
                 <!--
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="0" x:Name="OMB_30" FontSize="30" Content="Veg Vanilla" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="1" x:Name="OMB_31" FontSize="30" Content="Veg Chocolate" Click="NonDairy_button"/>
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="2" x:Name="OMB_32" FontSize="30" Content="Veg Strawberry" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="0" Grid.Row="3" x:Name="OMB_33" FontSize="30" Content="Veg Mixed Berry" Click="NonDairy_button" />
-                <Button Background="PeachPuff" Grid.Column="1" Grid.Row="0" x:Name="OMB_34" FontSize="30" Content="Veg Neopolitan" Click="NonDairy_button"/>
-                -->
-                
-                
-            </Grid>
-            <Grid x:Name="MainCategoriesWindow" Grid.Row="0"  Background= "Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                
-                
                 <Button Grid.Column="0" Margin ="10" Background="LightGreen" x:Name="TraditionalButton" FontSize="30" Content="Traditional"  Click="TraditionButton_Click"    
                         Style="{StaticResource RoundButtonTemplate}" MouseEnter="CatButton_MouseEnter" MouseLeave="CatButton_MouseLeave" />
                 <Button Grid.Column="1" Margin ="10" Background="LightPink" x:Name="CustardButton"  FontSize="30" Content="Custard"  Click="CustardButton_Click"      
@@ -179,7 +104,7 @@
                 <Button Grid.Column="3" Margin ="10" Background= "PeachPuff" x:Name="Non_DairyButton"  FontSize="30" Content="Vegan"  Click="NonDairyButton_Click"    
                         Style="{StaticResource RoundButtonTemplate}" MouseEnter="CatButton_MouseEnter" MouseLeave="CatButton_MouseLeave"/>
                
-                
+                -->
             </Grid>
         </Grid>
 
