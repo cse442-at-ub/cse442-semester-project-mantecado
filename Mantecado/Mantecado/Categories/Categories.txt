@@ -1,6 +1,6 @@
-﻿Traditional
+Traditional
 Custard
 Milkshakes
 Vegan
-Category5
-NewCategory
+Cat1
+Cat3

@@ -60,6 +60,14 @@
           
                 />
 
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="DeleteCat"
+                Content="Delete a Category" Margin="556,31,195,264" Click="DeleteCat_Click"
+          
+                />
+
             <Grid x:Name="AddItemPane" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
@@ -207,7 +215,35 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            
+
+            <Grid x:Name="DeleteCatPane" Visibility="Collapsed" Grid.ColumnSpan="2">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+            MinWidth="250"
+            Background="White" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,55,0,55" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Height="Auto" Width="Auto">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Remove a category: " FontWeight="Bold" FontFamily="Cambria" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Name ="DeleteCatStack" Orientation="Vertical" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                                <TextBlock Margin="5" Text="Available Categories" FontWeight="Bold" FontFamily="Cambria" />
+
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="CancelCatDelete"  Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelCatDelete_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+
             <TextBlock Name="ResultText" Margin="43,362,88,43" Text="" FontWeight="Bold" FontFamily="Cambria" FontSize="15" Visibility="Collapsed"/>
 
 
@@ -256,7 +292,8 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            
+           
+
 
 
 

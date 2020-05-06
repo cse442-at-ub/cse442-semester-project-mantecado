@@ -59,7 +59,7 @@ namespace Mantecado
                     NewButton.Click += new RoutedEventHandler(CategoryHandler);
                     //NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                     NewButton.Margin = new Thickness(10);
-                    switch(numCats)
+                    switch(numCats % 8)
                     {
                         
                         case 0:

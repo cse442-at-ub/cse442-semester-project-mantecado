@@ -500,33 +500,70 @@ namespace Mantecado
             }
 
             CatNameBox.Text = "";
-            /*
-             *  AddItemPane.Visibility = Visibility.Collapsed;
-            bool dup = false;
-            string fileName = "../../../Prices/Prices.txt";
+           
+        }
+
+        private void DeleteCat_Click(object sender, RoutedEventArgs e)
+        {
+            ResultText.Visibility = Visibility.Collapsed;
+            DeleteCatStack.Children.Clear();
+            string fileName = "../../../Categories/Categories.txt";
+
             try
             {
                 using StreamReader sr = new StreamReader(fileName);
                 while (!sr.EndOfStream)
                 {
-                    String line = sr.ReadLine();
-                    String[] itemInfo = line.Split('\t');
-                    String itemName = itemInfo[0];
+                    String buttonName = sr.ReadLine();
+                   
 
 
-                    if (itemName != "")
+                    if (buttonName != "")
                     {
+                       
+                        Button NewButton = new Button();
 
-                        itemName += " - " + itemInfo[2];
-                        if (itemName == (ItemNameBox.Text + " - " + ItemCat.Text))
-                        {
-                            ResultText.Text = ItemNameBox.Text + " already exists.";
-                            ResultText.Visibility = Visibility.Visible;
-                            dup = true;
-                        }
+                        NewButton.Content = buttonName;
+
+                        NewButton.Click += new RoutedEventHandler(DeleteSelectedCat);
+
+                        DeleteCatStack.Children.Add(NewButton);
+
 
                     }
 
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+            DeleteCatPane.Visibility = Visibility.Visible;
+           
+            
+        }
+
+        public void DeleteSelectedCat(object sender, RoutedEventArgs e)
+        {
+            String itemsFileName = "../../../Prices/Prices.txt";
+            List<String> allItems = new List<String>();
+            bool hasItems = false;
+            try
+            {
+                using StreamReader sr = new StreamReader(itemsFileName);
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] itemInfo = line.Split('\t');
+                    String itemName = itemInfo[0];
+                    String itemCat = itemInfo[2];
+
+                    if(itemCat == ((Button)sender).Content.ToString())
+                    {
+                        allItems.Add(itemName);
+                        hasItems = true;
+                    }
                 }
                 sr.Close();
             }
@@ -535,25 +572,209 @@ namespace Mantecado
                 MessageBox.Show("Error reading items file\n" + ex.Message);
 
             }
-            if (!dup)
+
+            if (hasItems)
             {
-                product new_product = new product();
-                new_product.name = ItemNameBox.Text;
-                new_product.price = float.Parse(ItemPriceBox.Text);
-                new_product.category = ItemCat.Text;
-                server.Insert("Products", new employee(), new reciept(), new_product);
-                using StreamWriter sw = new StreamWriter(fileName, append: true);
+                String msg = "The category " + ((Button)sender).Content + " has the following items in it. Delete the category and the items?\n\n";
+                msg += string.Join(Environment.NewLine, allItems);
+                MessageBoxResult deleteItemResult = MessageBox.Show(msg, "Continue", MessageBoxButton.YesNoCancel);
+                switch (deleteItemResult)
+                {
+                    case MessageBoxResult.Yes:
+                        String updatedItemFile = "";
+                        try
+                        {
+                            using StreamReader sr = new StreamReader(itemsFileName);
+                            product delete_product = new product();
+                            while (!sr.EndOfStream)
+                            {
+                                String line = sr.ReadLine();
+                                String[] itemInfo = line.Split('\t');
 
-                sw.WriteLine(ItemNameBox.Text + '\t' + ItemPriceBox.Text + '\t' + ItemCat.Text);
-                ResultText.Text = ItemNameBox.Text + " added to category " + ItemCat.Text;
-                ResultText.Visibility = Visibility.Visible;
+                                String itemCat = itemInfo[2];
 
+                                if (!(itemCat == ((Button)sender).Content.ToString()))
+                                {
+                                    updatedItemFile += line + '\n';
+                                }
+                                else
+                                {
+                                    delete_product.name = itemInfo[0];
+                                    delete_product.price = float.Parse(itemInfo[1]);
+                                    delete_product.category = itemInfo[2];
+                                    server.Delete("Products", new employee(), new reciept(), delete_product);
+                                }
+
+                            }
+
+                            sr.Close();
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+
+                        try
+                        {
+                            using StreamWriter sw = new StreamWriter(itemsFileName);
+                            sw.WriteLine(updatedItemFile);
+                            sw.Close();
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+
+                        ResultText.Text = "";
+                        ResultText.Visibility = Visibility.Collapsed;
+                        String catFileName = "../../../Categories/Categories.txt";
+
+
+                        String updatedCatFile = "";
+                        //product delete_product = new product();
+
+                        try
+                        {
+                            using StreamReader sr = new StreamReader(catFileName);
+                            while (!sr.EndOfStream)
+                            {
+                                String cat = sr.ReadLine();
+                                if (cat != "")
+                                {
+                                    if (!((Button)sender).Content.Equals(cat))
+                                    {
+
+                                        updatedCatFile += cat + '\n';
+                                    }
+                                    //else
+                                    //{
+                                    //    delete_product.name = itemInfo[0];
+                                    //    delete_product.price = float.Parse(itemInfo[1]);
+                                    //    delete_product.category = itemInfo[2];
+                                    //}
+                                }
+                            }
+                            sr.Close();
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+
+                        ResultText.Text += ((Button)sender).Content + " deleted.";
+                        ResultText.Visibility = Visibility.Visible;
+
+                        //server.Delete("Products", new employee(), new reciept(), delete_product);
+                        updatedCatFile = updatedCatFile.TrimEnd('\n', '\r');
+
+                        File.WriteAllText(catFileName, String.Empty);
+
+
+
+                        try
+                        {
+                            using StreamWriter sw = new StreamWriter(catFileName);
+                            sw.WriteLine(updatedCatFile);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+                        DeleteCatStack.Children.Remove((Button)sender);
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        DeleteCatPane.Visibility = Visibility.Collapsed;
+                        break;
+                }
             }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Delete " + ((Button)sender).Content + " ?", "Delete Item", MessageBoxButton.YesNoCancel);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        ResultText.Text = "";
+                        ResultText.Visibility = Visibility.Collapsed;
+                        String catFileName = "../../../Categories/Categories.txt";
 
-            ItemNameBox.Text = "";
-            ItemPriceBox.Text = "";
-            ItemCat.SelectedIndex = 0;
-             */
+
+                        String updatedCatFile = "";
+                        //product delete_product = new product();
+
+                        try
+                        {
+                            using StreamReader sr = new StreamReader(catFileName);
+                            while (!sr.EndOfStream)
+                            {
+                                String cat = sr.ReadLine();
+                                if (cat != "")
+                                {
+                                    if (!((Button)sender).Content.Equals(cat))
+                                    {
+
+                                        updatedCatFile += cat + '\n';
+                                    }
+                                    //else
+                                    //{
+                                    //    delete_product.name = itemInfo[0];
+                                    //    delete_product.price = float.Parse(itemInfo[1]);
+                                    //    delete_product.category = itemInfo[2];
+                                    //}
+                                }
+                            }
+                            sr.Close();
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+
+                        ResultText.Text += ((Button)sender).Content + " deleted.";
+                        ResultText.Visibility = Visibility.Visible;
+
+                        //server.Delete("Products", new employee(), new reciept(), delete_product);
+                        updatedCatFile = updatedCatFile.TrimEnd('\n', '\r');
+
+                        File.WriteAllText(catFileName, String.Empty);
+
+
+
+                        try
+                        {
+                            using StreamWriter sw = new StreamWriter(catFileName);
+                            sw.WriteLine(updatedCatFile);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Error reading items file\n" + ex.Message);
+
+                        }
+                        DeleteCatStack.Children.Remove((Button)sender);
+                        // DeleteItemPane.Visibility = Visibility.Collapsed;
+
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    case MessageBoxResult.Cancel:
+                        DeleteCatPane.Visibility = Visibility.Collapsed;
+                        break;
+                }
+            }
         }
+
+        public void CancelCatDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteCatPane.Visibility = Visibility.Collapsed;
+        }
+
     }
 }
