@@ -1,13 +1,4 @@
 Strawberry Cone 		$3.25
+	CksNCrm		$0.39
 
-Chocolate Cone 		$3.25
-
-Vanilla Cone		$3.25
-
-Strawberry Cone 		$3.25
-
-Strawberry Cone 		$3.25
-
-Chocolate Cone 		$3.25
-
-Total Price: $19.50
+Total Price: $3.64

@@ -664,11 +664,12 @@ namespace Mantecado
             {
                 temp += word + ' ';
             }
-            data.order = temp;
-            data.item_amount = o.GetItemAmount();
-            data.price = Double.Parse(o.GetSubtotal());
-            data.tax_amount = Double.Parse(o.GetTax());
-            data.total_price = Double.Parse(o.GetTotalPrice());
+           
+            data.order = encryption.Encrypt(temp, encryption.getKey());
+            data.item_amount = encryption.Encrypt(o.GetItemAmount().ToString(), encryption.getKey());
+            data.price = encryption.Encrypt(o.GetSubtotal(), encryption.getKey());
+            data.tax_amount = encryption.Encrypt(o.GetTax(), encryption.getKey());
+            data.total_price = encryption.Encrypt(o.GetTotalPrice(), encryption.getKey());
             return data;
         }
 
@@ -763,6 +764,8 @@ namespace Mantecado
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
             this.Close();
+            MessageBox.Show("Reciept Content: " + encryption.Decrypt(data.order, encryption.getKey()) + " has been added to data base.\nItem Amount: " + encryption.Decrypt(data.item_amount, encryption.getKey()) + "\nTax: " + encryption.Decrypt(data.tax_amount, encryption.getKey()) + "\n");
+
         }
 
 

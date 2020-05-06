@@ -20,10 +20,10 @@ namespace Mantecado
     struct reciept
     {
         public string order;
-        public int item_amount;
-        public double price;
-        public double tax_amount;
-        public double total_price;
+        public string item_amount;
+        public string price;
+        public string tax_amount;
+        public string total_price;
     }
 
     struct product
@@ -124,7 +124,7 @@ namespace Mantecado
             }
             else if (table == "Reciepts")
             {
-                query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', " + order.item_amount + ", " + (order.price).ToString("0.00") + ", " + order.tax_amount + ", " + order.total_price + ")";
+                query += "(contents, item_amount, price, tax_amount, full_price) VALUES('" + order.order + "', '" + order.item_amount + "', '" + (order.price) + "', '" + order.tax_amount + "', '" + order.total_price + "')";
 
             }
             else if (table == "Products")
