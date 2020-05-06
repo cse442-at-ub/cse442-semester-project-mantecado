@@ -3,3 +3,4 @@ Custard
 Milkshakes
 Vegan
 Category5
+NewCategory

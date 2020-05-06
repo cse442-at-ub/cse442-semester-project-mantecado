@@ -28,6 +28,28 @@ namespace Mantecado
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
+            int i = 0;
+            string fileName = "../../../Categories/Categories.txt";
+            ItemCat.Items.Clear();
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    string cat = sr.ReadLine();
+
+                    //ItemCat.SelectedIndex = i;
+                    ItemCat.Items.Add(cat);
+                    ItemCat.Width = 100;
+                    i++;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+
             ResultText.Visibility = Visibility.Collapsed;
             AddItemPane.Visibility = Visibility.Visible;
         }
@@ -439,6 +461,99 @@ namespace Mantecado
         private void ConfirmCatAdd_Click(object sender, RoutedEventArgs e)
         {
 
+
+            AddCatPane.Visibility = Visibility.Collapsed;
+            bool dup = false;
+            string fileName = "../../../Categories/Categories.txt";
+
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    String catName = sr.ReadLine();
+                    if (catName != "")
+                    {
+                        if(catName == (CatNameBox.Text))
+                        {
+                            ResultText.Text = CatNameBox.Text + " already exists.";
+                            ResultText.Visibility = Visibility.Visible;
+                            dup = true;
+                        }
+                    }
+                }
+                sr.Close();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+
+            if(!dup)
+            {
+                using StreamWriter sw = new StreamWriter(fileName, append: true);
+                sw.WriteLine(CatNameBox.Text);
+                ResultText.Text = CatNameBox.Text + " added as a new category.";
+                ResultText.Visibility = Visibility.Visible;
+
+            }
+
+            CatNameBox.Text = "";
+            /*
+             *  AddItemPane.Visibility = Visibility.Collapsed;
+            bool dup = false;
+            string fileName = "../../../Prices/Prices.txt";
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    String line = sr.ReadLine();
+                    String[] itemInfo = line.Split('\t');
+                    String itemName = itemInfo[0];
+
+
+                    if (itemName != "")
+                    {
+
+                        itemName += " - " + itemInfo[2];
+                        if (itemName == (ItemNameBox.Text + " - " + ItemCat.Text))
+                        {
+                            ResultText.Text = ItemNameBox.Text + " already exists.";
+                            ResultText.Visibility = Visibility.Visible;
+                            dup = true;
+                        }
+
+                    }
+
+                }
+                sr.Close();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+            if (!dup)
+            {
+                product new_product = new product();
+                new_product.name = ItemNameBox.Text;
+                new_product.price = float.Parse(ItemPriceBox.Text);
+                new_product.category = ItemCat.Text;
+                server.Insert("Products", new employee(), new reciept(), new_product);
+                using StreamWriter sw = new StreamWriter(fileName, append: true);
+
+                sw.WriteLine(ItemNameBox.Text + '\t' + ItemPriceBox.Text + '\t' + ItemCat.Text);
+                ResultText.Text = ItemNameBox.Text + " added to category " + ItemCat.Text;
+                ResultText.Visibility = Visibility.Visible;
+
+            }
+
+            ItemNameBox.Text = "";
+            ItemPriceBox.Text = "";
+            ItemCat.SelectedIndex = 0;
+             */
         }
     }
 }

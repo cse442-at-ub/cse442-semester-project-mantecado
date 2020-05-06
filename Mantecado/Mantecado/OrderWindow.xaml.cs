@@ -53,11 +53,47 @@ namespace Mantecado
                     String catInfo = sr.ReadLine();
                     
                     Button NewButton = new Button();
+                    NewButton.Style = (Style)FindResource("RoundButtonTemplate");
                     NewButton.Name = catInfo;
                     NewButton.Content = catInfo;
                     NewButton.Click += new RoutedEventHandler(CategoryHandler);
-                    NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                    //NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                     NewButton.Margin = new Thickness(10);
+                    switch(numCats)
+                    {
+                        
+                        case 0:
+                            NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                            break;
+                        case 1:
+                            NewButton.Background = new SolidColorBrush(Colors.LightPink);
+                            break;
+                        case 2:
+                            NewButton.Background = new SolidColorBrush(Colors.MediumPurple);
+                            break;
+                        case 3:
+                            NewButton.Background = new SolidColorBrush(Colors.PeachPuff);
+                            break;
+                        case 4:
+                            NewButton.Background = new SolidColorBrush(Colors.LightBlue);
+                            break;
+                        case 5:
+                            NewButton.Background = new SolidColorBrush(Colors.Salmon);
+                            break;
+                        case 6:
+                            NewButton.Background = new SolidColorBrush(Colors.MediumSeaGreen);
+                            break;
+                        case 7:
+                            NewButton.Background = new SolidColorBrush(Colors.DeepPink);
+                            break;
+                        case 8:
+                            NewButton.Background = new SolidColorBrush(Colors.Aquamarine);
+                            break;
+                        default:
+                            NewButton.Background = new SolidColorBrush(Colors.RosyBrown);
+                            break;
+
+                    }
                     
                     if(numCats > 4)
                     {
@@ -125,15 +161,13 @@ namespace Mantecado
 
                     if (((Button)sender).Name.Equals(buttonCat))
                     {
-                        //MessageBox.Show("Sender: " + ((Button)sender).Name + " " + buttonCat);
-
-
+                        
                         if (buttonCat.Equals(((Button)sender).Name))
                         {
                             Button NewButton = new Button();
                             NewButton.Content = buttonName;
                             NewButton.Click += new RoutedEventHandler(ButtonHandler);
-                            NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                            NewButton.Background = ((Button)sender).Background;
                             NewButton.FontSize = 30;
 
                             Grid.SetRow(NewButton, rowNum);
