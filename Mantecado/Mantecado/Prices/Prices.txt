@@ -1,0 +1,5 @@
+RomanFood	100	q
++bb	0.4	b
++qb	0.2	q
+ba	2	b
+qa	1	q

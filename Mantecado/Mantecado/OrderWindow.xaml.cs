@@ -47,9 +47,10 @@ namespace Mantecado
             try
             {
                 using StreamReader sr = new StreamReader("../../../Categories/Categories.txt");
+
                 while (!sr.EndOfStream)
                 {
-                    
+                    //*********************FOR MAIN ORDER BUTTONS*****
                     String catInfo = sr.ReadLine();
 
                     numCats++;
@@ -60,7 +61,21 @@ namespace Mantecado
                     NewButton.Click += new RoutedEventHandler(CategoryHandler);
                     //NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                     NewButton.Margin = new Thickness(10);
-                    switch(numCats % 8)
+                    //********************************************************
+                    //ItemContextButtons
+                    //*********************FOR ADDON ORDER BUTTONS*****
+                    //String catInfo = sr.ReadLine();
+
+                    ////numCats++;
+                    //Button NewAddButton = new Button();
+                    ////NewButton.Style = (Style)FindResource("RoundButtonTemplate");
+                    //NewButton.Name = catInfo;
+                    //NewButton.Content = catInfo;
+                    //NewButton.Click += new RoutedEventHandler(Mod1_Click);
+                    ////NewButton.Background = new SolidColorBrush(Colors.LightGreen);
+                    //NewButton.Margin = new Thickness(10);
+                    //********************************************************
+                    switch (numCats % 8)
                     {
                         
                         case 0:
@@ -106,6 +121,7 @@ namespace Mantecado
                     Grid.SetRow(NewButton, 0);
                     Grid.SetColumn(NewButton, colNum);
 
+                    Grid AddPage = new Grid(); //addons
                     Grid catPage = new Grid();
                     
                     ColumnDefinition colDef1 = new ColumnDefinition();
@@ -113,10 +129,18 @@ namespace Mantecado
                     ColumnDefinition colDef3 = new ColumnDefinition();
                     ColumnDefinition colDef4 = new ColumnDefinition();
 
+                    ColumnDefinition AddcolDef1 = new ColumnDefinition();
+                    ColumnDefinition AddcolDef2 = new ColumnDefinition();
+                    ColumnDefinition AddcolDef3 = new ColumnDefinition();
+
                     RowDefinition rowDef1 = new RowDefinition();
                     RowDefinition rowDef2 = new RowDefinition();
                     RowDefinition rowDef3 = new RowDefinition();
                     RowDefinition rowDef4 = new RowDefinition();
+
+                    RowDefinition AddrowDef1 = new RowDefinition();
+                    RowDefinition AddrowDef2 = new RowDefinition();
+                    RowDefinition AddrowDef3 = new RowDefinition();
 
                     catPage.ColumnDefinitions.Add(colDef1);
                     catPage.ColumnDefinitions.Add(colDef2);
@@ -129,9 +153,21 @@ namespace Mantecado
                     catPage.RowDefinitions.Add(rowDef3);
                     catPage.RowDefinitions.Add(rowDef4);
 
+                    AddPage.ColumnDefinitions.Add(AddcolDef1);
+                    AddPage.ColumnDefinitions.Add(AddcolDef2);      //addons    
+                    AddPage.ColumnDefinitions.Add(AddcolDef3);
+
+                    AddPage.RowDefinitions.Add(AddrowDef1);
+                    AddPage.RowDefinitions.Add(AddrowDef2);         //addons
+                    AddPage.RowDefinitions.Add(AddrowDef3);
+
+                    AddPage.Name = NewButton.Name;
                     catPage.Name = NewButton.Name;
+
+                    AddPage.Visibility = Visibility.Collapsed;
                     catPage.Visibility = Visibility.Collapsed;
 
+                    ItemContextButtons.Children.Add(AddPage);
                     buttonSheet.Children.Add(catPage);
                     
                     MainCategoriesWindow.Children.Add(NewButton);
@@ -145,17 +181,6 @@ namespace Mantecado
 
             }
         }
-
-        //private bool fileEmpty(string str)
-        //{
-        //    str.Trim();
-        //    if ()
-        //    {
-
-        //    }
-
-        //}
-
         private void AddButtons(object sender)
         {
             int rowNum = 0;
@@ -172,7 +197,7 @@ namespace Mantecado
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
 
-                    if (((Button)sender).Name.Equals(buttonCat) /*&& buttonName[0] != '+'*/)
+                    if (((Button)sender).Name.Equals(buttonCat) && buttonName[0] != '+')
                     {
                         
                         if (buttonCat.Equals(((Button)sender).Name))
@@ -215,13 +240,14 @@ namespace Mantecado
 
             }
         }
+
         private void AddOnButtons(object sender)
         {
             int rowNum = 0;
             int colNum = 0;
             try
             {
-                using StreamReader sr = new StreamReader("../../../Prices/AddonPrices.txt");
+                using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
                 while (!sr.EndOfStream)
                 {
                     String line = sr.ReadLine();
@@ -229,64 +255,35 @@ namespace Mantecado
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
 
-                    
-
-                    if (((Button)sender).Content.ToString().Equals(buttonCat))
+                    if (((Button)sender).Name.Equals(buttonCat) && buttonName[0] == '+')
                     {
 
                         Button NewButton = new Button();
+                        buttonName = buttonName.TrimStart('+');
                         NewButton.Content = buttonName;
                         NewButton.Click += new RoutedEventHandler(Mod1_Click);
-                        NewButton.Background = new SolidColorBrush(Colors.LightGreen);
-                        NewButton.FontSize = 30;
-
-
+                        NewButton.Background = ((Button)sender).Background;
+                        NewButton.Focusable = false;
+                        NewButton.FontSize = 20;
 
                         Grid.SetRow(NewButton, rowNum);
                         Grid.SetColumn(NewButton, colNum);
 
-                        ItemContextButtons.Children.Add(NewButton);
+                        foreach (Grid g in ItemContextButtons.Children)
+                        {
+                            if (((Button)sender).Name == g.Name)
+                            {
+                                    
+                                g.Children.Add(NewButton);
+                            }
+                        }
 
                         colNum++;
-
                         if (colNum == 3)
                         {
                             rowNum++;
                             colNum = 0;
                         }
-
-                        //if (buttonCat.Equals("Traditional"))
-                        //{
-                        //    foreach (Button B in ItemContextButtons.Children)
-                        //    {
-                        //        B.Background = new SolidColorBrush(Colors.LightGreen);
-                        //    }
-                        //}
-                        //if (buttonCat.Equals("Custard"))
-                        //{
-                        //    foreach (Button B in ItemContextButtons.Children)
-                        //    {
-                        //        B.Background = new SolidColorBrush(Colors.LightPink);
-                        //    }
-                        //}
-                        //if (buttonCat.Equals("Milkshakes"))
-                        //{
-                        //    foreach (Button B in ItemContextButtons.Children)
-                        //    {
-                        //        B.Background = new SolidColorBrush(Colors.MediumPurple);
-                        //    }
-                        //}
-                        //if (buttonCat.Equals("Vegan"))
-                        //{
-                        //    foreach (Button B in ItemContextButtons.Children)
-                        //    {
-                        //        B.Background = new SolidColorBrush(Colors.PeachPuff);
-                        //    }
-                        //}
-
-                        //{
-                            
-                        //}
                     }
                 }
             }
@@ -496,7 +493,7 @@ namespace Mantecado
                 }
             }
 
-            foreach(Button Mod in ItemContextButtons.Children)
+            foreach(Grid Mod in ItemContextButtons.Children)
             {
                 Mod.Visibility = Visibility.Visible;
                 Mod.Focusable = false;
@@ -540,7 +537,7 @@ namespace Mantecado
                 }
             }
 
-            foreach(Button Mod in ItemContextButtons.Children)
+            foreach(Grid Mod in ItemContextButtons.Children)
             {
                 Mod.Visibility = Visibility.Hidden;
             }
@@ -577,6 +574,18 @@ namespace Mantecado
                 if (((Button)sender).Name == g.Name)
                 {
                    
+                    g.Visibility = Visibility.Visible;
+                }
+                else
+                    g.Visibility = Visibility.Collapsed;
+
+            }
+
+            foreach (Grid g in ItemContextButtons.Children)
+            {
+                if (((Button)sender).Name == g.Name)
+                {
+
                     g.Visibility = Visibility.Visible;
                 }
                 else

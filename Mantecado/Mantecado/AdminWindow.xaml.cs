@@ -377,7 +377,27 @@ namespace Mantecado
 
         private void AddonButton_Click(object sender, RoutedEventArgs e)
         {
+            int i = 0;
+            string fileName = "../../../Categories/Categories.txt";
+            AddonCat.Items.Clear();
+            try
+            {
+                using StreamReader sr = new StreamReader(fileName);
+                while (!sr.EndOfStream)
+                {
+                    string cat = sr.ReadLine();
 
+                    //ItemCat.SelectedIndex = i;
+                    AddonCat.Items.Add(cat);
+                    AddonCat.Width = 100;
+                    i++;
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
             ResultText.Visibility = Visibility.Collapsed;
             AddAddonPane.Visibility = Visibility.Visible;
 

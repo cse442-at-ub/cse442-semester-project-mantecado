@@ -137,10 +137,10 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="305">
                             <TextBlock Margin="5" Text="Addon Category: " FontWeight="Bold" FontFamily="Cambria" />
                             <ComboBox Name="AddonCat">
-                                <ComboBoxItem IsSelected="True">Traditional</ComboBoxItem>
+                                <!--<ComboBoxItem IsSelected="True">Traditional</ComboBoxItem>
                                 <ComboBoxItem>Custard</ComboBoxItem>
                                 <ComboBoxItem>Milkshakes</ComboBoxItem>
-                                <ComboBoxItem>Vegan</ComboBoxItem>
+                                <ComboBoxItem>Vegan</ComboBoxItem>-->
                             </ComboBox>
                         </StackPanel>
 
