@@ -387,8 +387,7 @@ namespace Mantecado
         {
             newItem(sender);
         }
-        
-        
+
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
 
@@ -446,6 +445,7 @@ namespace Mantecado
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
         }
+
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
         {
 
@@ -505,8 +505,6 @@ namespace Mantecado
             Delete.Visibility = Visibility.Visible;
             Delete.Focusable = false;
         }
-
-
 
         private void TextBoxLostFocus(object sender, RoutedEventArgs e)
         {
