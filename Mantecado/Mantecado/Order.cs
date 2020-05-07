@@ -51,6 +51,19 @@ namespace Mantecado
             item_amount--;
         }
 
+        public void bulkItemDelete(Item i)
+        {
+            
+            foreach(AddOns a in i.ItemAddons.ToArray())
+            {
+                RemoveAddon(i, a.addonName);
+            }
+
+            RemoveItem(i);
+
+
+        }
+
         public void AddAddon(Item item, AddOns add)
         {
             item.ItemAddons.Add(add);

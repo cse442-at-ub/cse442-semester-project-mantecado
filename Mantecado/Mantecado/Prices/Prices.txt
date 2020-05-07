@@ -1,5 +1,4 @@
-RomanFood	100	q
-+bb	0.4	b
-+qb	0.2	q
-ba	2	b
-qa	1	q
++VngrtteDrssng	0.35	Salad
++FrenchDrssng	0.35	Salad
+Green	2	Salad
+Garden 	2	Salad

@@ -1,2 +1,6 @@
-q
-b
+Burgers
+Sides
+Salad
+Hotdogs
+IceCream
+Shakes

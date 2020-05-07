@@ -28,6 +28,7 @@ namespace Mantecado
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
+
             int i = 0;
             string fileName = "../../../Categories/Categories.txt";
             ItemCat.Items.Clear();
@@ -61,9 +62,72 @@ namespace Mantecado
             this.Close();
         }
 
+        private bool containsSpace(string str)
+        {
+            str = str.Trim();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == ' ')
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool containsNonLetters(string str)
+        {
+            str = str.Trim();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if ((!(str[i] > 64 && str[i] < 91)) && (!(str[i] > 97 && str[i] < 123)) && str[i] != '_')
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            string namecheck = ItemNameBox.Text;
+            double pricecheck = 0;
+            namecheck = namecheck.Trim();
+            if (namecheck == "" || containsNonLetters(namecheck) || namecheck.Length > 10)
+            {
+                MessageBox.Show("The given name is incorrectly formatted." +
+                    "\n\nNames require all alphabet characters or '_' character." +
+                    "\n\nNames must be 10 characters or less.");
+                return;
+            }
+            try
+            {
+                pricecheck = float.Parse(ItemPriceBox.Text);
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show("Something went wrong: " + ex.Message + "\n\nTry using actual numbers.");
+                return;
+            }
+
+            if (pricecheck < 0)
+            {
+                MessageBox.Show("Please input a valid price.");
+                return;
+            }
+
+            if (ItemCat.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a category.");
+                return;
+            }
+
+            //ItemPriceBox;
+            //ItemCat;
+            //ItemNameBox;
+
             AddItemPane.Visibility = Visibility.Collapsed;
             bool dup = false;
             string fileName = "../../../Prices/Prices.txt";
@@ -232,15 +296,15 @@ namespace Mantecado
 
                     server.Delete("Products", new employee(), new reciept(), delete_product);
                     updatedFile = updatedFile.TrimEnd('\n', '\r');
-
                     File.WriteAllText(filePath, String.Empty);
-                    
 
-                  
                     try
                     {
                         using StreamWriter sw = new StreamWriter(filePath);
-                        sw.WriteLine(updatedFile);
+                        if (updatedFile != "")
+                            sw.WriteLine(updatedFile);
+                        else
+                            sw.Write(updatedFile);
                     }
                     catch (IOException ex)
                     {
@@ -248,6 +312,9 @@ namespace Mantecado
 
                     }
                     DeleteStack.Children.Remove((Button)sender);
+
+
+
                    // DeleteItemPane.Visibility = Visibility.Collapsed;
                     break;
 
@@ -259,9 +326,6 @@ namespace Mantecado
                     break;
 
             }
-
-          
-
         }
 
         private void InventoryButton_Click(object sender, RoutedEventArgs e)
@@ -377,6 +441,9 @@ namespace Mantecado
 
         private void AddonButton_Click(object sender, RoutedEventArgs e)
         {
+
+
+
             int i = 0;
             string fileName = "../../../Categories/Categories.txt";
             AddonCat.Items.Clear();
@@ -405,6 +472,38 @@ namespace Mantecado
 
         private void AddonConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+
+            string namecheck = AddonNameBox.Text;
+            double pricecheck = 0;
+            namecheck = namecheck.Trim();
+            if (namecheck == "" || containsNonLetters(namecheck) || namecheck.Length > 10)
+            {
+                MessageBox.Show("The given name is incorrectly formatted.\n\nNames require all alphabet characters or '_' character.\n\nNames must be 10 characters or less.");
+                return;
+            }
+
+            try
+            {
+                pricecheck = float.Parse(AddonPriceBox.Text);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Something went wrong: " + ex.Message + "\n\nTry using actual numbers.");
+                return;
+            }
+
+            if (pricecheck < 0)
+            {
+                MessageBox.Show("Please input a valid price.");
+                return;
+            }
+
+            if (AddonCat.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a category.");
+                return;
+            }
+
 
             AddAddonPane.Visibility = Visibility.Collapsed;
             bool dup = false;
@@ -445,7 +544,7 @@ namespace Mantecado
             {   
                 product new_product = new product();
                 new_product.name = '+' + AddonNameBox.Text;
-                new_product.price = float.Parse(AddonPriceBox.Text);
+                new_product.price = float.Parse(AddonPriceBox.Text);   
                 new_product.category = AddonCat.Text;
                 server.Insert("Products", new employee(), new reciept(), new_product);
                 using StreamWriter sw = new StreamWriter(fileName, append: true);
@@ -482,6 +581,15 @@ namespace Mantecado
         private void ConfirmCatAdd_Click(object sender, RoutedEventArgs e)
         {
 
+            string namecheck = CatNameBox.Text;
+            namecheck = namecheck.Trim();
+            if (namecheck == "" || containsNonLetters(namecheck) || namecheck.Length > 10)
+            {
+                MessageBox.Show("The given name is incorrectly formatted." +
+                    "\n\nNames require all alphabet characters or '_' character." +
+                    "\n\nNames must be 10 characters or less.");
+                return;
+            }
 
             AddCatPane.Visibility = Visibility.Collapsed;
             bool dup = false;
@@ -567,6 +675,7 @@ namespace Mantecado
 
         public void DeleteSelectedCat(object sender, RoutedEventArgs e)
         {
+            
             String itemsFileName = "../../../Prices/Prices.txt";
             List<String> allItems = new List<String>();
             bool hasItems = false;

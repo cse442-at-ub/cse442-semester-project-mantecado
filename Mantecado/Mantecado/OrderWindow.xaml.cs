@@ -62,19 +62,7 @@ namespace Mantecado
                     //NewButton.Background = new SolidColorBrush(Colors.LightGreen);
                     NewButton.Margin = new Thickness(10);
                     //********************************************************
-                    //ItemContextButtons
-                    //*********************FOR ADDON ORDER BUTTONS*****
-                    //String catInfo = sr.ReadLine();
 
-                    ////numCats++;
-                    //Button NewAddButton = new Button();
-                    ////NewButton.Style = (Style)FindResource("RoundButtonTemplate");
-                    //NewButton.Name = catInfo;
-                    //NewButton.Content = catInfo;
-                    //NewButton.Click += new RoutedEventHandler(Mod1_Click);
-                    ////NewButton.Background = new SolidColorBrush(Colors.LightGreen);
-                    //NewButton.Margin = new Thickness(10);
-                    //********************************************************
                     switch (numCats % 8)
                     {
                         
@@ -219,8 +207,6 @@ namespace Mantecado
                                     g.Children.Add(NewButton);
                                 }
                             }
-                           
-                            
                             rowNum++;
                             if (rowNum == 4)
                             {
@@ -228,10 +214,7 @@ namespace Mantecado
                                 rowNum = 0;
                             }
                         }
-                        
-
                     }
-
                 }
             }
             catch (IOException ex)
@@ -326,7 +309,6 @@ namespace Mantecado
 
                     if (line.Length > 0)
                     {
-
                         itemName = itemInfo[0];
                         itemPrice = itemInfo[1];
                         itemCategory = itemInfo[2];
@@ -347,23 +329,14 @@ namespace Mantecado
             }
 
             TextBox T = createFirstBox();
-
             T.Text = String.Format("{0, -10} {1,5} ", NewItem.itemName, ("\t$" + (NewItem.itemPrice).ToString("0.00")));
-
             o.AddItem(NewItem);
-
             Subtotal.Content = "Subtotal: $" + o.GetTotalPrice();
-
             NewItem.B = new Border();
-
             StackPanel S = new StackPanel();
 
-
-
             S.Children.Add(T);
-
             S.Focusable = true;
-
             S.MouseLeave += new MouseEventHandler(sp_onMouseLeave);
             S.MouseEnter += new MouseEventHandler(sp_onMouseEnter);
             S.LostFocus += new RoutedEventHandler(StackPanelLostFocus);
@@ -373,8 +346,6 @@ namespace Mantecado
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
-
-
             Stacky.Children.Add(NewItem.B);
 
         }
@@ -423,8 +394,39 @@ namespace Mantecado
 
             AddOns newAddon = new AddOns();
             newAddon.addonName = ((Button)sender).Content.ToString();
+            updatePrice();
+            try
+            {
+                using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
 
-            newAddon.addonPrice = 0.39;
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    String[] itemInfo = line.Split('\t');
+                    String itemName = "";
+                    String itemPrice = "";
+                    String itemCategory = "";
+
+                    if (line.Length > 0)
+                    {
+                        itemName = itemInfo[0];
+                        itemPrice = itemInfo[1];
+                        itemCategory = itemInfo[2];
+
+                        if (newAddon.addonName.Equals(((Button)sender).Content.ToString()))
+                        {
+                            newAddon.addonPrice = Convert.ToDouble(itemPrice);
+                        }
+
+                       newAddon.addonCategory = itemCategory;
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading employee file\n" + ex.Message);
+
+            }
 
 
             StackPanel S;
@@ -721,8 +723,9 @@ namespace Mantecado
             {
                 if (i.B.Child.IsFocused)
                 {
-                    o.RemoveItem(i);
-                    Stacky.Children.Remove(i.B);
+                    //o.RemoveItem(i);
+                    o.bulkItemDelete(i);
+                    Stacky.Children.Remove(i.B);    
                     break;
                 }
             }
@@ -745,6 +748,7 @@ namespace Mantecado
                     }
                 }
             }
+
 
             Subtotal.Content = "Subtotal: $" + o.GetSubtotal();
             Taxes.Content = "Tax: $" + o.GetTax();
