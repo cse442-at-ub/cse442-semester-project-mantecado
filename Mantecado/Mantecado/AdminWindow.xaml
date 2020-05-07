@@ -68,6 +68,14 @@
           
                 />
 
+            <Button
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="SetTax"
+                Content="Change the Tax Rate" Margin="386,199,364,96" Click="ChangeTax_Click"
+          
+                />
+
             <Grid x:Name="AddItemPane" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Grid Background="Black" Opacity="0.5"/>
                 <Border
@@ -287,12 +295,42 @@
 
                         </Grid>
 
+                        
+
 
 
                     </StackPanel>
                 </Border>
             </Grid>
-           
+            <Grid x:Name="ChangeTaxPane" Visibility="Collapsed" Grid.ColumnSpan="2">
+                <Grid Background="Black" Opacity="0.5"/>
+                <Border
+                MinWidth="250"
+                Background="White" 
+                BorderBrush="Black" 
+                BorderThickness="1" 
+                CornerRadius="0,55,0,55" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Height="Auto" Width="Auto">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Change the Tax Rate: " FontWeight="Bold" FontFamily="Cambria" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Name ="TaxStack" Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                                <TextBlock Margin="5" Text="Input the new tax rate: " FontWeight="Bold" FontFamily="Cambria" />
+                                <TextBox MinWidth="50" HorizontalAlignment="Right" x:Name="TaxBox"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="ConfirmTax"  Margin="5" Content="Confirm" Background="{x:Null}" Click="ConfirmTax_Click"/>
+                            <Button x:Name="CancelTax"  Margin="5" Content="Cancel" Background="{x:Null}" Click="CancelTax_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+
 
 
 

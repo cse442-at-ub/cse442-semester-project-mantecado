@@ -28,6 +28,7 @@ namespace Mantecado
 
         public OrderWindow()
         {
+            o.setTaxRate();
             InitializeComponent();
             AddCatButtons();
             updatePrice();

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
 using System.Text;
+using System.Windows.Input;
 
 namespace Mantecado
 {
@@ -25,7 +28,7 @@ namespace Mantecado
 
     class Order
     {
-        const double TAX_RATE = 0.089;
+        double TAX_RATE = 0.089;
         double AddedTax = 0;
         double TotalPrice = 0;
         public List<Item> OrderItems = new List<Item>();
@@ -110,7 +113,26 @@ namespace Mantecado
             return (Math.Round(SubTotal, 2)).ToString("0.00");
         }
 
-     
+        public void setTaxRate()
+        {
+
+
+            try
+            {
+
+                using StreamReader sr = new StreamReader("../../../Prices/Conf.txt");
+                this.TAX_RATE = Double.Parse(sr.ReadLine());
+
+
+            }
+            catch (IOException ex)
+            {
+                System.Windows.MessageBox.Show("Error reading items file\n" + ex.Message);
+
+
+            }
+        }
+           
 
         public override string ToString()
         {
@@ -128,5 +150,7 @@ namespace Mantecado
 
             return String.Format("{0:0.00}", fullOrder);
         }
+
+       
     }
 }

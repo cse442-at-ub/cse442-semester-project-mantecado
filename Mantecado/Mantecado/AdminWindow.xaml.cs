@@ -570,6 +570,7 @@ namespace Mantecado
 
         private void AddCatButton_Click(object sender, RoutedEventArgs e)
         {
+            ResultText.Visibility = Visibility.Collapsed;
             AddCatPane.Visibility = Visibility.Visible;
         }
 
@@ -911,5 +912,55 @@ namespace Mantecado
             DeleteCatPane.Visibility = Visibility.Collapsed;
         }
 
+        private void ChangeTax_Click(object sender, RoutedEventArgs e)
+        {
+
+            ResultText.Visibility = Visibility.Collapsed;
+            ChangeTaxPane.Visibility = Visibility.Visible;
+        }
+
+        private void ConfirmTax_Click(object sender, RoutedEventArgs e)
+        {
+            String confFileName = "../../../Prices/Conf.txt";
+            double newTax;
+
+            try
+            {
+                newTax = Double.Parse(TaxBox.Text);
+                newTax /= 100;
+
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Something went wrong: " + ex.Message + "\n\nTry using actual numbers.");
+                return;
+            }
+
+            try
+            {
+                using StreamWriter sw = new StreamWriter(confFileName);
+                sw.WriteLine(newTax);
+
+
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error reading items file\n" + ex.Message);
+
+            }
+            if(newTax < 0)
+            {
+                MessageBox.Show("Please input a valid tax rate.");
+                return;
+            }
+            ResultText.Text += "Tax changed to " + newTax * 100 + "%";
+            ResultText.Visibility = Visibility.Visible;
+            ChangeTaxPane.Visibility = Visibility.Collapsed;
+        }
+
+        private void CancelTax_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeTaxPane.Visibility = Visibility.Collapsed;
+        }
     }
 }
