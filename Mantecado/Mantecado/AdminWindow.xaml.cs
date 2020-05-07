@@ -962,5 +962,19 @@ namespace Mantecado
         {
             ChangeTaxPane.Visibility = Visibility.Collapsed;
         }
+
+        private void reciept_Click(object sender, RoutedEventArgs e)
+        {
+            List<string>[] temp = server.Select("Reciepts");
+            string o = "";
+            int size = Int32.Parse(temp[5][0]);
+
+            for (int i = 0; i < size; i++)
+            {
+                o += "Content: " + encryption.Decrypt(temp[0][i], encryption.getKey()) + '\n' + "Item Amount: " + encryption.Decrypt(temp[1][i], encryption.getKey()) + '\n' + "Price: "
+                    + encryption.Decrypt(temp[2][i], encryption.getKey()) + '\n' + "Tax Amount: " + encryption.Decrypt(temp[3][i], encryption.getKey()) + '\n' + "Full Price: " + encryption.Decrypt(temp[4][i], encryption.getKey()) + "\n\n\n";
+            }
+            MessageBox.Show(o);
+        }
     }
 }
