@@ -47,11 +47,12 @@ namespace Mantecado
             try
             {
                 using StreamReader sr = new StreamReader("../../../Categories/Categories.txt");
-                while(!sr.EndOfStream)
+                while (!sr.EndOfStream)
                 {
-                    numCats++;
-                    String catInfo = sr.ReadLine();
                     
+                    String catInfo = sr.ReadLine();
+
+                    numCats++;
                     Button NewButton = new Button();
                     NewButton.Style = (Style)FindResource("RoundButtonTemplate");
                     NewButton.Name = catInfo;
@@ -145,6 +146,16 @@ namespace Mantecado
             }
         }
 
+        //private bool fileEmpty(string str)
+        //{
+        //    str.Trim();
+        //    if ()
+        //    {
+
+        //    }
+
+        //}
+
         private void AddButtons(object sender)
         {
             int rowNum = 0;
@@ -152,14 +163,16 @@ namespace Mantecado
             try
             {
                 using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
+
                 while (!sr.EndOfStream)
                 {
+
                     String line = sr.ReadLine();
                     String[] buttonInfo = line.Split('\t');
                     String buttonName = buttonInfo[0];
                     String buttonCat = buttonInfo[2];
 
-                    if (((Button)sender).Name.Equals(buttonCat))
+                    if (((Button)sender).Name.Equals(buttonCat) /*&& buttonName[0] != '+'*/)
                     {
                         
                         if (buttonCat.Equals(((Button)sender).Name))
@@ -231,46 +244,49 @@ namespace Mantecado
 
                         Grid.SetRow(NewButton, rowNum);
                         Grid.SetColumn(NewButton, colNum);
+
                         ItemContextButtons.Children.Add(NewButton);
+
                         colNum++;
+
                         if (colNum == 3)
                         {
                             rowNum++;
                             colNum = 0;
                         }
 
-                        if (buttonCat.Equals("Traditional"))
-                        {
-                            foreach (Button B in ItemContextButtons.Children)
-                            {
-                                B.Background = new SolidColorBrush(Colors.LightGreen);
-                            }
-                        }
-                        if (buttonCat.Equals("Custard"))
-                        {
-                            foreach (Button B in ItemContextButtons.Children)
-                            {
-                                B.Background = new SolidColorBrush(Colors.LightPink);
-                            }
-                        }
-                        if (buttonCat.Equals("Milkshakes"))
-                        {
-                            foreach (Button B in ItemContextButtons.Children)
-                            {
-                                B.Background = new SolidColorBrush(Colors.MediumPurple);
-                            }
-                        }
-                        if (buttonCat.Equals("Vegan"))
-                        {
-                            foreach (Button B in ItemContextButtons.Children)
-                            {
-                                B.Background = new SolidColorBrush(Colors.PeachPuff);
-                            }
-                        }
+                        //if (buttonCat.Equals("Traditional"))
+                        //{
+                        //    foreach (Button B in ItemContextButtons.Children)
+                        //    {
+                        //        B.Background = new SolidColorBrush(Colors.LightGreen);
+                        //    }
+                        //}
+                        //if (buttonCat.Equals("Custard"))
+                        //{
+                        //    foreach (Button B in ItemContextButtons.Children)
+                        //    {
+                        //        B.Background = new SolidColorBrush(Colors.LightPink);
+                        //    }
+                        //}
+                        //if (buttonCat.Equals("Milkshakes"))
+                        //{
+                        //    foreach (Button B in ItemContextButtons.Children)
+                        //    {
+                        //        B.Background = new SolidColorBrush(Colors.MediumPurple);
+                        //    }
+                        //}
+                        //if (buttonCat.Equals("Vegan"))
+                        //{
+                        //    foreach (Button B in ItemContextButtons.Children)
+                        //    {
+                        //        B.Background = new SolidColorBrush(Colors.PeachPuff);
+                        //    }
+                        //}
 
-                        {
+                        //{
                             
-                        }
+                        //}
                     }
                 }
             }
@@ -302,22 +318,29 @@ namespace Mantecado
             try
             {
                 using StreamReader sr = new StreamReader("../../../Prices/Prices.txt");
+                
                 while (!sr.EndOfStream)
                 {
-                    String line = sr.ReadLine();
-
+                    string line = sr.ReadLine();
                     String[] itemInfo = line.Split('\t');
-                    String itemName = itemInfo[0];
-                    String itemPrice = itemInfo[1];
-                    String itemCategory = itemInfo[2];
+                    String itemName = "";
+                    String itemPrice = "";
+                    String itemCategory = "";
 
-
-                    if (NewItem.itemName.Equals(itemName))
+                    if (line.Length > 0)
                     {
-                        NewItem.itemPrice = Convert.ToDouble(itemPrice);
-                    }
 
-                    NewItem.itemCategory = itemCategory;
+                        itemName = itemInfo[0];
+                        itemPrice = itemInfo[1];
+                        itemCategory = itemInfo[2];
+
+                        if (NewItem.itemName.Equals(itemName))
+                        {
+                            NewItem.itemPrice = Convert.ToDouble(itemPrice);
+                        }
+
+                        NewItem.itemCategory = itemCategory;
+                    }
                 }
             }
             catch (IOException ex)

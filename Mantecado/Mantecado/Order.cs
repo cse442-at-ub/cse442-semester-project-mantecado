@@ -25,7 +25,7 @@ namespace Mantecado
 
     class Order
     {
-        const double TAX_RATE = 0.07;
+        const double TAX_RATE = 0.089;
         double AddedTax = 0;
         double TotalPrice = 0;
         public List<Item> OrderItems = new List<Item>();

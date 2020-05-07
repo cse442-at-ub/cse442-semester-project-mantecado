@@ -388,7 +388,8 @@ namespace Mantecado
 
             AddAddonPane.Visibility = Visibility.Collapsed;
             bool dup = false;
-            string fileName = "../../../Prices/AddonPrices.txt";
+            //string fileName = "../../../Prices/AddonPrices.txt";
+            string fileName = "../../../Prices/Prices.txt";
             try
             {
                 using StreamReader sr = new StreamReader(fileName);
@@ -421,12 +422,12 @@ namespace Mantecado
 
             }
             if (!dup)
-            {
+            {   
                 product new_product = new product();
-                new_product.name = AddonNameBox.Text;
+                new_product.name = '+' + AddonNameBox.Text;
                 new_product.price = float.Parse(AddonPriceBox.Text);
                 new_product.category = AddonCat.Text;
-                //server.Insert("Products", new employee(), new reciept(), new_product);
+                server.Insert("Products", new employee(), new reciept(), new_product);
                 using StreamWriter sw = new StreamWriter(fileName, append: true);
                 
                 sw.WriteLine(AddonNameBox.Text + '\t' + AddonPriceBox.Text + '\t' + AddonCat.Text);
@@ -705,7 +706,6 @@ namespace Mantecado
                         ResultText.Visibility = Visibility.Collapsed;
                         String catFileName = "../../../Categories/Categories.txt";
 
-
                         String updatedCatFile = "";
                         //product delete_product = new product();
 
@@ -730,6 +730,10 @@ namespace Mantecado
                                     //}
                                 }
                             }
+                            //while(sr.Peek() == '\n')
+                            //{
+                            //    sr.Read();
+                            //}
                             sr.Close();
                         }
                         catch (IOException ex)
@@ -742,16 +746,18 @@ namespace Mantecado
                         ResultText.Visibility = Visibility.Visible;
 
                         //server.Delete("Products", new employee(), new reciept(), delete_product);
-                        updatedCatFile = updatedCatFile.TrimEnd('\n', '\r');
+                        updatedCatFile = updatedCatFile.Trim('\n', '\r');
+                        
 
                         File.WriteAllText(catFileName, String.Empty);
-
-
 
                         try
                         {
                             using StreamWriter sw = new StreamWriter(catFileName);
-                            sw.WriteLine(updatedCatFile);
+                            if (updatedCatFile != "")
+                                sw.WriteLine(updatedCatFile);
+                            else
+                                sw.Write(updatedCatFile);
                         }
                         catch (IOException ex)
                         {
