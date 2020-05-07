@@ -1,7 +1,14 @@
-Green		$2
+Garden 		$2
 	VngrtteDrssng		$2
 	VngrtteDrssng		$2
-	FrenchDrssng		$2
-	FrenchDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
+	VngrtteDrssng		$2
 
-Total Price: $10.00
+Total Price: $24.00

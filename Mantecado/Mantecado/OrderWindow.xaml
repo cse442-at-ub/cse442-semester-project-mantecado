@@ -133,8 +133,6 @@
                 <Label x:Name="Subtotal" Grid.Row="0" FontSize ="20" Content= "Subtotal: $0.00 " />
                 <Label x:Name="Taxes" Grid.Row="1" FontSize ="20" Content= "Tax: $0.00 " />
                 <Label x:Name="Total" Grid.Row="2" FontSize ="20" Content= "Total: $0.00 " />
-
-
                 <Grid x:Name="ItemContextButtons" Grid.Row = "3" Background="White" >
 
                    
