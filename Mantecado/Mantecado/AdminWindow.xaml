@@ -67,6 +67,10 @@
                 Content="Delete a Category" Margin="556,31,195,264" Click="DeleteCat_Click"
           
                 />
+            <Button 
+                Style="{StaticResource RoundButtonTemplate}"
+                BorderBrush="#fff"
+                x:Name="reciept" Content="See previous reciepts" Margin="386,199,364,96" Click="reciept_Click"/>
 
             <Button
                 Style="{StaticResource RoundButtonTemplate}"

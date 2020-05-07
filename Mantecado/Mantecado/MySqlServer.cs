@@ -191,10 +191,24 @@ namespace Mantecado
                         list[1].Add(dataReader["Price"] + "");
                         list[2].Add(dataReader["Type"] + "");
                         list[3].Add(dataReader["Stock"] + "");
-                           
+
                         count++;
                     }
                     list[4].Add(Convert.ToString(count, 10));
+                }
+                else if (table == "Reciepts") 
+                {
+                    while (dataReader.Read())
+                    {
+                        list[0].Add(dataReader["contents"] + "");
+                        list[1].Add(dataReader["item_amount"] + "");
+                        list[2].Add(dataReader["price"] + "");
+                        list[3].Add(dataReader["tax_amount"] + "");
+                        list[4].Add(dataReader["full_price"] + "");
+                        count++;
+                    }
+                    list[5].Add(Convert.ToString(count, 10));
+
                 }
                
                 //close Data Reader

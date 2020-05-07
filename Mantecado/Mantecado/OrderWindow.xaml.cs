@@ -388,8 +388,7 @@ namespace Mantecado
         {
             newItem(sender);
         }
-        
-        
+
         public void Mod1_Click(object sender, RoutedEventArgs e)
         {
 
@@ -437,7 +436,7 @@ namespace Mantecado
                 if (i.B.Child.IsFocused)
                 {
                     S = i.B.Child as StackPanel;
-                    TextBox T = createBox(String.Format("{0, -10} {1,5} ", "  +" + newAddon.addonName, ("\t$" + newAddon.addonPrice)));
+                    TextBox T = createBox(String.Format("{0, -10} {1,5} ", "  +" + newAddon.addonName, ("\t$" + newAddon.addonPrice.ToString("0.00"))));
                     o.AddAddon(i, newAddon);
                     S.Children.Add(T);
                 }
@@ -447,6 +446,7 @@ namespace Mantecado
             Taxes.Content = "Tax: $" + o.GetTax();
             Total.Content = "Total: $" + o.GetTotalPrice();
         }
+
         private void tb_onMouseEnter(object sender, RoutedEventArgs e)
         {
 
@@ -506,8 +506,6 @@ namespace Mantecado
             Delete.Visibility = Visibility.Visible;
             Delete.Focusable = false;
         }
-
-
 
         private void TextBoxLostFocus(object sender, RoutedEventArgs e)
         {
@@ -625,15 +623,27 @@ namespace Mantecado
         {
 
             List<Item> UniqueItems = new List<Item>();
+            List<AddOns> UniqueAddons = new List<AddOns>();
             
             foreach (Item oi in o.OrderItems)
             {
                 bool found = false;
+                bool foundAdd = false;
 
                 if (UniqueItems.Count == 0)
                 {
                     UniqueItems.Add(oi);
                 }
+                foreach (AddOns ao in oi.ItemAddons)
+                {
+                    if (UniqueAddons.Count == 0)
+                    {
+                        UniqueAddons.Add(ao);
+                    }
+                }
+
+
+
                 foreach(Item ui in UniqueItems)
                 {
                     if (ui.itemName == oi.itemName)
@@ -641,16 +651,67 @@ namespace Mantecado
                         found = true;
                         break;
                     }
+                    foreach (AddOns ao in UniqueAddons)
+                    {
+                        if (oi.ItemAddons.Contains(ao))
+                        {
+                            found = true;
+                            break;
+                        }
+                        if (!foundAdd)
+                        {
+                            UniqueAddons.Add(ao);
+                        }       
+                    }
                 }
                 if (!found)
                 {
                     UniqueItems.Add(oi);
                 }
-
             }
 
             foreach (Item ui in UniqueItems)
             {
+
+                foreach (AddOns ao in ui.ItemAddons)
+                {
+
+                    List<string>[] Addtemp = server.Select("Products");
+
+                    int Addsize = Int32.Parse(Addtemp[4][0]);
+                    int Addstock = 0;
+                    int AddCount = 0;
+                    for (int i = 0; i < Addsize; i++)
+                    {
+                        if (Addtemp[0][i] == ao.addonName)
+                        {
+                            Addstock = Int32.Parse(Addtemp[3][i]);
+                        }
+                    }
+
+                    foreach (Item oi in o.OrderItems)
+                    {
+                        if (ui.itemName == oi.itemName)
+                        {
+                            AddCount++;
+                        }
+                    }
+
+                    if (AddCount > Addstock)
+                    {
+                        MessageBox.Show("Not enough " + ao.addonName + " in stock.");
+
+                    }
+                    else
+                    {
+
+                        string query = "UPDATE Products SET Stock= " + (Addstock - AddCount) + " WHERE Name= '" + ui.itemName + "'";
+                        server.update(query);
+
+                    }
+
+                }
+
                 List<string>[] temp = server.Select("Products");
 
                 int size = Int32.Parse(temp[4][0]);
